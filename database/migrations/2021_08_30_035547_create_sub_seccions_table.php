@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBitacrasTable extends Migration
+class CreateSubSeccionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateBitacrasTable extends Migration
      */
     public function up()
     {
-        Schema::create('bitacoras', function (Blueprint $table) {
+        Schema::create('sub_seccions', function (Blueprint $table) {
             $table->id();
-            $table->string('usuario');
-            $table->string('accion');
+            $table->string('titulo');
+            $table->string('contenido');
+            $table->string('urlImg');
+            $table->foreignId('contenido_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateBitacrasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bitacoras');
+        Schema::dropIfExists('sub_seccions');
     }
 }

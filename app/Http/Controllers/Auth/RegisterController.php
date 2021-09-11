@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Cargo;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
@@ -66,8 +67,18 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'lastname'=>$data['lastname'],
+            'cargo_id'=>$data['cargo_id'],
+            'phone'=>$data['phone'],
+            'cellphone'=>$data['cellphone'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function showRegistrationForm()
+    {
+        $cargos = Cargo::all();
+        return view('auth.register', compact('cargos'));
     }
 }
