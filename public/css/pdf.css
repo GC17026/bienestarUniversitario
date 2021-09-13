@@ -1,0 +1,53 @@
+.doc-paragraph {
+    text-align: justify;
+}
+
+.title-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.title-pdf {
+    text-align: center;
+}
+
+.doc-subtitle {
+    text-align: center;
+}
+
+.logo-pdf {
+    width: 64px;
+    align-self: flex-end;
+    position: absolute;
+    right: 0;
+}
+
+.cliente-row {
+    cursor: pointer;
+}
+
+.img-pdf {
+    width: 100%;
+}
+
+.text-divider {
+    margin: 2em 0;
+    line-height: 0;
+    text-align: center;
+}
+
+.text-divider span {
+    background-color: #ffffff;
+    padding: 1em;
+}
+
+.text-divider:before {
+    content: " ";
+    display: block;
+    border-top: 1px solid #e3e3e3;
+    border-bottom: 1px solid #f7f7f7;
+}
+
+.card-referencia {
+    display: none;
+}

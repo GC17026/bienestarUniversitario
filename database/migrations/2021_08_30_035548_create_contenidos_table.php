@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSeccionsTable extends Migration
+class CreateContenidosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateSeccionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('seccions', function (Blueprint $table) {
+        Schema::create('contenidos', function (Blueprint $table) {
             $table->id();
+            $table->string('titulo');
+            $table->string('contenido');
+            $table->string('urlImg');
             $table->foreignId('sub_seccion_id')->nullable()->constrained()->onDelete('cascade');
-            $table->foreignId('contenido_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('seccion_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreateSeccionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seccions');
+        Schema::dropIfExists('contenidos');
     }
 }

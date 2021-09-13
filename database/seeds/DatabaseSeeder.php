@@ -1,6 +1,8 @@
 <?php
 
 use App\Cargo;
+use App\Seccion;
+use App\SubSeccion;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
@@ -41,6 +43,21 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $userSuperAdmin->assignRole('Administrador');
+
+        Seccion::create([
+            'nombre'=>'Seccion'
+        ]);
+        Seccion::create([
+            'nombre'=>'Seccion2'
+        ]);
+        SubSeccion::create([
+            'nombre'=>'Subseccion',
+            'seccion_id'=>1
+        ]);
+        SubSeccion::create([
+            'nombre'=>'Subseccion2',
+            'seccion_id'=>2
+        ]);
     }
 }
 

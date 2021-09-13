@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContenidosTable extends Migration
+class CreateSeccionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateContenidosTable extends Migration
      */
     public function up()
     {
-        Schema::create('contenidos', function (Blueprint $table) {
+        Schema::create('seccions', function (Blueprint $table) {
             $table->id();
-            $table->string('titulo');
-            $table->string('contenido');
-            $table->string('urlImg');
+            $table->string('nombre');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateContenidosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contenidos');
+        Schema::dropIfExists('seccions');
     }
 }

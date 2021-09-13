@@ -1,0 +1,13 @@
+    @media (max-width: 991px) {
+        .login-mobile {
+            border: solid;
+            margin: 15px;
+        }
+    }
+    
+    @media (min-width: 992px) {
+        .login {
+            border: solid;
+            margin: 15px;
+        }
+    }
