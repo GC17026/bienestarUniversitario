@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Seccion;
 use App\SubSeccion;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class SubSeccionController extends Controller
      */
     public function index()
     {
-        //
+        return view('Subseccion.index');
     }
 
     /**

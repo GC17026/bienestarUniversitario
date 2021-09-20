@@ -16,6 +16,7 @@ class CreateSubSeccionsTable extends Migration
         Schema::create('sub_seccions', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->string('icono');
             $table->timestamps();
             $table->foreignId('seccion_id')->nullable()->constrained()->onDelete('cascade');
         });

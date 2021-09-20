@@ -76,12 +76,9 @@
         </nav>
 
         <div id="layoutSidenav" class="d-flex">
-            @auth
             <div id="layoutSidenav_nav">
                 @yield('sidebar')
             </div>
-            @endauth
-
             <div id="layoutSidenav_content" class="w-100">
                 <main>
                     @yield('content')

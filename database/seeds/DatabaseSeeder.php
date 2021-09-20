@@ -45,18 +45,26 @@ class DatabaseSeeder extends Seeder
         $userSuperAdmin->assignRole('Administrador');
 
         Seccion::create([
-            'nombre'=>'Seccion'
+            'nombre'=>'Inicio',
+            'icono'=>'fa fa-user'
         ]);
         Seccion::create([
-            'nombre'=>'Seccion2'
+            'nombre'=>'Seccion',
+            'icono'=>'fa fa-user'
+        ]);
+        Seccion::create([
+            'nombre'=>'Seccion2',
+            'icono'=>'far fa-address-book'
         ]);
         SubSeccion::create([
             'nombre'=>'Subseccion',
-            'seccion_id'=>1
+            'icono'=>'fab fa-algolia',
+            'seccion_id'=>2
         ]);
         SubSeccion::create([
             'nombre'=>'Subseccion2',
-            'seccion_id'=>2
+            'icono'=>'fab fa-amazon',
+            'seccion_id'=>3
         ]);
     }
 }

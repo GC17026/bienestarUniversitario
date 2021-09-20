@@ -14,7 +14,8 @@ class SeccionController extends Controller
      */
     public function index()
     {
-        //
+        $secciones = Seccion::all();
+        return view('Seccion.index', compact('secciones'));
     }
 
     /**
