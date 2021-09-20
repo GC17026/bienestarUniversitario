@@ -25,7 +25,7 @@ class SubSeccionController extends Controller
      */
     public function create()
     {
-        //
+        return view('Subseccion.create');
     }
 
     /**

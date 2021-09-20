@@ -24,3 +24,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/seccion', 'SeccionController@index')->name('seccion');
 
 Route::get('/subseccion', 'SubSeccionController@index')->name('subseccion');
+
+Route::get('/subseccion/create', 'SubSeccionController@create')->name('subseccion.create');
