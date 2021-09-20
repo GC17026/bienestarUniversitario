@@ -16,8 +16,8 @@ class CreateContenidosTable extends Migration
         Schema::create('contenidos', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->string('contenido');
-            $table->string('urlImg');
+            $table->string('contenido',1024);
+            $table->string('urlImg')->nullable();
             $table->foreignId('sub_seccion_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('seccion_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();

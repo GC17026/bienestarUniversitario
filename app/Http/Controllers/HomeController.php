@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Seccion;
+use View;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,7 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $secciones = Seccion::all();
-        return view('home', compact('secciones'));
+
+        $seccion=Seccion::find(1)->first();;
+        return view('home', compact('seccion'));
     }
 }

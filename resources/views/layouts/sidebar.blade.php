@@ -15,15 +15,16 @@
 <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
     <div class="sb-sidenav-menu">
         <div class="nav">
-            <a class="nav-link collapsed border text-dark" href="{{ route('home') }}" data-toggle="collapse" data-target="" aria-expanded="false" aria-controls="collapseLayouts" style="background: #B5DFFF;    font-weight: 500;">
-                <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
-                Inicio
-                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-            </a>
+            <div class="nav-link collapsed border text-dark  pt-0 pb-0" style="background: #B5DFFF;    font-weight: 500;">
+                <a class="nav-link collapsed text-dark w-100 pl-0" href="{{ route('home') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                    Inicio
+                </a>
+            </div>
             @foreach ($secciones as $row)
             @if ($row->nombre!='Inicio')
             <div class="nav-link collapsed border text-dark  pt-0 pb-0" style="background: #B5DFFF;    font-weight: 500;">
-                <a class="nav-link collapsed text-dark w-100 pl-0" href="{{ route('seccion') }}">
+                <a class="nav-link collapsed text-dark w-100 pl-0" href="{{ route('seccion.show', ['seccion' => $row]) }}">
                     <div class="sb-nav-link-icon"><i class="{{$row->icono}}"></i></div>
                     {{ $row->nombre }}
                 </a>
@@ -35,7 +36,7 @@
             <div class="collapse" id="{{ 'collapse' . $row->nombre }}" aria-labelledby="headingOne" style="background: #2EA7FF;" data-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
                     @foreach ($row->subSecciones as $subseccion)
-                    <a class="nav-link w-100 text-white" href="#" style="font-weight: 500;">
+                    <a class="nav-link w-100 text-white" href="{{ route('subseccion.show', ['subSeccion' => $subseccion]) }}" style="font-weight: 500;">
                         <div class="sb-nav-link-icon text-white"><i class="{{$subseccion->icono}}"></i></div>
                         {{ $subseccion->nombre }}
                     </a>

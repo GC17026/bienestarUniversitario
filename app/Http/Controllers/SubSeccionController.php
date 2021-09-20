@@ -47,7 +47,7 @@ class SubSeccionController extends Controller
      */
     public function show(SubSeccion $subSeccion)
     {
-        //
+        return view('Subseccion.show',compact('subSeccion'));
     }
 
     /**

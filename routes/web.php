@@ -23,6 +23,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/seccion', 'SeccionController@index')->name('seccion');
 
+Route::get('/seccion/{seccion}', 'SeccionController@show')->name('seccion.show');
+
 Route::get('/subseccion', 'SubSeccionController@index')->name('subseccion');
+
+Route::get('/subseccion/{subSeccion}', 'SubSeccionController@show')->name('subseccion.show');
 
 Route::get('/subseccion/create', 'SubSeccionController@create')->name('subseccion.create');

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class SeccionController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +48,7 @@ class SeccionController extends Controller
      */
     public function show(Seccion $seccion)
     {
-        //
+        return view('Seccion.show',compact('seccion'));
     }
 
     /**
