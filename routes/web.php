@@ -32,6 +32,7 @@ Route::get('/seccion', 'SeccionController@index')->name('seccion.index'); //para
 Route::post('/seccion', 'SeccionController@store')->name('seccion.store');
 Route::put('/seccion_update', 'SeccionController@update')->name('seccion.update');
 Route::delete('/seccion', 'SeccionController@destroy')->name('seccion.destroy');
+Route::get('/seccion/{seccion}', 'SeccionController@show')->name('seccion.show');
 
 /************************************ SUBSECCION *************************************************/
 //para visitantes
@@ -40,6 +41,7 @@ Route::get('/subseccion/{subseccion}', 'SubSeccionController@show')->name('subse
 Route::post('/subsecciones', 'SubSeccionController@store')->name('subseccion.store');
 Route::put('/subsecciones_update', 'SubSeccionController@update')->name('subseccion.update');
 Route::delete('/subsecciones', 'SubSeccionController@destroy')->name('subseccion.destroy');
+Route::get('/subseccion/{subSeccion}', 'SubSeccionController@show')->name('subseccion.show');
 
 /************************************ CONTENIDO *************************************************/
 //para editores
