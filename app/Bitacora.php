@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cargo extends Model
+class Bitacora extends Model
 {
     protected $fillable = [
-        'name'
-    ];
+    'usuario','accion'
+];
 }

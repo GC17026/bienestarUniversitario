@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Seccion;
+use App\SubSeccion;
+use App\Contenido;
 use Illuminate\Http\Request;
 
 class SeccionController extends Controller
@@ -16,7 +18,7 @@ class SeccionController extends Controller
     public function index()
     {
         $secciones = Seccion::all();
-        return view('Seccion.index', compact('secciones'));
+        return view('seccion.index', compact('secciones'));
     }
 
     /**

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Seccion;
-use App\SubSeccion;
+use App\Bitacora;
 use Illuminate\Http\Request;
 
-class SubSeccionController extends Controller
+class bitacoraController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,8 @@ class SubSeccionController extends Controller
      */
     public function index()
     {
-        //return view('Subseccion.index');
+        $bitacoras = Bitacora::all();
+        return view('bitacora.index', compact('bitacoras'));
     }
 
     /**
@@ -25,7 +25,7 @@ class SubSeccionController extends Controller
      */
     public function create()
     {
-        //return view('Subseccion.create');
+        //
     }
 
     /**
@@ -42,21 +42,21 @@ class SubSeccionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\SubSeccion  $subSeccion
+     * @param  \App\bitacora  $bitacora
      * @return \Illuminate\Http\Response
      */
-    public function show(SubSeccion $subSeccion)
+    public function show(bitacora $bitacora)
     {
-        return view('subseccion.show',compact('subSeccion'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\SubSeccion  $subSeccion
+     * @param  \App\bitacora  $bitacora
      * @return \Illuminate\Http\Response
      */
-    public function edit(SubSeccion $subSeccion)
+    public function edit(bitacora $bitacora)
     {
         //
     }
@@ -65,10 +65,10 @@ class SubSeccionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\SubSeccion  $subSeccion
+     * @param  \App\bitacora  $bitacora
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SubSeccion $subSeccion)
+    public function update(Request $request, bitacora $bitacora)
     {
         //
     }
@@ -76,10 +76,10 @@ class SubSeccionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\SubSeccion  $subSeccion
+     * @param  \App\bitacora  $bitacora
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SubSeccion $subSeccion)
+    public function destroy(bitacora $bitacora)
     {
         //
     }

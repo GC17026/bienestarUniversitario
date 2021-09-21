@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        $seccion=Seccion::find(1)->first();;
+        $seccion=Seccion::find(1)->first();
         return view('home', compact('seccion'));
     }
 }

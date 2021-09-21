@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Bitacra;
+use App\User;
 use Illuminate\Http\Request;
 
-class BitacraController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class BitacraController extends Controller
      */
     public function index()
     {
-        //
+        $Users = User::all();
+        return view('users.index', compact('Users'));
     }
 
     /**
@@ -41,10 +42,10 @@ class BitacraController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Bitacra  $bitacra
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Bitacra $bitacra)
+    public function show($id)
     {
         //
     }
@@ -52,10 +53,10 @@ class BitacraController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Bitacra  $bitacra
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bitacra $bitacra)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +65,10 @@ class BitacraController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Bitacra  $bitacra
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bitacra $bitacra)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +76,10 @@ class BitacraController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Bitacra  $bitacra
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bitacra $bitacra)
+    public function destroy($id)
     {
         //
     }
