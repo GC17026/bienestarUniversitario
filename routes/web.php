@@ -30,36 +30,36 @@ Route::get('/seccion/{seccion}', 'SeccionController@show')->name('seccion.show')
 //para editores
 Route::get('/seccion', 'SeccionController@index')->name('seccion.index'); //para secciones y subsecciones con contenidos
 Route::post('/seccion', 'SeccionController@store')->name('seccion.store');
-Route::put('/seccion_update', 'SeccionController@update')->name('seccion.update');
+Route::put('/seccion', 'SeccionController@update')->name('seccion.update');
 Route::delete('/seccion', 'SeccionController@destroy')->name('seccion.destroy');
 
 /************************************ SUBSECCION *************************************************/
 //para visitantes
 Route::get('/subseccion/{subseccion}', 'SubSeccionController@show')->name('subseccion.show'); //para subseccion con contenidos
 //para editores
-Route::post('/subsecciones', 'SubSeccionController@store')->name('subseccion.store');
-Route::put('/subsecciones_update', 'SubSeccionController@update')->name('subseccion.update');
-Route::delete('/subsecciones', 'SubSeccionController@destroy')->name('subseccion.destroy');
+Route::post('/subseccion', 'SubSeccionController@store')->name('subseccion.store');
+Route::put('/subseccion', 'SubSeccionController@update')->name('subseccion.update');
+Route::delete('/subseccion', 'SubSeccionController@destroy')->name('subseccion.destroy');
 
 /************************************ CONTENIDO *************************************************/
 //para editores
 Route::post('/contenidos', 'ContenidoController@store')->name('contenido.store');
-Route::put('/contenidos_update', 'ContenidoController@update')->name('contenido.update');
+Route::put('/contenidos', 'ContenidoController@update')->name('contenido.update');
 Route::delete('/contenidos', 'ContenidoController@destroy')->name('contenido.destroy');
 
 /************************************ AVISO *************************************************/
 //para editores
 Route::post('/home2', 'AvisoController@store')->name('aviso.store');
-Route::put('/home2_update', 'AvisoController@update')->name('aviso.update');
+Route::put('/home2', 'AvisoController@update')->name('aviso.update');
 Route::delete('/home2', 'AvisoController@destroy')->name('aviso.destroy');
 
 /************************************ USER *************************************************/
 //para admin
 Route::get('/users', 'UsersController@index')->name('users.index');
 Route::post('/users', 'UsersController@store')->name('users.store');
-Route::put('/users_update', 'UsersController@update')->name('users.update');
+Route::put('/users', 'UsersController@update')->name('users.update');
 Route::delete('/users', 'UsersController@destroy')->name('users.destroy');
 
-/************************************ BITACORA *************************************************/
+/*********************************** BITACORA *************************************************/
 //para admin
 Route::get('/bitacora', 'BitacoraController@index')->name('bitacora.index');

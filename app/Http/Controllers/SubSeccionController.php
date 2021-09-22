@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Seccion;
 use App\SubSeccion;
+use App\Contenido;
 use Illuminate\Http\Request;
 
 class SubSeccionController extends Controller
@@ -47,7 +48,7 @@ class SubSeccionController extends Controller
      */
     public function show(SubSeccion $subSeccion)
     {
-        return view('subseccion.show',compact('subSeccion'));
+        return view('Subseccion.show',compact('subSeccion'));
     }
 
     /**

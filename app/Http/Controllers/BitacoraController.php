@@ -15,7 +15,7 @@ class bitacoraController extends Controller
     public function index()
     {
         $bitacoras = Bitacora::all();
-        return view('bitacora.index', compact('bitacoras'));
+        return view('Bitacora.index', compact('bitacoras'));
     }
 
     /**

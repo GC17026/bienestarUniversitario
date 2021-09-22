@@ -16,7 +16,7 @@
                     </ol>
                     <div class="carousel-inner">
                         @foreach ($seccion->contenidos as $contenido)
-                            <div class="carousel-item  h-100 @if ($contenido == $seccion->contenidos[0]) active @endif">
+                            <div class="carousel-item h-100 @if ($contenido == $seccion->contenidos[0]) active @endif">
                                 <div class="card border-0 p-2" style="background:#E8F7FF;">
                                     <div class="border-0 h2 text-center">{{ $contenido->titulo }}</div>
                                     <div class="w-100 d-flex justify-content-center">
