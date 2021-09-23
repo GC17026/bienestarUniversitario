@@ -35,7 +35,7 @@ Route::delete('/seccion', 'SeccionController@destroy')->name('seccion.destroy');
 
 /************************************ SUBSECCION *************************************************/
 //para visitantes
-Route::get('/subseccion/{subseccion}', 'SubSeccionController@show')->name('subseccion.show'); //para subseccion con contenidos
+Route::get('/subSeccion/{subseccion}', 'SubSeccionController@show')->name('subseccion.show'); //para subseccion con contenidos
 //para editores
 Route::post('/subseccion', 'SubSeccionController@store')->name('subseccion.store');
 Route::put('/subseccion', 'SubSeccionController@update')->name('subseccion.update');

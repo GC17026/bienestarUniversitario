@@ -10260,3 +10260,50 @@ body {
 .sb-sidenav-light .sb-sidenav-footer {
   background-color: #e9ecef;
 }
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+.estilo_div1{
+    background:#ebedee;
+  }
+.estilo_div2{
+    background:#ebf7ff;
+  }
+  .estilo_div3{
+    background:#f7fbff;
+  }
+
+  .close:focus {
+    outline: none
+}
+
+.container.justify-content-center {
+    margin-top: 200px
+}
+
+.modal-header {
+    border: none
+}
+
+.modal-footer {
+    border: none
+}
+
+.btn-danger {
+    background: #DD2750;
+    border: 1px solid #C43352
+}
+
+.btn-light {
+    border: 1px solid #E7E7E9
+}
+
+.btn:focus {
+    box-shadow: none
+}
