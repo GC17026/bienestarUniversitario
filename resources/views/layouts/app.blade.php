@@ -26,9 +26,40 @@
     <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'>
     @yield('style')
     @yield('script')
+    <script>
+        function clock(argument) {
+            var currentTime = new Date();
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+            var seconds = currentTime.getSeconds();
+            var month = currentTime.getMonth() + 1;
+            var date = currentTime.getDate();
+            if (minutes < 10) minutes = "0" + minutes;
+            if (seconds < 10) seconds = "0" + seconds;
+            if (month < 10) month = "0" + month;
+            if (date < 10) date = "0" + date;
+            var t_str =
+                date +
+                "/" +
+                month +
+                "/" +
+                currentTime.getFullYear() +
+                " " +
+                (hours % 12 || 12) +
+                ":" +
+                minutes +
+                ":" +
+                seconds;
+            if (hours > 11) t_str += " PM";
+            else t_str += " AM";
+            document.getElementById("time_span").innerHTML = t_str;
+            console.log('pene');
+            setTimeout("clock()", 1000);
+        }
+    </script>
 </head>
 
-<body>
+<body onload="clock()">
     <style>
         #slider {
             /*height: 350px;
@@ -102,21 +133,21 @@
             <div id="layoutSidenav_nav">
                 @yield('sidebar')
             </div>
-            <div id="layoutSidenav_content" class="w-100 pt-5 pl-3">
+            <div id="layoutSidenav_content" class="w-100 pt-3 pl-3">
                 <main class="pb-5 pl-5 pt-3 pr-5 rounded h-100" style="background:#F7F9FA;width:95%;">
-                    <div class="d-flex justify-content-center p-3">
+                    <div class="d-flex justify-content-center">
                         <p class="h3">@yield('seccionTitulo')</p>
                     </div>
                     @yield('content')
                 </main>
             </div>
-            <div class="w-25 d-none d-sm-block d-sm-none d-md-block pt-5 pr-3">
+            <div class="w-25 d-none d-sm-block d-sm-none d-md-block pt-3 pr-3">
                 <div class="container rounded justify-content-center p-4 mb-2 d-flex flex-column  h-100" style="background:#F7F9FA;">
                     <div class="d-flex justify-content-center">
                         <p class="h3">Fecha</p>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <p class="h6"> xx/xx/xxxx hh:mm:ss</p>
+                        <p class="h6" id="time_span"></p>
                     </div>
                     <div class="container rounded justify-content-center p-4 mt-2 d-flex flex-column " style="background:#F7F9FA;">
                         <div class="d-flex justify-content-center pb-2">
