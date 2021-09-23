@@ -56,6 +56,8 @@ Route::delete('/home2', 'AvisoController@destroy')->name('aviso.destroy');
 /************************************ USER *************************************************/
 //para admin
 Route::get('/users', 'UsersController@index')->name('users.index');
+Route::get('/users', 'UsersController@index')->name('users.index');
+Route::get('users/create', 'UserController@create')->name('users.create');
 Route::post('/users', 'UsersController@store')->name('users.store');
 Route::put('/users', 'UsersController@update')->name('users.update');
 Route::delete('/users', 'UsersController@destroy')->name('users.destroy');
