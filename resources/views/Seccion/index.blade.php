@@ -33,11 +33,11 @@
                         <a class="card-link " data-toggle="collapse" href="#collapseOne{{$seccion->id}}">
                             {{$seccion->nombre}}
                         </a>
-                        <button type="button" class="btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-seccionid ="{{$seccion->id}}"
+                        <button type="button" class="btn-edit-seccion btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-seccionid ="{{$seccion->id}}"
                             data-target="#seccionedit">
                             <i class="fa fa-edit"></i>
                         </button>
-                        <button type="button" class="btn btn-danger m-1  btn-circle" data-toggle="modal" data-seccionid ="{{$seccion->id}}"
+                        <button type="button" class="btn-delete-seccion btn btn-danger m-1  btn-circle" data-toggle="modal" data-seccionid ="{{$seccion->id}}"
                             data-target="#deleteModal">
                             <i class="fa fa-times"></i>
                         </button>
@@ -51,7 +51,7 @@
                                     <a class="card-link" data-toggle="collapse" href="#collapseThree{{$seccion->id}}">
                                         Contenidos de seccion
                                     </a>
-                                    <button type="button" class="btn btn-info btn-circle ml-auto" data-toggle="modal"
+                                    <button type="button" class="btn-create-contenido btn btn-info btn-circle ml-auto" data-toggle="modal"
                                         data-target="#ContenidoCreate" data-seccionid ="{{$seccion->id}}">
                                         <i class="fa fa-plus"></i>
                                     </button>
@@ -64,11 +64,11 @@
                                         <div>
                                             {{$contenido->titulo}}
                                         </div>
-                                        <button type="button" class="btn btn-success m-1  btn-circle ml-auto"
+                                        <button type="button" class="btn-edit-contenido btn btn-success m-1  btn-circle ml-auto"
                                             data-toggle="modal" data-target="#ContenidoEdit"  data-contenidoid="{{$contenido->id}}">
                                             <i class="fa fa-edit"></i>
                                         </button>
-                                        <button type="button" class="btn btn-danger m-1  btn-circle" data-toggle="modal" data-contenidoid="{{$contenido->id}}"
+                                        <button type="button" class="btn-delete-contenido btn btn-danger m-1  btn-circle" data-toggle="modal" data-contenidoid="{{$contenido->id}}"
                                             data-target="#deleteModal">
                                             <i class="fa fa-times"></i>
                                         </button>
@@ -85,7 +85,7 @@
                                     <a class="card-link" data-toggle="collapse" href="#collapseTwo{{$seccion->id}}">
                                         Subsecciones
                                     </a>
-                                    <button type="button" class="btn btn-info btn-circle ml-auto" data-toggle="modal"
+                                    <button type="button" class="btn-create-subseccion btn btn-info btn-circle ml-auto" data-toggle="modal"
                                         data-target="#subseccioncreate" data-seccionid ="{{$seccion->id}}">
                                         <i class="fa fa-plus"></i>
                                     </button>
@@ -100,11 +100,11 @@
                                                 <a class="card-link" data-toggle="collapse" href="#collapseFive">
                                                     {{$subseccion->nombre}}
                                                 </a>
-                                                <button type="button" class="btn btn-success m-1  btn-circle ml-auto"  data-subseccionid="{{$subseccion->id}}"
+                                                <button type="button" class="btn-edit-subseccion btn btn-success m-1  btn-circle ml-auto"  data-subseccionid="{{$subseccion->id}}"
                                                     data-toggle="modal" data-target="#subseccionedit">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
-                                                <button type="button" class="btn btn-danger m-1  btn-circle" data-subseccionid="{{$subseccion->id}}"
+                                                <button type="button" class="btn-delete-subseccion btn btn-danger m-1  btn-circle" data-subseccionid="{{$subseccion->id}}"
                                                     data-toggle="modal" data-target="#deleteModal">
                                                     <i class="fa fa-times"></i>
                                                 </button>
@@ -120,7 +120,7 @@
                                                                 href="#collapseFour">
                                                                 Contenidos de subseccion
                                                             </a>
-                                                            <button type="button" class="btn btn-info btn-circle ml-auto"
+                                                            <button type="button" class="btn-create-subcontenido btn btn-info btn-circle ml-auto"
                                                                 data-toggle="modal" data-target="#ContenidoCreate" data-subseccionid="{{$subseccion->id}}"
                                                             >
                                                                 <i class="fa fa-plus"></i>
@@ -135,12 +135,12 @@
                                                                     {{$subcontenido->titulo}}
                                                                 </div>
                                                                 <button type="button"
-                                                                    class="btn btn-success m-1  btn-circle ml-auto"
+                                                                    class="btn-edit-subcontenido btn btn-success m-1  btn-circle ml-auto"
                                                                     data-toggle="modal" data-target="#ContenidoEdit" data-subcontenidoid="{{$subcontenido->id}}"
                                                                 >
                                                                     <i class="fa fa-edit"></i>
                                                                 </button>
-                                                                <button type="button" class="btn btn-danger m-1  btn-circle"
+                                                                <button type="button" class="btn-delete-subcontenido btn btn-danger m-1  btn-circle"
                                                                     data-toggle="modal" data-target="#deleteModal" data-subcontenidoid="{{$subcontenido->id}}"
                                                                 >
                                                                     <i class="fa fa-times"></i>
@@ -409,6 +409,72 @@
     </div>
 
 @endsection
-<script>
+<script type="text/javascript">
 
+function editSeccionBtn(e){
+
+}
+
+function deleteSeccionBtn(e){
+
+}
+function editContenidoBtn(e){
+
+}
+
+function deleteContenidoBtn(e){
+
+}
+
+function editSubSeccionBtn(e){
+
+}
+
+function deleteSubSeccionBtn(e){
+
+}
+function editSubContenidoBtn(e){
+
+}
+
+function deleteSubContenidoBtn(e){
+
+}
+
+
+document.addEventListener('DOMContentLoaded',function(){
+
+    Array.from(document.getElementsByClassName('btn-edit-seccion')).forEach(function(btn){
+        btn.addEventListener('click',editSeccionBtn);
+    });
+
+    Array.from(document.getElementsByClassName('btn-delete-seccion')).forEach(function(btn){
+        btn.addEventListener('click',deleteSeccionBtn);
+    });
+
+    Array.from(document.getElementsByClassName('btn-edit-contenido')).forEach(function(btn){
+        btn.addEventListener('click',editContenidoBtn);
+    });
+
+    Array.from(document.getElementsByClassName('btn-delete-contenido')).forEach(function(btn){
+        btn.addEventListener('click',deleteContenidoBtn);
+    });
+
+    Array.from(document.getElementsByClassName('btn-edit-subseccion')).forEach(function(btn){
+        btn.addEventListener('click',editSubSeccionBtn);
+    });
+
+    Array.from(document.getElementsByClassName('btn-delete-subseccion')).forEach(function(btn){
+        btn.addEventListener('click',deleteSubSeccionBtn);
+    });
+
+    Array.from(document.getElementsByClassName('btn-edit-subcontenido')).forEach(function(btn){
+        btn.addEventListener('click',editSubContenidoBtn);
+    });
+
+    Array.from(document.getElementsByClassName('btn-delete-subcontenido')).forEach(function(btn){
+        btn.addEventListener('click',deleteSubContenidoBtn);
+    });
+
+});
 </script>
