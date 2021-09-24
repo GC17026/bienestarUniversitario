@@ -11,7 +11,7 @@
             <div class="col-sm-1">
                 <div class="md-form mt-0">
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal"
-                        data-whatever="@mdo">Guardar</i></button>
+                    >Guardar</i></button>
                 </div>
             </div>
         </div>
@@ -21,7 +21,7 @@
                 Secciones
             </h3>
             <button type="button" class="btn btn-info btn-circle ml-auto" data-toggle="modal" data-target="#seccioncreate"
-                data-whatever="@mdo">
+            >
                 <i class="fa fa-plus"></i>
             </button>
         </div>
@@ -33,12 +33,12 @@
                         <a class="card-link " data-toggle="collapse" href="#collapseOne{{$seccion->id}}">
                             {{$seccion->nombre}}
                         </a>
-                        <button type="button" class="btn btn-success m-1  btn-circle ml-auto" data-toggle="modal"
-                            data-target="#seccionedit" data-whatever="@mdo">
+                        <button type="button" class="btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-seccionid ="{{$seccion->id}}"
+                            data-target="#seccionedit">
                             <i class="fa fa-edit"></i>
                         </button>
-                        <button type="button" class="btn btn-danger m-1  btn-circle" data-toggle="modal"
-                            data-target="#deleteModal" data-whatever="@mdo">
+                        <button type="button" class="btn btn-danger m-1  btn-circle" data-toggle="modal" data-seccionid ="{{$seccion->id}}"
+                            data-target="#deleteModal">
                             <i class="fa fa-times"></i>
                         </button>
                     </div>
@@ -52,7 +52,7 @@
                                         Contenidos de seccion
                                     </a>
                                     <button type="button" class="btn btn-info btn-circle ml-auto" data-toggle="modal"
-                                        data-target="#ContenidoCreate" data-whatever="@mdo">
+                                        data-target="#ContenidoCreate" data-seccionid ="{{$seccion->id}}">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
@@ -65,11 +65,11 @@
                                             {{$contenido->titulo}}
                                         </div>
                                         <button type="button" class="btn btn-success m-1  btn-circle ml-auto"
-                                            data-toggle="modal" data-target="#ContenidoEdit" data-whatever="@mdo">
+                                            data-toggle="modal" data-target="#ContenidoEdit"  data-contenidoid="{{$contenido->id}}">
                                             <i class="fa fa-edit"></i>
                                         </button>
-                                        <button type="button" class="btn btn-danger m-1  btn-circle" data-toggle="modal"
-                                            data-target="#deleteModal" data-whatever="@mdo">
+                                        <button type="button" class="btn btn-danger m-1  btn-circle" data-toggle="modal" data-contenidoid="{{$contenido->id}}"
+                                            data-target="#deleteModal">
                                             <i class="fa fa-times"></i>
                                         </button>
                                     </div>
@@ -86,7 +86,7 @@
                                         Subsecciones
                                     </a>
                                     <button type="button" class="btn btn-info btn-circle ml-auto" data-toggle="modal"
-                                        data-target="#subseccioncreate" data-whatever="@mdo">
+                                        data-target="#subseccioncreate" data-seccionid ="{{$seccion->id}}">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
@@ -100,12 +100,12 @@
                                                 <a class="card-link" data-toggle="collapse" href="#collapseFive">
                                                     {{$subseccion->nombre}}
                                                 </a>
-                                                <button type="button" class="btn btn-success m-1  btn-circle ml-auto"
-                                                    data-toggle="modal" data-target="#subseccionedit" data-whatever="@mdo">
+                                                <button type="button" class="btn btn-success m-1  btn-circle ml-auto"  data-subseccionid="{{$subseccion->id}}"
+                                                    data-toggle="modal" data-target="#subseccionedit">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
-                                                <button type="button" class="btn btn-danger m-1  btn-circle "
-                                                    data-toggle="modal" data-target="#deleteModal" data-whatever="@mdo">
+                                                <button type="button" class="btn btn-danger m-1  btn-circle" data-subseccionid="{{$subseccion->id}}"
+                                                    data-toggle="modal" data-target="#deleteModal">
                                                     <i class="fa fa-times"></i>
                                                 </button>
                                             </div>                                        
@@ -121,8 +121,8 @@
                                                                 Contenidos de subseccion
                                                             </a>
                                                             <button type="button" class="btn btn-info btn-circle ml-auto"
-                                                                data-toggle="modal" data-target="#ContenidoCreate"
-                                                                data-whatever="@mdo">
+                                                                data-toggle="modal" data-target="#ContenidoCreate" data-subseccionid="{{$subseccion->id}}"
+                                                            >
                                                                 <i class="fa fa-plus"></i>
                                                             </button>
                                                         </div>
@@ -136,13 +136,13 @@
                                                                 </div>
                                                                 <button type="button"
                                                                     class="btn btn-success m-1  btn-circle ml-auto"
-                                                                    data-toggle="modal" data-target="#ContenidoEdit"
-                                                                    data-whatever="@mdo">
+                                                                    data-toggle="modal" data-target="#ContenidoEdit" data-subcontenidoid="{{$subcontenido->id}}"
+                                                                >
                                                                     <i class="fa fa-edit"></i>
                                                                 </button>
                                                                 <button type="button" class="btn btn-danger m-1  btn-circle"
-                                                                    data-toggle="modal" data-target="#deleteModal"
-                                                                    data-whatever="@mdo">
+                                                                    data-toggle="modal" data-target="#deleteModal" data-subcontenidoid="{{$subcontenido->id}}"
+                                                                >
                                                                     <i class="fa fa-times"></i>
                                                                 </button>
                                                             </div>
@@ -177,8 +177,8 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+                            <form>
                             <div class="modal-body">
-                                <form>
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Tématica</label>
                                         <input type="text" class="form-control" id="recipient-name">
@@ -187,12 +187,12 @@
                                         <label for="message-text" class="col-form-label">Descripción</label>
                                         <textarea class="form-control" id="message-text"></textarea>
                                     </div>
-                                </form>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-info">Guardar</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            </div>
+                            </div>    
+                           </form>
                         </div>
                     </div>
                 </div>
@@ -208,18 +208,18 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                <form>
+                            <form>
+                                <div class="modal-body">
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Nombre</label>
                                         <input type="text" class="form-control" id="recipient-name">
                                     </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-info">Guardar</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-info">Guardar</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -235,18 +235,19 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">Nombre</label>
-                                        <input type="text" class="form-control" id="recipient-name">
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-info">Editar</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            </div>
+                            <form>
+                                <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Nombre</label>
+                                            <input type="text" class="form-control" id="recipient-name">
+                                        </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-info">Editar</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -262,18 +263,18 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+                            <form>
                             <div class="modal-body">
-                                <form>
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Nombre</label>
                                         <input type="text" class="form-control" id="recipient-name">
                                     </div>
-                                </form>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-info">Guardar</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -289,18 +290,18 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+                            <form>
                             <div class="modal-body">
-                                <form>
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Nombre</label>
                                         <input type="text" class="form-control" id="recipient-name">
                                     </div>
-                                </form>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-info">Editar</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -317,8 +318,8 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+                            <form>
                             <div class="modal-body">
-                                <form>
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Tématica</label>
                                         <input type="text" class="form-control" id="recipient-name">
@@ -331,12 +332,12 @@
                                         <label for="message-text" class="col-form-label">Imagen</label>
                                         <input type="file" class="form-control-file" id="File1">
                                     </div>
-                                </form>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-info">Guardar</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -353,8 +354,8 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+                            <form>
                             <div class="modal-body">
-                                <form>
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Tématica</label>
                                         <input type="text" class="form-control" id="recipient-name">
@@ -367,12 +368,12 @@
                                         <label for="message-text" class="col-form-label">Imagen</label>
                                         <input type="file" class="form-control-file" id="File1">
                                     </div>
-                                </form>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-info">Editar</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
