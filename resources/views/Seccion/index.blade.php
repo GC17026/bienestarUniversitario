@@ -17,7 +17,7 @@
         </div>
 
         <div class="d-flex mt-3">
-            <h3 class="card-link" data-toggle="collapse" href="#collapseThree">
+            <h3 class="card-link" data-toggle="collapse">
                 Secciones
             </h3>
             <button type="button" class="btn btn-info btn-circle ml-auto" data-toggle="modal" data-target="#seccioncreate"
@@ -26,11 +26,12 @@
             </button>
         </div>
         <div id="accordion" class="mt-3">
+            @foreach($secciones as $seccion)
             <div class="card">
                 <div class="card-header estilo_div1">
                     <div class="d-flex">
-                        <a class="card-link " data-toggle="collapse" href="#collapseOne">
-                            Seccion
+                        <a class="card-link " data-toggle="collapse" href="#collapseOne{{$seccion->id}}">
+                            {{$seccion->nombre}}
                         </a>
                         <button type="button" class="btn btn-success m-1  btn-circle ml-auto" data-toggle="modal"
                             data-target="#seccionedit" data-whatever="@mdo">
@@ -42,12 +43,12 @@
                         </button>
                     </div>
                 </div>
-                <div id="collapseOne" class="collapse " data-parent="#accordion">
+                <div id="collapseOne{{$seccion->id}}" class="collapse " data-parent="#accordion">
                     <div id="accordion3">
                         <div class="card">
                             <div class="card-header estilo_div2">
                                 <div class=" d-flex">
-                                    <a class="card-link" data-toggle="collapse" href="#collapseThree">
+                                    <a class="card-link" data-toggle="collapse" href="#collapseThree{{$seccion->id}}">
                                         Contenidos de seccion
                                     </a>
                                     <button type="button" class="btn btn-info btn-circle ml-auto" data-toggle="modal"
@@ -56,11 +57,12 @@
                                     </button>
                                 </div>
                             </div>
-                            <div id="collapseThree" class="collapse " data-parent="#collapseOne">
+                            <div id="collapseThree{{$seccion->id}}" class="collapse " data-parent="#collapseOne{{$seccion->id}}">
+                                @foreach($seccion->contenidos as $contenido)
                                 <div class="card-header">
                                     <div class=" d-flex">
                                         <div>
-                                            Lorem ipsum..
+                                            {{$contenido->titulo}}
                                         </div>
                                         <button type="button" class="btn btn-success m-1  btn-circle ml-auto"
                                             data-toggle="modal" data-target="#ContenidoEdit" data-whatever="@mdo">
@@ -72,36 +74,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="card-header">
-                                    <div class=" d-flex">
-                                        <div>
-                                            Lorem ipsum..
-                                        </div>
-                                        <button type="button" class="btn btn-success m-1  btn-circle ml-auto"
-                                            data-toggle="modal" data-target="#ContenidoEdit" data-whatever="@mdo">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-danger m-1  btn-circle " data-toggle="modal"
-                                            data-target="#deleteModal" data-whatever="@mdo">
-                                            <i class="fa fa-times"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="card-header">
-                                    <div class=" d-flex">
-                                        <div>
-                                            Lorem ipsum..
-                                        </div>
-                                        <button type="button" class="btn btn-success m-1  btn-circle ml-auto"
-                                            data-toggle="modal" data-target="#ContenidoEdit" data-whatever="@mdo">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-danger m-1  btn-circle" data-toggle="modal"
-                                            data-target="#deleteModal" data-whatever="@mdo">
-                                            <i class="fa fa-times"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -109,7 +82,7 @@
                         <div class="card">
                             <div class="card-header estilo_div2">
                                 <div class=" d-flex">
-                                    <a class="card-link" data-toggle="collapse" href="#collapseTwo">
+                                    <a class="card-link" data-toggle="collapse" href="#collapseTwo{{$seccion->id}}">
                                         Subsecciones
                                     </a>
                                     <button type="button" class="btn btn-info btn-circle ml-auto" data-toggle="modal"
@@ -118,13 +91,14 @@
                                     </button>
                                 </div>
                             </div>
-                            <div id="collapseTwo" class="collapse " data-parent="#collapseOne">
+                            <div id="collapseTwo{{$seccion->id}}" class="collapse " data-parent="#collapseOne{{$seccion->id}}">
                                 <div id="accordion5">
                                     <div class="card">
+                                    @foreach($seccion->subSecciones as $subseccion)
                                         <div class="card-header">
                                             <div class=" d-flex">
                                                 <a class="card-link" data-toggle="collapse" href="#collapseFive">
-                                                    Subseccion
+                                                    {{$subseccion->nombre}}
                                                 </a>
                                                 <button type="button" class="btn btn-success m-1  btn-circle ml-auto"
                                                     data-toggle="modal" data-target="#subseccionedit" data-whatever="@mdo">
@@ -134,10 +108,11 @@
                                                     data-toggle="modal" data-target="#deleteModal" data-whatever="@mdo">
                                                     <i class="fa fa-times"></i>
                                                 </button>
-                                            </div>
+                                            </div>                                        
                                         </div>
                                         <div id="collapseFive" class="collapse " data-parent="#accordion5">
                                             <div id="accordion4">
+
                                                 <div class="card">
                                                     <div class="card-header estilo_div3">
                                                         <div class=" d-flex">
@@ -154,9 +129,10 @@
                                                     </div>
                                                     <div id="collapseFour" class="collapse " data-parent="#accordion4">
                                                         <div class="card-header">
+                                                        @foreach($subseccion->contenidos as $subcontenido)
                                                             <div class=" d-flex">
                                                                 <div>
-                                                                    Lorem ipsum..
+                                                                    {{$subcontenido->titulo}}
                                                                 </div>
                                                                 <button type="button"
                                                                     class="btn btn-success m-1  btn-circle ml-auto"
@@ -170,11 +146,14 @@
                                                                     <i class="fa fa-times"></i>
                                                                 </button>
                                                             </div>
+                                                        @endforeach
                                                         </div>
                                                     </div>
                                                 </div>
+
                                             </div>
                                         </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -182,7 +161,7 @@
                     </div>
                 </div>
             </div>
-
+            @endforeach
             <div class="row justify-content-center">
                 <div class="">
 
