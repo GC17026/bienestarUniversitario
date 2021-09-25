@@ -34,10 +34,12 @@
                             {{$seccion->nombre}}
                         </a>
                         <button type="button" class="btn-edit-seccion btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-seccionid ="{{$seccion->id}}"
+                            data-nombreseccion ="{{$seccion->nombre}}"
                             data-target="#seccionedit">
                             <i class="fa fa-edit"></i>
                         </button>
                         <button type="button" class="btn-delete-seccion btn btn-danger m-1  btn-circle" data-toggle="modal" data-seccionid ="{{$seccion->id}}"
+                            data-tipoDelete='seccion'
                             data-target="#deleteModal">
                             <i class="fa fa-times"></i>
                         </button>
@@ -65,11 +67,16 @@
                                             {{$contenido->titulo}}
                                         </div>
                                         <button type="button" class="btn-edit-contenido btn btn-success m-1  btn-circle ml-auto"
-                                            data-toggle="modal" data-target="#ContenidoEdit"  data-contenidoid="{{$contenido->id}}">
+                                            data-toggle="modal" data-target="#ContenidoEdit" 
+                                            data-contenidoid="{{$contenido->id}}"
+                                            data-titulo="{{$contenido->titulo}}"    
+                                            data-contenido="{{$contenido->contenido}}"
+                                            >
                                             <i class="fa fa-edit"></i>
                                         </button>
                                         <button type="button" class="btn-delete-contenido btn btn-danger m-1  btn-circle" data-toggle="modal" data-contenidoid="{{$contenido->id}}"
-                                            data-target="#deleteModal">
+                                        data-tipoDelete='contenido'
+                                        data-target="#deleteModal">
                                             <i class="fa fa-times"></i>
                                         </button>
                                     </div>
@@ -101,10 +108,12 @@
                                                     {{$subseccion->nombre}}
                                                 </a>
                                                 <button type="button" class="btn-edit-subseccion btn btn-success m-1  btn-circle ml-auto"  data-subseccionid="{{$subseccion->id}}"
+                                                    data-nombresubseccion="{{$subseccion->nombre}}"
                                                     data-toggle="modal" data-target="#subseccionedit">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
                                                 <button type="button" class="btn-delete-subseccion btn btn-danger m-1  btn-circle" data-subseccionid="{{$subseccion->id}}"
+                                                    data-tipoDelete='subseccion'
                                                     data-toggle="modal" data-target="#deleteModal">
                                                     <i class="fa fa-times"></i>
                                                 </button>
@@ -142,6 +151,7 @@
                                                                 </button>
                                                                 <button type="button" class="btn-delete-subcontenido btn btn-danger m-1  btn-circle"
                                                                     data-toggle="modal" data-target="#deleteModal" data-subcontenidoid="{{$subcontenido->id}}"
+                                                                    data-tipoDelete='subcontenido'
                                                                 >
                                                                     <i class="fa fa-times"></i>
                                                                 </button>
@@ -237,9 +247,10 @@
                             </div>
                             <form>
                                 <div class="modal-body">
+                                        <input type="hidden" name="" id="seccionid-edit" value="">
                                         <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">Nombre</label>
-                                            <input type="text" class="form-control" id="recipient-name">
+                                            <label for="nombre-seccion-edit" class="col-form-label">Nombre</label>
+                                            <input type="text" class="form-control" id="nombre-seccion-edit">
                                         </div>
 
                                 </div>
@@ -396,8 +407,12 @@
                                 </p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger m-1 ">Eliminar</button>
-                                <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                                <form>
+                                    <input type="hidden" name="toDeleteId" id="toDeleteId" value="">
+                                    <input type="hidden" name="toDeleteType" id="toDeleteType" value="">
+                                    <button type="button" class="btn btn-danger m-1 ">Eliminar</button>
+                                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -412,18 +427,35 @@
 <script type="text/javascript">
 
 function editSeccionBtn(e){
-
+    const btnSeccion = this;
+    const editModal = document.getElementById('seccionedit');
+    const seccionIdInput =  editModal.querySelector('#seccionid-edit');
+    const nombreInput =  editModal.querySelector('#nombre-seccion-edit');
+    seccionIdInput.value = btnSeccion.dataset.seccionid;
+    nombreInput.value = btnSeccion.dataset.nombreseccion;
 }
 
+function getDeleteModalElements(deleteBtn){
+    const deleteModal = document.getElementById('deleteModal');
+    const toDeleteId = deleteModal.querySelector('#toDeleteId');
+    const toDeleteType = deleteModal.querySelector('#toDeleteType');
+    toDeleteType.value = deleteBtn.dataset.tipodelete;
+    return {deleteModal,toDeleteId,toDeleteType};
+}
 function deleteSeccionBtn(e){
-
+    const deleteBtn = this;
+    const {toDeleteId} = getDeleteModalElements(deleteBtn);
+    toDeleteId.value = deleteBtn.dataset.seccionid;
 }
+
 function editContenidoBtn(e){
 
 }
 
 function deleteContenidoBtn(e){
-
+    const deleteBtn = this;
+    const {toDeleteId} = getDeleteModalElements(deleteBtn);
+    toDeleteId.value = deleteBtn.dataset.contenidoid;
 }
 
 function editSubSeccionBtn(e){
@@ -431,14 +463,18 @@ function editSubSeccionBtn(e){
 }
 
 function deleteSubSeccionBtn(e){
-
+    const deleteBtn = this;
+    const {toDeleteId} = getDeleteModalElements(deleteBtn);
+    toDeleteId.value = deleteBtn.dataset.subseccionid;
 }
 function editSubContenidoBtn(e){
 
 }
 
 function deleteSubContenidoBtn(e){
-
+    const deleteBtn = this;
+    const {toDeleteId} = getDeleteModalElements(deleteBtn);
+    toDeleteId.value = deleteBtn.dataset.subcontenidoid;
 }
 
 
