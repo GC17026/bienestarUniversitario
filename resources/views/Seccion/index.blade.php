@@ -146,6 +146,8 @@
                                                                 <button type="button"
                                                                     class="btn-edit-subcontenido btn btn-success m-1  btn-circle ml-auto"
                                                                     data-toggle="modal" data-target="#ContenidoEdit" data-subcontenidoid="{{$subcontenido->id}}"
+                                                                    data-titulo="{{$contenido->titulo}}"    
+                                                                    data-contenido="{{$contenido->contenido}}"
                                                                 >
                                                                     <i class="fa fa-edit"></i>
                                                                 </button>
@@ -302,10 +304,11 @@
                                 </button>
                             </div>
                             <form>
+                            <input type="hidden" name="" id="subseccionid-edit" value="">
                             <div class="modal-body">
                                     <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">Nombre</label>
-                                        <input type="text" class="form-control" id="recipient-name">
+                                        <label for="subseccion-titulo" class="col-form-label">Nombre</label>
+                                        <input type="text" class="form-control" id="subseccion-titulo">
                                     </div>
                             </div>
                             <div class="modal-footer">
@@ -366,14 +369,15 @@
                                 </button>
                             </div>
                             <form>
+                            <input type="hidden" name="" id="contenidoid-edit" value="">
                             <div class="modal-body">
                                     <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">Tématica</label>
-                                        <input type="text" class="form-control" id="recipient-name">
+                                        <label for="tituloContenido" class="col-form-label">Título</label>
+                                        <input type="text" class="form-control" id="tituloContenido">
                                     </div>
                                     <div class="form-group">
-                                        <label for="message-text" class="col-form-label">Descripción</label>
-                                        <textarea class="form-control" id="message-text"></textarea>
+                                        <label for="message-text" class="col-form-label">Contenido</label>
+                                        <textarea class="form-control" id="text-contenido"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">Imagen</label>
@@ -449,7 +453,14 @@ function deleteSeccionBtn(e){
 }
 
 function editContenidoBtn(e){
-
+    const editContenidoBtn = this;
+    const editContenidoModal = document.getElementById('ContenidoEdit');
+    const tituloContenido = editContenidoModal.querySelector('#tituloContenido');
+    const textoContenido = editContenidoModal.querySelector('#text-contenido');
+    const idContenido = editContenidoModal.querySelector('#contenidoid-edit');
+    idContenido.value = editContenidoBtn.dataset.contenidoid;
+    tituloContenido.value = editContenidoBtn.dataset.titulo;
+    textoContenido.value = editContenidoBtn.dataset.contenido;
 }
 
 function deleteContenidoBtn(e){
@@ -459,7 +470,12 @@ function deleteContenidoBtn(e){
 }
 
 function editSubSeccionBtn(e){
-
+    const btnSeccion = this;
+    const editModal = document.getElementById('subseccionedit');
+    const seccionIdInput =  editModal.querySelector('#subseccionid-edit');
+    const nombreInput =  editModal.querySelector('#subseccion-titulo');
+    seccionIdInput.value = btnSeccion.dataset.subseccionid;
+    nombreInput.value = btnSeccion.dataset.nombresubseccion;
 }
 
 function deleteSubSeccionBtn(e){
@@ -468,7 +484,14 @@ function deleteSubSeccionBtn(e){
     toDeleteId.value = deleteBtn.dataset.subseccionid;
 }
 function editSubContenidoBtn(e){
-
+    const editContenidoBtn = this;
+    const editContenidoModal = document.getElementById('ContenidoEdit');
+    const tituloContenido = editContenidoModal.querySelector('#tituloContenido');
+    const textoContenido = editContenidoModal.querySelector('#text-contenido');
+    const idContenido = editContenidoModal.querySelector('#contenidoid-edit');
+    idContenido.value = editContenidoBtn.dataset.subcontenidoid;
+    tituloContenido.value = editContenidoBtn.dataset.titulo;
+    textoContenido.value = editContenidoBtn.dataset.contenido;
 }
 
 function deleteSubContenidoBtn(e){
