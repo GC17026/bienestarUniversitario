@@ -271,12 +271,13 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Agregar subsección en: </h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Agregar subsección: </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <form>
+                                <input type="hidden" name="" value="">
                             <div class="modal-body">
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Nombre</label>
@@ -333,6 +334,7 @@
                                 </button>
                             </div>
                             <form>
+                            <input type="hidden" name="" value="">
                             <div class="modal-body">
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Tématica</label>
