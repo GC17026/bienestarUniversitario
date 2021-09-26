@@ -220,7 +220,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form>
+                            <form name="seccionCreateForm" id="seccionCreateForm">
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Nombre</label>
@@ -228,7 +228,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-info">Guardar</button>
+                                    <button type="submit" class="btn btn-info">Guardar</button>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                                 </div>
                             </form>
@@ -247,7 +247,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form>
+                            <form name="seccionEditForm" id="seccionEditForm">
                                 <div class="modal-body">
                                         <input type="hidden" name="" id="seccionid-edit" value="">
                                         <div class="form-group">
@@ -257,7 +257,7 @@
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-info">Editar</button>
+                                    <button type="submit" class="btn btn-info">Editar</button>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                                 </div>
                             </form>
@@ -276,7 +276,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form>
+                            <form name="subseccionCreateForm" id="subseccionCreateForm">
                                 <input type="hidden" name="seccionPadre" id="seccionPadre" value="">
                             <div class="modal-body">
                                     <div class="form-group">
@@ -285,7 +285,7 @@
                                     </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-info">Guardar</button>
+                                <button type="submit" class="btn btn-info">Guardar</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                             </div>
                             </form>
@@ -304,7 +304,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form>
+                            <form name="subSeccionEditForm" id="subSeccionEditForm">
                             <input type="hidden" name="" id="subseccionid-edit" value="">
                             <div class="modal-body">
                                     <div class="form-group">
@@ -313,7 +313,7 @@
                                     </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-info">Editar</button>
+                                <button type="submit" class="btn btn-info">Editar</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                             </div>
                             </form>
@@ -333,7 +333,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form>
+                            <form name="cotenidoCreateForm" id="contenidoCreateForm">
                                 <input type="hidden" name="seccionPadre" id="seccionPadre" value="">
                             <div class="modal-body">
                                     <div class="form-group">
@@ -350,7 +350,7 @@
                                     </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-info">Guardar</button>
+                                <button type="submit" class="btn btn-info">Guardar</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                             </div>
                             </form>
@@ -370,7 +370,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form>
+                            <form name="contenidoEditForm" id="contenidoEditForm">
                             <input type="hidden" name="" id="contenidoid-edit" value="">
                             <div class="modal-body">
                                     <div class="form-group">
@@ -387,7 +387,7 @@
                                     </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-info">Editar</button>
+                                <button type="submit" class="btn btn-info">Editar</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                             </div>
                             </form>
@@ -413,10 +413,10 @@
                                 </p>
                             </div>
                             <div class="modal-footer">
-                                <form>
+                                <form name="deleteForm" id="deleteForm">
                                     <input type="hidden" name="toDeleteId" id="toDeleteId" value="">
                                     <input type="hidden" name="toDeleteType" id="toDeleteType" value="">
-                                    <button type="button" class="btn btn-danger m-1 ">Eliminar</button>
+                                    <button type="submit" class="btn btn-danger m-1 ">Eliminar</button>
                                     <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
                                 </form>
                             </div>
@@ -485,6 +485,7 @@ function deleteSubSeccionBtn(e){
     const {toDeleteId} = getDeleteModalElements(deleteBtn);
     toDeleteId.value = deleteBtn.dataset.subseccionid;
 }
+
 function editSubContenidoBtn(e){
     const editContenidoBtn = this;
     const editContenidoModal = document.getElementById('ContenidoEdit');
@@ -502,7 +503,6 @@ function deleteSubContenidoBtn(e){
     toDeleteId.value = deleteBtn.dataset.subcontenidoid;
 }
 
-
 function createSubseccion(e){
     const createSubBtn = this;
     const modal = document.getElementById('subseccioncreate');
@@ -516,6 +516,48 @@ function createSubcontenido(e){
     const modal = document.getElementById('subseccioncreate');
     const seccionPadre = modal.querySelector('#seccionPadre');
     seccionPadre.value = createSubBtn.dataset.seccionid;
+}
+
+function seccionCreateSubmit(e){
+    e.preventDefault();
+    form = this;
+    console.log('form', form.elements);
+}
+
+function seccionEditSubmit(e){
+    e.preventDefault();
+    form = this;
+    console.log('form', form.elements);
+}
+
+function subSeccionCreateSubmit(e){
+    e.preventDefault();
+    form = this;
+    console.log('form', form.elements);
+}
+
+function subSeccionEditSubmit(e){
+    e.preventDefault();
+    form = this;
+    console.log('form', form.elements);
+}
+
+function contenidoCreateSubmit(e){
+    e.preventDefault();
+    form = this;
+    console.log('form', form.elements);
+}
+
+function contenidoEditSubmit(e){
+    e.preventDefault();
+    form = this;
+    console.log('form', form.elements);
+}
+
+function deleteSubmit(e){
+    e.preventDefault();
+    form = this;
+    console.log('form', form.elements);
 }
 
 document.addEventListener('DOMContentLoaded',function(){
@@ -532,9 +574,23 @@ document.addEventListener('DOMContentLoaded',function(){
     btnMap.set('btn-create-subcontenido',createSubcontenido);
     Array.from(btnMap.keys()).forEach((btnClass)=>{
         Array.from(document.getElementsByClassName(btnClass)).forEach(function(btn){
-        btn.addEventListener('click',btnMap.get(btnClass));
+            btn.addEventListener('click',btnMap.get(btnClass));
+        });
     });
-    });
+
+
+    formsMap = new Map();
+    formsMap.set('seccionCreateForm',seccionCreateSubmit);
+    formsMap.set('seccionEditForm',seccionEditSubmit);
+    formsMap.set('seccionEditForm',subSeccionCreateSubmit);
+    formsMap.set('subSeccionEditForm',subSeccionEditSubmit);
+    formsMap.set('contenidoCreateForm',contenidoCreateSubmit);
+    formsMap.set('contenidoEditForm',contenidoEditSubmit);
+    formsMap.set('deleteForm',deleteSubmit);
+
+    Array.from(formsMap.keys()).forEach((form)=>{
+        document.getElementById(form).addEventListener('submit',formsMap.get(form));
+    })
 
 });
 </script>
