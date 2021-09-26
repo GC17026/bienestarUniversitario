@@ -430,6 +430,7 @@
     </div>
 
 @endsection
+<script type="text/javascript" src="{{asset('js/xhr.js')}}"></script>
 <script type="text/javascript">
 
 function editSeccionBtn(e){
@@ -522,43 +523,121 @@ function seccionCreateSubmit(e){
     e.preventDefault();
     form = this;
     console.log('form', form.elements);
+    const xhr = new HttpRequest();
+    const endpoint = '';
+    const formData = '';
+    xhr.post(endpoint,formData,function(error,response){
+        if(error){
+            console.log('ocurrió un error',error);
+        }
+        if(response){
+            //espacio para implementar si la consulta tiene éxito
+        }
+    });
 }
 
 function seccionEditSubmit(e){
     e.preventDefault();
     form = this;
     console.log('form', form.elements);
+    const xhr = new HttpRequest();
+    const endpoint = '';
+    const formData = '';
+    xhr.post(endpoint,formData,function(error,response){
+        if(error){
+            console.log('ocurrió un error',error);
+        }
+        if(response){
+            //espacio para implementar si la consulta tiene éxito
+        }
+    });
 }
 
 function subSeccionCreateSubmit(e){
     e.preventDefault();
     form = this;
     console.log('form', form.elements);
+    const xhr = new HttpRequest();
+    const endpoint = '';
+    const formData = '';
+    xhr.post(endpoint,formData,function(error,response){
+        if(error){
+            console.log('ocurrió un error',error);
+        }
+        if(response){
+            //espacio para implementar si la consulta tiene éxito
+        }
+    });
 }
 
 function subSeccionEditSubmit(e){
     e.preventDefault();
     form = this;
     console.log('form', form.elements);
+    const xhr = new HttpRequest();
+    const endpoint = '';
+    const formData = '';
+    xhr.post(endpoint,formData,function(error,response){
+        if(error){
+            console.log('ocurrió un error',error);
+        }
+        if(response){
+            //espacio para implementar si la consulta tiene éxito
+        }
+    });
 }
 
 function contenidoCreateSubmit(e){
     e.preventDefault();
     form = this;
     console.log('form', form.elements);
+    const xhr = new HttpRequest();
+    const endpoint = '';
+    const formData = '';
+    xhr.post(endpoint,formData,function(error,response){
+        if(error){
+            console.log('ocurrió un error',error);
+        }
+        if(response){
+            //espacio para implementar si la consulta tiene éxito
+        }
+    });
 }
 
 function contenidoEditSubmit(e){
     e.preventDefault();
     form = this;
     console.log('form', form.elements);
+    const xhr = new HttpRequest();
+    const endpoint = '';
+    const formData = '';
+    xhr.post(endpoint,formData,function(error,response){
+        if(error){
+            console.log('ocurrió un error',error);
+        }
+        if(response){
+            //espacio para implementar si la consulta tiene éxito
+        }
+    });
 }
 
 function deleteSubmit(e){
     e.preventDefault();
     form = this;
     console.log('form', form.elements);
+    const xhr = new HttpRequest();
+    const endpoint = '';
+    const formData = '';
+    xhr.post(endpoint,formData,function(error,response){
+        if(error){
+            console.log('ocurrió un error',error);
+        }
+        if(response){
+            //espacio para implementar si la consulta tiene éxito
+        }
+    });
 }
+
 
 document.addEventListener('DOMContentLoaded',function(){
     btnMap = new Map();
