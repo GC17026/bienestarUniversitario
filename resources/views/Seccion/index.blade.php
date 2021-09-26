@@ -277,7 +277,7 @@
                                 </button>
                             </div>
                             <form>
-                                <input type="hidden" name="" value="">
+                                <input type="hidden" name="seccionPadre" id="seccionPadre" value="">
                             <div class="modal-body">
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Nombre</label>
@@ -334,7 +334,7 @@
                                 </button>
                             </div>
                             <form>
-                            <input type="hidden" name="" value="">
+                                <input type="hidden" name="seccionPadre" id="seccionPadre" value="">
                             <div class="modal-body">
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Tématica</label>
@@ -503,38 +503,37 @@ function deleteSubContenidoBtn(e){
 }
 
 
+function createSubseccion(e){
+    const createSubBtn = this;
+    const modal = document.getElementById('subseccioncreate');
+    const seccionPadre = modal.querySelector('#seccionPadre');
+    seccionPadre.value = createSubBtn.dataset.seccionid;
+
+}
+
+function createSubcontenido(e){
+    const createSubBtn = this;
+    const modal = document.getElementById('subseccioncreate');
+    const seccionPadre = modal.querySelector('#seccionPadre');
+    seccionPadre.value = createSubBtn.dataset.seccionid;
+}
+
 document.addEventListener('DOMContentLoaded',function(){
-
-    Array.from(document.getElementsByClassName('btn-edit-seccion')).forEach(function(btn){
-        btn.addEventListener('click',editSeccionBtn);
+    btnMap = new Map();
+    btnMap.set('btn-edit-seccion',editSeccionBtn);
+    btnMap.set('btn-delete-seccion',deleteSeccionBtn);
+    btnMap.set('btn-edit-contenido',editContenidoBtn);
+    btnMap.set('btn-delete-contenido',deleteContenidoBtn);
+    btnMap.set('btn-edit-subseccion',editSubSeccionBtn);
+    btnMap.set('btn-delete-subseccion',deleteSubSeccionBtn);
+    btnMap.set('btn-edit-subcontenido',editSubContenidoBtn);
+    btnMap.set('btn-delete-subcontenido',deleteSubContenidoBtn);
+    btnMap.set('btn-create-subseccion',createSubseccion);
+    btnMap.set('btn-create-subcontenido',createSubcontenido);
+    Array.from(btnMap.keys()).forEach((btnClass)=>{
+        Array.from(document.getElementsByClassName(btnClass)).forEach(function(btn){
+        btn.addEventListener('click',btnMap.get(btnClass));
     });
-
-    Array.from(document.getElementsByClassName('btn-delete-seccion')).forEach(function(btn){
-        btn.addEventListener('click',deleteSeccionBtn);
-    });
-
-    Array.from(document.getElementsByClassName('btn-edit-contenido')).forEach(function(btn){
-        btn.addEventListener('click',editContenidoBtn);
-    });
-
-    Array.from(document.getElementsByClassName('btn-delete-contenido')).forEach(function(btn){
-        btn.addEventListener('click',deleteContenidoBtn);
-    });
-
-    Array.from(document.getElementsByClassName('btn-edit-subseccion')).forEach(function(btn){
-        btn.addEventListener('click',editSubSeccionBtn);
-    });
-
-    Array.from(document.getElementsByClassName('btn-delete-subseccion')).forEach(function(btn){
-        btn.addEventListener('click',deleteSubSeccionBtn);
-    });
-
-    Array.from(document.getElementsByClassName('btn-edit-subcontenido')).forEach(function(btn){
-        btn.addEventListener('click',editSubContenidoBtn);
-    });
-
-    Array.from(document.getElementsByClassName('btn-delete-subcontenido')).forEach(function(btn){
-        btn.addEventListener('click',deleteSubContenidoBtn);
     });
 
 });
