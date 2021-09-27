@@ -221,6 +221,7 @@
                                 </button>
                             </div>
                             <form name="seccionCreateForm" id="seccionCreateForm">
+                                @csrf
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Nombre</label>
@@ -248,6 +249,7 @@
                                 </button>
                             </div>
                             <form name="seccionEditForm" id="seccionEditForm">
+                                @csrf
                                 <div class="modal-body">
                                         <input type="hidden" name="" id="seccionid-edit" value="">
                                         <div class="form-group">
@@ -277,6 +279,7 @@
                                 </button>
                             </div>
                             <form name="subseccionCreateForm" id="subseccionCreateForm">
+                                @csrf
                                 <input type="hidden" name="seccionPadre" id="seccionPadre" value="">
                             <div class="modal-body">
                                     <div class="form-group">
@@ -305,6 +308,7 @@
                                 </button>
                             </div>
                             <form name="subSeccionEditForm" id="subSeccionEditForm">
+                                @csrf
                             <input type="hidden" name="" id="subseccionid-edit" value="">
                             <div class="modal-body">
                                     <div class="form-group">
@@ -334,6 +338,7 @@
                                 </button>
                             </div>
                             <form name="cotenidoCreateForm" id="contenidoCreateForm">
+                                @csrf
                                 <input type="hidden" name="seccionPadre" id="seccionPadre" value="">
                             <div class="modal-body">
                                     <div class="form-group">
@@ -371,6 +376,7 @@
                                 </button>
                             </div>
                             <form name="contenidoEditForm" id="contenidoEditForm">
+                                @csrf
                             <input type="hidden" name="" id="contenidoid-edit" value="">
                             <div class="modal-body">
                                     <div class="form-group">
@@ -414,6 +420,7 @@
                             </div>
                             <div class="modal-footer">
                                 <form name="deleteForm" id="deleteForm">
+                                    @csrf
                                     <input type="hidden" name="toDeleteId" id="toDeleteId" value="">
                                     <input type="hidden" name="toDeleteType" id="toDeleteType" value="">
                                     <button type="submit" class="btn btn-danger m-1 ">Eliminar</button>
@@ -522,10 +529,9 @@ function createSubcontenido(e){
 function seccionCreateSubmit(e){
     e.preventDefault();
     form = this;
-    console.log('form', form.elements);
     const xhr = new HttpRequest();
     const endpoint = '';
-    const formData = '';
+    const formData = new FormData(form);
     xhr.post(endpoint,formData,function(error,response){
         if(error){
             console.log('ocurrió un error',error);
@@ -539,10 +545,9 @@ function seccionCreateSubmit(e){
 function seccionEditSubmit(e){
     e.preventDefault();
     form = this;
-    console.log('form', form.elements);
     const xhr = new HttpRequest();
     const endpoint = '';
-    const formData = '';
+    const formData = new FormData(form);
     xhr.post(endpoint,formData,function(error,response){
         if(error){
             console.log('ocurrió un error',error);
@@ -556,10 +561,9 @@ function seccionEditSubmit(e){
 function subSeccionCreateSubmit(e){
     e.preventDefault();
     form = this;
-    console.log('form', form.elements);
     const xhr = new HttpRequest();
     const endpoint = '';
-    const formData = '';
+    const formData = new FormData(form);
     xhr.post(endpoint,formData,function(error,response){
         if(error){
             console.log('ocurrió un error',error);
@@ -573,10 +577,9 @@ function subSeccionCreateSubmit(e){
 function subSeccionEditSubmit(e){
     e.preventDefault();
     form = this;
-    console.log('form', form.elements);
     const xhr = new HttpRequest();
     const endpoint = '';
-    const formData = '';
+    const formData = new FormData(form);
     xhr.post(endpoint,formData,function(error,response){
         if(error){
             console.log('ocurrió un error',error);
@@ -590,10 +593,9 @@ function subSeccionEditSubmit(e){
 function contenidoCreateSubmit(e){
     e.preventDefault();
     form = this;
-    console.log('form', form.elements);
     const xhr = new HttpRequest();
     const endpoint = '';
-    const formData = '';
+    const formData = new FormData(form);
     xhr.post(endpoint,formData,function(error,response){
         if(error){
             console.log('ocurrió un error',error);
@@ -607,10 +609,9 @@ function contenidoCreateSubmit(e){
 function contenidoEditSubmit(e){
     e.preventDefault();
     form = this;
-    console.log('form', form.elements);
     const xhr = new HttpRequest();
     const endpoint = '';
-    const formData = '';
+    const formData = new FormData(form);
     xhr.post(endpoint,formData,function(error,response){
         if(error){
             console.log('ocurrió un error',error);
@@ -624,10 +625,9 @@ function contenidoEditSubmit(e){
 function deleteSubmit(e){
     e.preventDefault();
     form = this;
-    console.log('form', form.elements);
     const xhr = new HttpRequest();
     const endpoint = '';
-    const formData = '';
+    const formData = new FormData(form);
     xhr.post(endpoint,formData,function(error,response){
         if(error){
             console.log('ocurrió un error',error);
