@@ -53,7 +53,6 @@
             if (hours > 11) t_str += " PM";
             else t_str += " AM";
             document.getElementById("time_span").innerHTML = t_str;
-            console.log('pene');
             setTimeout("clock()", 1000);
         }
     </script>
@@ -142,7 +141,7 @@
                 </main>
             </div>
             <div class="w-25 d-none d-sm-block d-sm-none d-md-block pt-3 pr-3">
-                <div class="container rounded justify-content-center p-4 mb-2 d-flex flex-column  h-100" style="background:#F7F9FA;">
+                <div class="container rounded  p-4 mb-2 d-flex flex-column  h-100" style="background:#F7F9FA;">
                     <div class="d-flex justify-content-center">
                         <p class="h3">Fecha</p>
                     </div>
