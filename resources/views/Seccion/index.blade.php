@@ -27,7 +27,7 @@
                     <a class="card-link " data-toggle="collapse" href="#collapseOne{{$seccion->id}}">
                         {{$seccion->nombre}}
                     </a>
-                    <button type="button" class="btn-edit-seccion btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-seccionid="{{$seccion->id}}" data-nombreseccion="{{$seccion->nombre}}" data-target="#seccionedit">
+                    <button type="button" class="btn-edit-seccion btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-seccionid="{{$seccion->id}}" data-iconseccion="{{$seccion->icono}}" data-nombreseccion="{{$seccion->nombre}}" data-target="#seccionedit">
                         <i class="fa fa-edit"></i>
                     </button>
                     <button type="button" class="btn-delete-seccion btn btn-danger m-1  btn-circle" data-toggle="modal" data-seccionid="{{$seccion->id}}" data-tipoDelete='seccion' data-target="#deleteModal">
@@ -88,7 +88,7 @@
                                             <a class="card-link" data-toggle="collapse" href="#collapseFive">
                                                 {{$subseccion->nombre}}
                                             </a>
-                                            <button type="button" class="btn-edit-subseccion btn btn-success m-1  btn-circle ml-auto" data-subseccionid="{{$subseccion->id}}" data-nombresubseccion="{{$subseccion->nombre}}" data-toggle="modal" data-target="#subseccionedit">
+                                            <button type="button" class="btn-edit-subseccion btn btn-success m-1  btn-circle ml-auto" data-subseccionid="{{$subseccion->id}}" data-iconosubseccion="{{$subseccion->icono}}" data-nombresubseccion="{{$subseccion->nombre}}" data-toggle="modal" data-target="#subseccionedit">
                                                 <i class="fa fa-edit"></i>
                                             </button>
                                             <button type="button" class="btn-delete-subseccion btn btn-danger m-1  btn-circle" data-subseccionid="{{$subseccion->id}}" data-tipoDelete='subseccion' data-toggle="modal" data-target="#deleteModal">
@@ -218,17 +218,21 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form name="seccionEditForm" id="seccionEditForm" method="PUT">
+                            <div class="alert" id="modal-alert" role="alert" style="display:none;">
+                                This is a success alert—check it out!
+                            </div>
+                            <form name="seccionEditForm" id="seccionEditForm" method="POST">
                                 @csrf
+
                                 <div class="modal-body">
-                                    <input type="hidden" name="" id="seccionid-edit" value="">
+                                    <input type="hidden" name="id" id="seccionid-edit" value="">
                                     <div class="form-group">
                                         <label for="nombre-seccion-edit" class="col-form-label">Nombre</label>
                                         <input type="text" class="form-control" id="nombre-seccion-edit" name="nombre">
                                     </div>
                                     <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">Icono</label>
-                                        <input type="text" class="form-control" id="recipient-name" name="icono">
+                                        <label for="icon-seccion-edit" class="col-form-label">Icono</label>
+                                        <input type="text" class="form-control" id="icon-seccion-edit" name="icono">
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -250,13 +254,20 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+                            <div class="alert" id="modal-alert" role="alert" style="display:none;">
+                                This is a success alert—check it out!
+                            </div>
                             <form name="subseccionCreateForm" id="subseccionCreateForm">
                                 @csrf
                                 <input type="hidden" name="seccionPadre" id="seccionPadre" value="">
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Nombre</label>
-                                        <input type="text" class="form-control" id="recipient-name">
+                                        <input type="text" class="form-control" id="recipient-name" name="nombre">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Icono</label>
+                                        <input type="text" class="form-control" id="recipient-name" name="icono">
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -278,13 +289,20 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+                            <div class="alert" id="modal-alert" role="alert" style="display:none;">
+                                This is a success alert—check it out!
+                            </div>
                             <form name="subSeccionEditForm" id="subSeccionEditForm">
                                 @csrf
-                                <input type="hidden" name="" id="subseccionid-edit" value="">
+                                <input type="hidden" name="id" id="subseccionid-edit" value="">
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="subseccion-titulo" class="col-form-label">Nombre</label>
-                                        <input type="text" class="form-control" id="subseccion-titulo">
+                                        <input type="text" class="form-control" id="subseccion-titulo" name="nombre">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="subseccion-icono" class="col-form-label">Icono</label>
+                                        <input type="text" class="form-control" id="subseccion-icono" name="icono">
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -306,6 +324,9 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
+                            </div>
+                            <div class="alert" id="modal-alert" role="alert" style="display:none;">
+                                This is a success alert—check it out!
                             </div>
                             <form name="cotenidoCreateForm" id="contenidoCreateForm">
                                 @csrf
@@ -343,6 +364,9 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
+                            </div>
+                            <div class="alert" id="modal-alert" role="alert" style="display:none;">
+                                This is a success alert—check it out!
                             </div>
                             <form name="contenidoEditForm" id="contenidoEditForm">
                                 @csrf
@@ -382,12 +406,15 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+                            <div class="alert" id="modal-alert" role="alert" style="display:none;">
+                                This is a success alert—check it out!
+                            </div>
                             <div class="modal-body">
                                 <p class="text-muted">Está seguro que lo desea eliminar? Este cambio es irreversible
                                 </p>
                             </div>
                             <div class="modal-footer">
-                                <form name="deleteForm" id="deleteForm">
+                                <form name="deleteForm" id="deleteForm" method="POST">
                                     @csrf
                                     <input type="hidden" name="toDeleteId" id="toDeleteId" value="">
                                     <input type="hidden" name="toDeleteType" id="toDeleteType" value="">
@@ -412,8 +439,10 @@
             const editModal = document.getElementById('seccionedit');
             const seccionIdInput = editModal.querySelector('#seccionid-edit');
             const nombreInput = editModal.querySelector('#nombre-seccion-edit');
+            const iconInput = editModal.querySelector('#icon-seccion-edit');
             seccionIdInput.value = btnSeccion.dataset.seccionid;
             nombreInput.value = btnSeccion.dataset.nombreseccion;
+            iconInput.value = btnSeccion.dataset.iconseccion;
         }
 
         function getDeleteModalElements(deleteBtn) {
@@ -460,8 +489,11 @@
             const editModal = document.getElementById('subseccionedit');
             const seccionIdInput = editModal.querySelector('#subseccionid-edit');
             const nombreInput = editModal.querySelector('#subseccion-titulo');
+            const iconoInput = editModal.querySelector('#subseccion-icono');
             seccionIdInput.value = btnSeccion.dataset.subseccionid;
             nombreInput.value = btnSeccion.dataset.nombresubseccion;
+            iconoInput.value = btnSeccion.dataset.iconosubseccion;
+
         }
 
         function deleteSubSeccionBtn(e) {
@@ -544,15 +576,32 @@
             e.preventDefault();
             form = this;
             const xhr = new HttpRequest();
-            const endpoint = '/seccion';
+            const endpoint = '/seccion/update';
             const formData = new FormData(form);
-            xhr.put(endpoint, formData, function(error, response) {
+            xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
                     console.log('ocurrió un error', error);
+                    const resp = JSON.parse(error);
+                    const alert = document.getElementById('modal-alert');
+                    alert.innerHTML = resp.error;
+                    alert.style.display = "block";
+                    alert.classList.add('alert-danger');
                 }
                 if (response) {
                     //espacio para implementar si la consulta tiene éxito
-                    console.log(response);
+                    const resp = JSON.parse(response);
+                    const alert = document.getElementById('alert-message');
+                    alert.innerHTML = resp.success;
+                    alert.style.display = "block";
+                    alert.classList.add('alert-success');
+                    const modal = document.getElementById('seccionedit');
+                    Array.from(document.getElementsByClassName('modal-backdrop')).forEach((panel) => {
+                        panel.remove();
+                    });
+                    modal.style.display = "none";
+                    setTimeout(function() {
+                        window.location.reload(1);
+                    }, 1200);
                 }
             });
         }
@@ -561,14 +610,31 @@
             e.preventDefault();
             form = this;
             const xhr = new HttpRequest();
-            const endpoint = '';
+            const endpoint = '/subseccion';
             const formData = new FormData(form);
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
                     console.log('ocurrió un error', error);
+                    const resp = JSON.parse(error);
+                    const alert = document.getElementById('modal-alert');
+                    alert.innerHTML = resp.error;
+                    alert.style.display = "block";
+                    alert.classList.add('alert-danger');
                 }
                 if (response) {
-                    //espacio para implementar si la consulta tiene éxito
+                    const resp = JSON.parse(response);
+                    const alert = document.getElementById('alert-message');
+                    alert.innerHTML = resp.success;
+                    alert.style.display = "block";
+                    alert.classList.add('alert-success');
+                    const modal = document.getElementById('subseccioncreate');
+                    Array.from(document.getElementsByClassName('modal-backdrop')).forEach((panel) => {
+                        panel.remove();
+                    });
+                    modal.style.display = "none";
+                    setTimeout(function() {
+                        window.location.reload(1);
+                    }, 1200);
                 }
             });
         }
@@ -577,15 +643,32 @@
             e.preventDefault();
             form = this;
             const xhr = new HttpRequest();
-            const endpoint = '/subseccion';
+            const endpoint = '/subseccion/update';
             const formData = new FormData(form);
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
                     console.log('ocurrió un error', error);
+                    const resp = JSON.parse(error);
+                    const alert = document.getElementById('modal-alert');
+                    alert.innerHTML = resp.error;
+                    alert.style.display = "block";
+                    alert.classList.add('alert-danger');
                 }
                 if (response) {
                     //espacio para implementar si la consulta tiene éxito
-                    console.log('peticion se completo con exito')
+                    const resp = JSON.parse(response);
+                    const alert = document.getElementById('alert-message');
+                    alert.innerHTML = resp.success;
+                    alert.style.display = "block";
+                    alert.classList.add('alert-success');
+                    const modal = document.getElementById('subseccionedit');
+                    Array.from(document.getElementsByClassName('modal-backdrop')).forEach((panel) => {
+                        panel.remove();
+                    });
+                    modal.style.display = "none";
+                    setTimeout(function() {
+                        window.location.reload(1);
+                    }, 1200);
                 }
             });
         }
@@ -623,17 +706,41 @@
         }
 
         function deleteSubmit(e) {
+            endpointMap = new Map();
+            endpointMap.set('seccion', '/seccion/delete');
+            endpointMap.set('contenido', '');
+            endpointMap.set('subseccion', '/subseccion/delete');
+            endpointMap.set('subcontenido', '');
             e.preventDefault();
             form = this;
             const xhr = new HttpRequest();
-            const endpoint = '';
             const formData = new FormData(form);
+            console.log("formpene: ",formData.get('toDeleteType'));
+            console.log("rutapene: ", endpointMap.get(formData.get('toDeleteType')));
+            const endpoint = endpointMap.get(formData.get('toDeleteType'));
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
                     console.log('ocurrió un error', error);
+                    const resp = JSON.parse(error);
+                    const alert = document.getElementById('modal-alert');
+                    alert.innerHTML = resp.error;
+                    alert.style.display = "block";
+                    alert.classList.add('alert-danger');
                 }
                 if (response) {
-                    //espacio para implementar si la consulta tiene éxito
+                    const resp = JSON.parse(response);
+                    const alert = document.getElementById('alert-message');
+                    alert.innerHTML = resp.success;
+                    alert.style.display = "block";
+                    alert.classList.add('alert-success');
+                    const modal = document.getElementById('deleteModal');
+                    Array.from(document.getElementsByClassName('modal-backdrop')).forEach((panel) => {
+                        panel.remove();
+                    });
+                    modal.style.display = "none";
+                    setTimeout(function() {
+                        window.location.reload(1);
+                    }, 1200);
                 }
             });
         }

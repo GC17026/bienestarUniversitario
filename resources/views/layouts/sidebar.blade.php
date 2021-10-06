@@ -28,12 +28,12 @@
                     <div class="sb-nav-link-icon"><i class="{{$row->icono}}"></i></div>
                     {{ $row->nombre }}
                 </a>
-                <a class="nav-link collapsed text-dark pr-0" href="#" data-toggle="collapse" data-target="{{ '#collapse' . $row->nombre }}" aria-expanded="false" aria-controls="collapseLayouts" style="background: #B5DFFF;    font-weight: 500;">
+                <a class="nav-link collapsed text-dark pr-0" href="#" data-toggle="collapse" data-target="{{ '#collapse' . $row->id }}" aria-expanded="false" aria-controls="collapseLayouts" style="background: #B5DFFF;    font-weight: 500;">
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
             </div>
             @if (count($row->subSecciones) > 0)
-            <div class="collapse" id="{{ 'collapse' . $row->nombre }}" aria-labelledby="headingOne" style="background: #2EA7FF;" data-parent="#sidenavAccordion">
+            <div class="collapse" id="{{ 'collapse' . $row->id }}" aria-labelledby="headingOne" style="background: #2EA7FF;" data-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
                     @foreach ($row->subSecciones as $subseccion)
                     <a class="nav-link w-100 text-white" href="{{ route('subseccion.show', ['subSeccion' => $subseccion]) }}" style="font-weight: 500;">

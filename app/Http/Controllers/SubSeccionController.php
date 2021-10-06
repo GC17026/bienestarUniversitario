@@ -6,6 +6,8 @@ use App\Seccion;
 use App\SubSeccion;
 use App\Contenido;
 use Illuminate\Http\Request;
+use Response;
+use App\Http\Controllers\Throwable;
 
 class SubSeccionController extends Controller
 {
@@ -37,7 +39,17 @@ class SubSeccionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            SubSeccion::create([
+                'nombre'=>$request->nombre,
+                'icono'=>$request->icono,
+                'seccion_id'=>$request->seccionPadre
+            ]);
+            return Response::json(['success'=>'Se ha creado una nueva subsección'],200);
+        }
+        catch(Exception $e){
+            return Response::json(['error'=>'Ocurrió un error, es posible que ya exista una subsección llamada igual'],400);
+        }
     }
 
     /**
@@ -69,9 +81,19 @@ class SubSeccionController extends Controller
      * @param  \App\SubSeccion  $subSeccion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SubSeccion $subSeccion)
+    public function update(Request $request)
     {
-        //
+        try{
+            $seccion=SubSeccion::findOrFail($request->id);
+            $seccion->update([
+                'nombre'=>$request->nombre,
+                'icono'=>$request->icono
+            ]);
+            return Response::json(['success'=>'Se ha actualizado la subsección correctamente'],200);
+        }
+        catch(Exception $e){
+            return Response::json(['error'=>'Ocurrió un error, puede que otra sección ya tenga este nombre'],400);
+        }
     }
 
     /**
@@ -80,8 +102,15 @@ class SubSeccionController extends Controller
      * @param  \App\SubSeccion  $subSeccion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SubSeccion $subSeccion)
+    public function destroy(Request $request)
     {
-        //
+        try{
+            $seccion=SubSeccion::findOrFail($request->toDeleteId);
+            $seccion->delete();
+            return Response::json(['success'=>'Se ha eliminado la subsección correctamente'],200);
+        }
+        catch(Exception $e){
+            return Response::json(['error'=>'Ocurrió un error. no se pudo completar el proceso'],400);
+        }
     }
 }

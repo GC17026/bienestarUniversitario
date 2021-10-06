@@ -26,6 +26,7 @@ class HttpRequest {
     }
 
     put(url, data, callback) {
+        console.log(data)
         this.http.open("PUT", url, true);
         this.http.onload = function () {
             if (this.status === 200) {

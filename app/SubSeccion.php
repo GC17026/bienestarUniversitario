@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SubSeccion extends Model
 {
     protected $fillable = [
-        'nombre','icono','subseccion_id'
+        'nombre','icono','seccion_id'
     ];
     public function seccion()
     {

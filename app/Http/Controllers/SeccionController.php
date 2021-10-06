@@ -41,7 +41,7 @@ class SeccionController extends Controller
     public function store(Request $request)
     {
         try{
-            $seccion = Seccion::create([
+            Seccion::create([
                 'nombre'=>$request->nombre,
                 'icono'=>$request->icono,
             ]);
@@ -85,7 +85,17 @@ class SeccionController extends Controller
      */
     public function update(Request $request)
     {
-        return Response::json(['success'=>'prueba'],200);
+        try{
+            $seccion=Seccion::findOrFail($request->id);
+            $seccion->update([
+                'nombre'=>$request->nombre,
+                'icono'=>$request->icono
+            ]);
+            return Response::json(['success'=>'Se ha actualizado la sección correctamente'],200);
+        }
+        catch(Exception $e){
+            return Response::json(['error'=>'Ocurrió un error, puede que otra sección ya tenga este nombre'],400);
+        }
     }
 
     /**
@@ -94,8 +104,15 @@ class SeccionController extends Controller
      * @param  \App\Seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Seccion $seccion)
+    public function destroy(Request $request)
     {
-        //
+        try{
+            $seccion=Seccion::findOrFail($request->toDeleteId);
+            $seccion->delete();
+            return Response::json(['success'=>'Se ha eliminado la sección correctamente'],200);
+        }
+        catch(Exception $e){
+            return Response::json(['error'=>'Ocurrió un error. no se pudo completar el proceso'],400);
+        }
     }
 }
