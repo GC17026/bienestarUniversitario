@@ -1,186 +1,151 @@
 @extends('layouts.sidebar')
 @section('homeContent')
-    <div id="page-content-wrapper" class="w-100">
+<div id="page-content-wrapper" class="w-100">
+    @if (session('mensaje'))
+    <div class="alert alert-success" style="margin-left: width:100%;">
+        {{ session('mensaje') }}
+    </div>
+    @endif
 
-        <div class="form-row p-3">
-            <div class="col-sm-11">
-                <div class="md-form mt-0">
-                    <p>Para guardar los cambios realizados de click en el siguiente boton</p>
+    <div class="alert" id="alert-message" role="alert" style="display:none;">
+        This is a success alert—check it out!
+    </div>
+
+    <div class="d-flex mt-3">
+        <h3 class="card-link" data-toggle="collapse">
+            Secciones
+        </h3>
+        <button type="button" class="btn btn-info btn-circle ml-auto" data-toggle="modal" data-target="#seccioncreate">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+    <div id="accordion" class="mt-3">
+        @foreach($secciones as $seccion)
+        <div class="card">
+            <div class="card-header estilo_div1">
+                <div class="d-flex">
+                    <a class="card-link " data-toggle="collapse" href="#collapseOne{{$seccion->id}}">
+                        {{$seccion->nombre}}
+                    </a>
+                    <button type="button" class="btn-edit-seccion btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-seccionid="{{$seccion->id}}" data-nombreseccion="{{$seccion->nombre}}" data-target="#seccionedit">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    <button type="button" class="btn-delete-seccion btn btn-danger m-1  btn-circle" data-toggle="modal" data-seccionid="{{$seccion->id}}" data-tipoDelete='seccion' data-target="#deleteModal">
+                        <i class="fa fa-times"></i>
+                    </button>
                 </div>
             </div>
-            <div class="col-sm-1">
-                <div class="md-form mt-0">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal"
-                    >Guardar</i></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="d-flex mt-3">
-            <h3 class="card-link" data-toggle="collapse">
-                Secciones
-            </h3>
-            <button type="button" class="btn btn-info btn-circle ml-auto" data-toggle="modal" data-target="#seccioncreate"
-            >
-                <i class="fa fa-plus"></i>
-            </button>
-        </div>
-        <div id="accordion" class="mt-3">
-            @foreach($secciones as $seccion)
-            <div class="card">
-                <div class="card-header estilo_div1">
-                    <div class="d-flex">
-                        <a class="card-link " data-toggle="collapse" href="#collapseOne{{$seccion->id}}">
-                            {{$seccion->nombre}}
-                        </a>
-                        <button type="button" class="btn-edit-seccion btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-seccionid ="{{$seccion->id}}"
-                            data-nombreseccion ="{{$seccion->nombre}}"
-                            data-target="#seccionedit">
-                            <i class="fa fa-edit"></i>
-                        </button>
-                        <button type="button" class="btn-delete-seccion btn btn-danger m-1  btn-circle" data-toggle="modal" data-seccionid ="{{$seccion->id}}"
-                            data-tipoDelete='seccion'
-                            data-target="#deleteModal">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-                <div id="collapseOne{{$seccion->id}}" class="collapse " data-parent="#accordion">
-                    <div id="accordion3">
-                        <div class="card">
-                            <div class="card-header estilo_div2">
-                                <div class=" d-flex">
-                                    <a class="card-link" data-toggle="collapse" href="#collapseThree{{$seccion->id}}">
-                                        Contenidos de seccion
-                                    </a>
-                                    <button type="button" class="btn-create-contenido btn btn-info btn-circle ml-auto" data-toggle="modal"
-                                        data-target="#ContenidoCreate" data-seccionid ="{{$seccion->id}}">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div id="collapseThree{{$seccion->id}}" class="collapse " data-parent="#collapseOne{{$seccion->id}}">
-                                @foreach($seccion->contenidos as $contenido)
-                                <div class="card-header">
-                                    <div class=" d-flex">
-                                        <div>
-                                            {{$contenido->titulo}}
-                                        </div>
-                                        <button type="button" class="btn-edit-contenido btn btn-success m-1  btn-circle ml-auto"
-                                            data-toggle="modal" data-target="#ContenidoEdit" 
-                                            data-contenidoid="{{$contenido->id}}"
-                                            data-titulo="{{$contenido->titulo}}"    
-                                            data-contenido="{{$contenido->contenido}}"
-                                            >
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button type="button" class="btn-delete-contenido btn btn-danger m-1  btn-circle" data-toggle="modal" data-contenidoid="{{$contenido->id}}"
-                                        data-tipoDelete='contenido'
-                                        data-target="#deleteModal">
-                                            <i class="fa fa-times"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                @endforeach
+            <div id="collapseOne{{$seccion->id}}" class="collapse " data-parent="#accordion">
+                <div id="accordion3">
+                    <div class="card">
+                        <div class="card-header estilo_div2">
+                            <div class=" d-flex">
+                                <a class="card-link" data-toggle="collapse" href="#collapseThree{{$seccion->id}}">
+                                    Contenidos de seccion
+                                </a>
+                                <button type="button" class="btn-create-contenido btn btn-info btn-circle ml-auto" data-toggle="modal" data-target="#ContenidoCreate" data-seccionid="{{$seccion->id}}">
+                                    <i class="fa fa-plus"></i>
+                                </button>
                             </div>
                         </div>
-                    </div>
-                    <div id="accordion2">
-                        <div class="card">
-                            <div class="card-header estilo_div2">
+                        <div id="collapseThree{{$seccion->id}}" class="collapse " data-parent="#collapseOne{{$seccion->id}}">
+                            @foreach($seccion->contenidos as $contenido)
+                            <div class="card-header">
                                 <div class=" d-flex">
-                                    <a class="card-link" data-toggle="collapse" href="#collapseTwo{{$seccion->id}}">
-                                        Subsecciones
-                                    </a>
-                                    <button type="button" class="btn-create-subseccion btn btn-info btn-circle ml-auto" data-toggle="modal"
-                                        data-target="#subseccioncreate" data-seccionid ="{{$seccion->id}}">
-                                        <i class="fa fa-plus"></i>
+                                    <div>
+                                        {{$contenido->titulo}}
+                                    </div>
+                                    <button type="button" class="btn-edit-contenido btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-target="#ContenidoEdit" data-contenidoid="{{$contenido->id}}" data-titulo="{{$contenido->titulo}}" data-contenido="{{$contenido->contenido}}">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button type="button" class="btn-delete-contenido btn btn-danger m-1  btn-circle" data-toggle="modal" data-contenidoid="{{$contenido->id}}" data-tipoDelete='contenido' data-target="#deleteModal">
+                                        <i class="fa fa-times"></i>
                                     </button>
                                 </div>
                             </div>
-                            <div id="collapseTwo{{$seccion->id}}" class="collapse " data-parent="#collapseOne{{$seccion->id}}">
-                                <div id="accordion5">
-                                    <div class="card">
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                <div id="accordion2">
+                    <div class="card">
+                        <div class="card-header estilo_div2">
+                            <div class=" d-flex">
+                                <a class="card-link" data-toggle="collapse" href="#collapseTwo{{$seccion->id}}">
+                                    Subsecciones
+                                </a>
+                                <button type="button" class="btn-create-subseccion btn btn-info btn-circle ml-auto" data-toggle="modal" data-target="#subseccioncreate" data-seccionid="{{$seccion->id}}">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="collapseTwo{{$seccion->id}}" class="collapse " data-parent="#collapseOne{{$seccion->id}}">
+                            <div id="accordion5">
+                                <div class="card">
                                     @foreach($seccion->subSecciones as $subseccion)
-                                        <div class="card-header">
-                                            <div class=" d-flex">
-                                                <a class="card-link" data-toggle="collapse" href="#collapseFive">
-                                                    {{$subseccion->nombre}}
-                                                </a>
-                                                <button type="button" class="btn-edit-subseccion btn btn-success m-1  btn-circle ml-auto"  data-subseccionid="{{$subseccion->id}}"
-                                                    data-nombresubseccion="{{$subseccion->nombre}}"
-                                                    data-toggle="modal" data-target="#subseccionedit">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" class="btn-delete-subseccion btn btn-danger m-1  btn-circle" data-subseccionid="{{$subseccion->id}}"
-                                                    data-tipoDelete='subseccion'
-                                                    data-toggle="modal" data-target="#deleteModal">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </div>                                        
+                                    <div class="card-header">
+                                        <div class=" d-flex">
+                                            <a class="card-link" data-toggle="collapse" href="#collapseFive">
+                                                {{$subseccion->nombre}}
+                                            </a>
+                                            <button type="button" class="btn-edit-subseccion btn btn-success m-1  btn-circle ml-auto" data-subseccionid="{{$subseccion->id}}" data-nombresubseccion="{{$subseccion->nombre}}" data-toggle="modal" data-target="#subseccionedit">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn-delete-subseccion btn btn-danger m-1  btn-circle" data-subseccionid="{{$subseccion->id}}" data-tipoDelete='subseccion' data-toggle="modal" data-target="#deleteModal">
+                                                <i class="fa fa-times"></i>
+                                            </button>
                                         </div>
-                                        <div id="collapseFive" class="collapse " data-parent="#accordion5">
-                                            <div id="accordion4">
+                                    </div>
+                                    <div id="collapseFive" class="collapse " data-parent="#accordion5">
+                                        <div id="accordion4">
 
-                                                <div class="card">
-                                                    <div class="card-header estilo_div3">
-                                                        <div class=" d-flex">
-                                                            <a class="card-link" data-toggle="collapse"
-                                                                href="#collapseFour">
-                                                                Contenidos de subseccion
-                                                            </a>
-                                                            <button type="button" class="btn-create-subcontenido btn btn-info btn-circle ml-auto"
-                                                                data-toggle="modal" data-target="#ContenidoCreate" data-subseccionid="{{$subseccion->id}}"
-                                                            >
-                                                                <i class="fa fa-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div id="collapseFour" class="collapse " data-parent="#accordion4">
-                                                        <div class="card-header">
-                                                        @foreach($subseccion->contenidos as $subcontenido)
-                                                            <div class=" d-flex">
-                                                                <div>
-                                                                    {{$subcontenido->titulo}}
-                                                                </div>
-                                                                <button type="button"
-                                                                    class="btn-edit-subcontenido btn btn-success m-1  btn-circle ml-auto"
-                                                                    data-toggle="modal" data-target="#ContenidoEdit" data-subcontenidoid="{{$subcontenido->id}}"
-                                                                    data-titulo="{{$contenido->titulo}}"    
-                                                                    data-contenido="{{$contenido->contenido}}"
-                                                                >
-                                                                    <i class="fa fa-edit"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-delete-subcontenido btn btn-danger m-1  btn-circle"
-                                                                    data-toggle="modal" data-target="#deleteModal" data-subcontenidoid="{{$subcontenido->id}}"
-                                                                    data-tipoDelete='subcontenido'
-                                                                >
-                                                                    <i class="fa fa-times"></i>
-                                                                </button>
-                                                            </div>
-                                                        @endforeach
-                                                        </div>
+                                            <div class="card">
+                                                <div class="card-header estilo_div3">
+                                                    <div class=" d-flex">
+                                                        <a class="card-link" data-toggle="collapse" href="#collapseFour">
+                                                            Contenidos de subseccion
+                                                        </a>
+                                                        <button type="button" class="btn-create-subcontenido btn btn-info btn-circle ml-auto" data-toggle="modal" data-target="#ContenidoCreate" data-subseccionid="{{$subseccion->id}}">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
                                                     </div>
                                                 </div>
-
+                                                <div id="collapseFour" class="collapse " data-parent="#accordion4">
+                                                    <div class="card-header">
+                                                        @foreach($subseccion->contenidos as $subcontenido)
+                                                        <div class=" d-flex">
+                                                            <div>
+                                                                {{$subcontenido->titulo}}
+                                                            </div>
+                                                            <button type="button" class="btn-edit-subcontenido btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-target="#ContenidoEdit" data-subcontenidoid="{{$subcontenido->id}}" data-titulo="{{$contenido->titulo}}" data-contenido="{{$contenido->contenido}}">
+                                                                <i class="fa fa-edit"></i>
+                                                            </button>
+                                                            <button type="button" class="btn-delete-subcontenido btn btn-danger m-1  btn-circle" data-toggle="modal" data-target="#deleteModal" data-subcontenidoid="{{$subcontenido->id}}" data-tipoDelete='subcontenido'>
+                                                                <i class="fa fa-times"></i>
+                                                            </button>
+                                                        </div>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
                                             </div>
+
                                         </div>
-                                        @endforeach
                                     </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            @endforeach
-            <div class="row justify-content-center">
-                <div class="">
+        </div>
+        @endforeach
+        <div class="row justify-content-center">
+            <div class="">
 
                 <!--modal para creacion de novedad-->
                 <div class=" modal
-                    fade" id="NovedadCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
+                    fade" id="NovedadCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -190,7 +155,7 @@
                                 </button>
                             </div>
                             <form>
-                            <div class="modal-body">
+                                <div class="modal-body">
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Tématica</label>
                                         <input type="text" class="form-control" id="recipient-name">
@@ -199,19 +164,18 @@
                                         <label for="message-text" class="col-form-label">Descripción</label>
                                         <textarea class="form-control" id="message-text"></textarea>
                                     </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-info">Guardar</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            </div>    
-                           </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-info">Guardar</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
 
                 <!--modal para creacion de seccion-->
-                <div class="modal fade" id="seccioncreate" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="seccioncreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -220,8 +184,75 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+                            <div class="alert" id="modal-alert" role="alert" style="display:none;">
+                                This is a success alert—check it out!
+                            </div>
                             <form name="seccionCreateForm" id="seccionCreateForm">
                                 @csrf
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Nombre</label>
+                                        <input type="text" class="form-control" id="recipient-name" name="nombre">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Icono</label>
+                                        <input type="text" class="form-control" id="recipient-name" name="icono">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-info">Guardar</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!--modal para edicion de seccion-->
+                <div class="modal fade" id="seccionedit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Editar sección: </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form name="seccionEditForm" id="seccionEditForm" method="PUT">
+                                @csrf
+                                <div class="modal-body">
+                                    <input type="hidden" name="" id="seccionid-edit" value="">
+                                    <div class="form-group">
+                                        <label for="nombre-seccion-edit" class="col-form-label">Nombre</label>
+                                        <input type="text" class="form-control" id="nombre-seccion-edit" name="nombre">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Icono</label>
+                                        <input type="text" class="form-control" id="recipient-name" name="icono">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-info">Editar</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!--modal para creacion de subseccion-->
+                <div class="modal fade" id="subseccioncreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Agregar subsección: </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form name="subseccionCreateForm" id="subseccionCreateForm">
+                                @csrf
+                                <input type="hidden" name="seccionPadre" id="seccionPadre" value="">
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Nombre</label>
@@ -237,68 +268,8 @@
                     </div>
                 </div>
 
-                <!--modal para edicion de seccion-->
-                <div class="modal fade" id="seccionedit" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Editar sección: </h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <form name="seccionEditForm" id="seccionEditForm">
-                                @csrf
-                                <div class="modal-body">
-                                        <input type="hidden" name="" id="seccionid-edit" value="">
-                                        <div class="form-group">
-                                            <label for="nombre-seccion-edit" class="col-form-label">Nombre</label>
-                                            <input type="text" class="form-control" id="nombre-seccion-edit">
-                                        </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-info">Editar</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <!--modal para creacion de subseccion-->
-                <div class="modal fade" id="subseccioncreate" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Agregar subsección: </h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <form name="subseccionCreateForm" id="subseccionCreateForm">
-                                @csrf
-                                <input type="hidden" name="seccionPadre" id="seccionPadre" value="">
-                            <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">Nombre</label>
-                                        <input type="text" class="form-control" id="recipient-name">
-                                    </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-info">Guardar</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
                 <!--modal para edicion de subseccion-->
-                <div class="modal fade" id="subseccionedit" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="subseccionedit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -309,17 +280,17 @@
                             </div>
                             <form name="subSeccionEditForm" id="subSeccionEditForm">
                                 @csrf
-                            <input type="hidden" name="" id="subseccionid-edit" value="">
-                            <div class="modal-body">
+                                <input type="hidden" name="" id="subseccionid-edit" value="">
+                                <div class="modal-body">
                                     <div class="form-group">
                                         <label for="subseccion-titulo" class="col-form-label">Nombre</label>
                                         <input type="text" class="form-control" id="subseccion-titulo">
                                     </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-info">Editar</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-info">Editar</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -327,8 +298,7 @@
 
 
                 <!--modal para creacion de contenido-->
-                <div class="modal fade" id="ContenidoCreate" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="ContenidoCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -340,7 +310,7 @@
                             <form name="cotenidoCreateForm" id="contenidoCreateForm">
                                 @csrf
                                 <input type="hidden" name="seccionPadre" id="seccionPadre" value="">
-                            <div class="modal-body">
+                                <div class="modal-body">
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Tématica</label>
                                         <input type="text" class="form-control" id="recipient-name">
@@ -353,11 +323,11 @@
                                         <label for="message-text" class="col-form-label">Imagen</label>
                                         <input type="file" class="form-control-file" id="File1">
                                     </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-info">Guardar</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-info">Guardar</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -365,8 +335,7 @@
 
 
                 <!--modal para edicion de contenido-->
-                <div class="modal fade" id="ContenidoEdit" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="ContenidoEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -377,8 +346,8 @@
                             </div>
                             <form name="contenidoEditForm" id="contenidoEditForm">
                                 @csrf
-                            <input type="hidden" name="" id="contenidoid-edit" value="">
-                            <div class="modal-body">
+                                <input type="hidden" name="" id="contenidoid-edit" value="">
+                                <div class="modal-body">
                                     <div class="form-group">
                                         <label for="tituloContenido" class="col-form-label">Título</label>
                                         <input type="text" class="form-control" id="tituloContenido">
@@ -391,19 +360,18 @@
                                         <label for="message-text" class="col-form-label">Imagen</label>
                                         <input type="file" class="form-control-file" id="File1">
                                     </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-info">Editar</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-info">Editar</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
 
                 <!-- Modal para delete-->
-                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -436,240 +404,272 @@
         </div>
     </div>
 
-@endsection
-<script type="text/javascript" src="{{asset('js/xhr.js')}}"></script>
-<script type="text/javascript">
-
-function editSeccionBtn(e){
-    const btnSeccion = this;
-    const editModal = document.getElementById('seccionedit');
-    const seccionIdInput =  editModal.querySelector('#seccionid-edit');
-    const nombreInput =  editModal.querySelector('#nombre-seccion-edit');
-    seccionIdInput.value = btnSeccion.dataset.seccionid;
-    nombreInput.value = btnSeccion.dataset.nombreseccion;
-}
-
-function getDeleteModalElements(deleteBtn){
-    const deleteModal = document.getElementById('deleteModal');
-    const toDeleteId = deleteModal.querySelector('#toDeleteId');
-    const toDeleteType = deleteModal.querySelector('#toDeleteType');
-    toDeleteType.value = deleteBtn.dataset.tipodelete;
-    return {deleteModal,toDeleteId,toDeleteType};
-}
-function deleteSeccionBtn(e){
-    const deleteBtn = this;
-    const {toDeleteId} = getDeleteModalElements(deleteBtn);
-    toDeleteId.value = deleteBtn.dataset.seccionid;
-}
-
-function editContenidoBtn(e){
-    const editContenidoBtn = this;
-    const editContenidoModal = document.getElementById('ContenidoEdit');
-    const tituloContenido = editContenidoModal.querySelector('#tituloContenido');
-    const textoContenido = editContenidoModal.querySelector('#text-contenido');
-    const idContenido = editContenidoModal.querySelector('#contenidoid-edit');
-    idContenido.value = editContenidoBtn.dataset.contenidoid;
-    tituloContenido.value = editContenidoBtn.dataset.titulo;
-    textoContenido.value = editContenidoBtn.dataset.contenido;
-}
-
-function deleteContenidoBtn(e){
-    const deleteBtn = this;
-    const {toDeleteId} = getDeleteModalElements(deleteBtn);
-    toDeleteId.value = deleteBtn.dataset.contenidoid;
-}
-
-function editSubSeccionBtn(e){
-    const btnSeccion = this;
-    const editModal = document.getElementById('subseccionedit');
-    const seccionIdInput =  editModal.querySelector('#subseccionid-edit');
-    const nombreInput =  editModal.querySelector('#subseccion-titulo');
-    seccionIdInput.value = btnSeccion.dataset.subseccionid;
-    nombreInput.value = btnSeccion.dataset.nombresubseccion;
-}
-
-function deleteSubSeccionBtn(e){
-    const deleteBtn = this;
-    const {toDeleteId} = getDeleteModalElements(deleteBtn);
-    toDeleteId.value = deleteBtn.dataset.subseccionid;
-}
-
-function editSubContenidoBtn(e){
-    const editContenidoBtn = this;
-    const editContenidoModal = document.getElementById('ContenidoEdit');
-    const tituloContenido = editContenidoModal.querySelector('#tituloContenido');
-    const textoContenido = editContenidoModal.querySelector('#text-contenido');
-    const idContenido = editContenidoModal.querySelector('#contenidoid-edit');
-    idContenido.value = editContenidoBtn.dataset.subcontenidoid;
-    tituloContenido.value = editContenidoBtn.dataset.titulo;
-    textoContenido.value = editContenidoBtn.dataset.contenido;
-}
-
-function deleteSubContenidoBtn(e){
-    const deleteBtn = this;
-    const {toDeleteId} = getDeleteModalElements(deleteBtn);
-    toDeleteId.value = deleteBtn.dataset.subcontenidoid;
-}
-
-function createSubseccion(e){
-    const createSubBtn = this;
-    const modal = document.getElementById('subseccioncreate');
-    const seccionPadre = modal.querySelector('#seccionPadre');
-    seccionPadre.value = createSubBtn.dataset.seccionid;
-
-}
-
-function createSubcontenido(e){
-    const createSubBtn = this;
-    const modal = document.getElementById('subseccioncreate');
-    const seccionPadre = modal.querySelector('#seccionPadre');
-    seccionPadre.value = createSubBtn.dataset.seccionid;
-}
-
-function seccionCreateSubmit(e){
-    e.preventDefault();
-    form = this;
-    const xhr = new HttpRequest();
-    const endpoint = '';
-    const formData = new FormData(form);
-    xhr.post(endpoint,formData,function(error,response){
-        if(error){
-            console.log('ocurrió un error',error);
+    @endsection
+    <script type="text/javascript" src="{{asset('js/xhr.js')}}"></script>
+    <script type="text/javascript">
+        function editSeccionBtn(e) {
+            const btnSeccion = this;
+            const editModal = document.getElementById('seccionedit');
+            const seccionIdInput = editModal.querySelector('#seccionid-edit');
+            const nombreInput = editModal.querySelector('#nombre-seccion-edit');
+            seccionIdInput.value = btnSeccion.dataset.seccionid;
+            nombreInput.value = btnSeccion.dataset.nombreseccion;
         }
-        if(response){
-            //espacio para implementar si la consulta tiene éxito
-        }
-    });
-}
 
-function seccionEditSubmit(e){
-    e.preventDefault();
-    form = this;
-    const xhr = new HttpRequest();
-    const endpoint = '';
-    const formData = new FormData(form);
-    xhr.post(endpoint,formData,function(error,response){
-        if(error){
-            console.log('ocurrió un error',error);
+        function getDeleteModalElements(deleteBtn) {
+            const deleteModal = document.getElementById('deleteModal');
+            const toDeleteId = deleteModal.querySelector('#toDeleteId');
+            const toDeleteType = deleteModal.querySelector('#toDeleteType');
+            toDeleteType.value = deleteBtn.dataset.tipodelete;
+            return {
+                deleteModal,
+                toDeleteId,
+                toDeleteType
+            };
         }
-        if(response){
-            //espacio para implementar si la consulta tiene éxito
-        }
-    });
-}
 
-function subSeccionCreateSubmit(e){
-    e.preventDefault();
-    form = this;
-    const xhr = new HttpRequest();
-    const endpoint = '';
-    const formData = new FormData(form);
-    xhr.post(endpoint,formData,function(error,response){
-        if(error){
-            console.log('ocurrió un error',error);
+        function deleteSeccionBtn(e) {
+            const deleteBtn = this;
+            const {
+                toDeleteId
+            } = getDeleteModalElements(deleteBtn);
+            toDeleteId.value = deleteBtn.dataset.seccionid;
         }
-        if(response){
-            //espacio para implementar si la consulta tiene éxito
-        }
-    });
-}
 
-function subSeccionEditSubmit(e){
-    e.preventDefault();
-    form = this;
-    const xhr = new HttpRequest();
-    const endpoint = '';
-    const formData = new FormData(form);
-    xhr.post(endpoint,formData,function(error,response){
-        if(error){
-            console.log('ocurrió un error',error);
+        function editContenidoBtn(e) {
+            const editContenidoBtn = this;
+            const editContenidoModal = document.getElementById('ContenidoEdit');
+            const tituloContenido = editContenidoModal.querySelector('#tituloContenido');
+            const textoContenido = editContenidoModal.querySelector('#text-contenido');
+            const idContenido = editContenidoModal.querySelector('#contenidoid-edit');
+            idContenido.value = editContenidoBtn.dataset.contenidoid;
+            tituloContenido.value = editContenidoBtn.dataset.titulo;
+            textoContenido.value = editContenidoBtn.dataset.contenido;
         }
-        if(response){
-            //espacio para implementar si la consulta tiene éxito
-        }
-    });
-}
 
-function contenidoCreateSubmit(e){
-    e.preventDefault();
-    form = this;
-    const xhr = new HttpRequest();
-    const endpoint = '';
-    const formData = new FormData(form);
-    xhr.post(endpoint,formData,function(error,response){
-        if(error){
-            console.log('ocurrió un error',error);
+        function deleteContenidoBtn(e) {
+            const deleteBtn = this;
+            const {
+                toDeleteId
+            } = getDeleteModalElements(deleteBtn);
+            toDeleteId.value = deleteBtn.dataset.contenidoid;
         }
-        if(response){
-            //espacio para implementar si la consulta tiene éxito
-        }
-    });
-}
 
-function contenidoEditSubmit(e){
-    e.preventDefault();
-    form = this;
-    const xhr = new HttpRequest();
-    const endpoint = '';
-    const formData = new FormData(form);
-    xhr.post(endpoint,formData,function(error,response){
-        if(error){
-            console.log('ocurrió un error',error);
+        function editSubSeccionBtn(e) {
+            const btnSeccion = this;
+            const editModal = document.getElementById('subseccionedit');
+            const seccionIdInput = editModal.querySelector('#subseccionid-edit');
+            const nombreInput = editModal.querySelector('#subseccion-titulo');
+            seccionIdInput.value = btnSeccion.dataset.subseccionid;
+            nombreInput.value = btnSeccion.dataset.nombresubseccion;
         }
-        if(response){
-            //espacio para implementar si la consulta tiene éxito
-        }
-    });
-}
 
-function deleteSubmit(e){
-    e.preventDefault();
-    form = this;
-    const xhr = new HttpRequest();
-    const endpoint = '';
-    const formData = new FormData(form);
-    xhr.post(endpoint,formData,function(error,response){
-        if(error){
-            console.log('ocurrió un error',error);
+        function deleteSubSeccionBtn(e) {
+            const deleteBtn = this;
+            const {
+                toDeleteId
+            } = getDeleteModalElements(deleteBtn);
+            toDeleteId.value = deleteBtn.dataset.subseccionid;
         }
-        if(response){
-            //espacio para implementar si la consulta tiene éxito
+
+        function editSubContenidoBtn(e) {
+            const editContenidoBtn = this;
+            const editContenidoModal = document.getElementById('ContenidoEdit');
+            const tituloContenido = editContenidoModal.querySelector('#tituloContenido');
+            const textoContenido = editContenidoModal.querySelector('#text-contenido');
+            const idContenido = editContenidoModal.querySelector('#contenidoid-edit');
+            idContenido.value = editContenidoBtn.dataset.subcontenidoid;
+            tituloContenido.value = editContenidoBtn.dataset.titulo;
+            textoContenido.value = editContenidoBtn.dataset.contenido;
         }
-    });
-}
+
+        function deleteSubContenidoBtn(e) {
+            const deleteBtn = this;
+            const {
+                toDeleteId
+            } = getDeleteModalElements(deleteBtn);
+            toDeleteId.value = deleteBtn.dataset.subcontenidoid;
+        }
+
+        function createSubseccion(e) {
+            const createSubBtn = this;
+            const modal = document.getElementById('subseccioncreate');
+            const seccionPadre = modal.querySelector('#seccionPadre');
+            seccionPadre.value = createSubBtn.dataset.seccionid;
+
+        }
+
+        function createSubcontenido(e) {
+            const createSubBtn = this;
+            const modal = document.getElementById('subseccioncreate');
+            const seccionPadre = modal.querySelector('#seccionPadre');
+            seccionPadre.value = createSubBtn.dataset.seccionid;
+        }
+
+        function seccionCreateSubmit(e) {
+            e.preventDefault();
+            form = this;
+            const xhr = new HttpRequest();
+            const endpoint = '/seccion';
+            const formData = new FormData(form);
+            xhr.post(endpoint, formData, function(error, response) {
+                if (error) {
+                    console.log('ocurrió un error', error);
+                    const resp = JSON.parse(error);
+                    const alert = document.getElementById('modal-alert');
+                    alert.innerHTML = resp.error;
+                    alert.style.display = "block";
+                    alert.classList.add('alert-danger');
+                }
+                if (response) {
+                    const resp = JSON.parse(response);
+                    const alert = document.getElementById('alert-message');
+                    alert.innerHTML = resp.success;
+                    alert.style.display = "block";
+                    alert.classList.add('alert-success');
+                    const modal = document.getElementById('seccioncreate');
+                    Array.from(document.getElementsByClassName('modal-backdrop')).forEach((panel) => {
+                        panel.remove();
+                    });
+                    modal.style.display = "none";
+                    setTimeout(function() {
+                        window.location.reload(1);
+                    }, 1200);
+                }
+            });
+        }
+
+        function seccionEditSubmit(e) {
+
+            e.preventDefault();
+            form = this;
+            const xhr = new HttpRequest();
+            const endpoint = '/seccion';
+            const formData = new FormData(form);
+            xhr.put(endpoint, formData, function(error, response) {
+                if (error) {
+                    console.log('ocurrió un error', error);
+                }
+                if (response) {
+                    //espacio para implementar si la consulta tiene éxito
+                    console.log(response);
+                }
+            });
+        }
+
+        function subSeccionCreateSubmit(e) {
+            e.preventDefault();
+            form = this;
+            const xhr = new HttpRequest();
+            const endpoint = '';
+            const formData = new FormData(form);
+            xhr.post(endpoint, formData, function(error, response) {
+                if (error) {
+                    console.log('ocurrió un error', error);
+                }
+                if (response) {
+                    //espacio para implementar si la consulta tiene éxito
+                }
+            });
+        }
+
+        function subSeccionEditSubmit(e) {
+            e.preventDefault();
+            form = this;
+            const xhr = new HttpRequest();
+            const endpoint = '/subseccion';
+            const formData = new FormData(form);
+            xhr.post(endpoint, formData, function(error, response) {
+                if (error) {
+                    console.log('ocurrió un error', error);
+                }
+                if (response) {
+                    //espacio para implementar si la consulta tiene éxito
+                    console.log('peticion se completo con exito')
+                }
+            });
+        }
+
+        function contenidoCreateSubmit(e) {
+            e.preventDefault();
+            form = this;
+            const xhr = new HttpRequest();
+            const endpoint = '';
+            const formData = new FormData(form);
+            xhr.post(endpoint, formData, function(error, response) {
+                if (error) {
+                    console.log('ocurrió un error', error);
+                }
+                if (response) {
+                    //espacio para implementar si la consulta tiene éxito
+                }
+            });
+        }
+
+        function contenidoEditSubmit(e) {
+            e.preventDefault();
+            form = this;
+            const xhr = new HttpRequest();
+            const endpoint = '';
+            const formData = new FormData(form);
+            xhr.post(endpoint, formData, function(error, response) {
+                if (error) {
+                    console.log('ocurrió un error', error);
+                }
+                if (response) {
+                    //espacio para implementar si la consulta tiene éxito
+                }
+            });
+        }
+
+        function deleteSubmit(e) {
+            e.preventDefault();
+            form = this;
+            const xhr = new HttpRequest();
+            const endpoint = '';
+            const formData = new FormData(form);
+            xhr.post(endpoint, formData, function(error, response) {
+                if (error) {
+                    console.log('ocurrió un error', error);
+                }
+                if (response) {
+                    //espacio para implementar si la consulta tiene éxito
+                }
+            });
+        }
 
 
-document.addEventListener('DOMContentLoaded',function(){
-    btnMap = new Map();
-    btnMap.set('btn-edit-seccion',editSeccionBtn);
-    btnMap.set('btn-delete-seccion',deleteSeccionBtn);
-    btnMap.set('btn-edit-contenido',editContenidoBtn);
-    btnMap.set('btn-delete-contenido',deleteContenidoBtn);
-    btnMap.set('btn-edit-subseccion',editSubSeccionBtn);
-    btnMap.set('btn-delete-subseccion',deleteSubSeccionBtn);
-    btnMap.set('btn-edit-subcontenido',editSubContenidoBtn);
-    btnMap.set('btn-delete-subcontenido',deleteSubContenidoBtn);
-    btnMap.set('btn-create-subseccion',createSubseccion);
-    btnMap.set('btn-create-subcontenido',createSubcontenido);
-    Array.from(btnMap.keys()).forEach((btnClass)=>{
-        Array.from(document.getElementsByClassName(btnClass)).forEach(function(btn){
-            btn.addEventListener('click',btnMap.get(btnClass));
+        document.addEventListener('DOMContentLoaded', function() {
+            btnMap = new Map();
+            btnMap.set('btn-edit-seccion', editSeccionBtn);
+            btnMap.set('btn-delete-seccion', deleteSeccionBtn);
+            btnMap.set('btn-edit-contenido', editContenidoBtn);
+            btnMap.set('btn-delete-contenido', deleteContenidoBtn);
+            btnMap.set('btn-edit-subseccion', editSubSeccionBtn);
+            btnMap.set('btn-delete-subseccion', deleteSubSeccionBtn);
+            btnMap.set('btn-edit-subcontenido', editSubContenidoBtn);
+            btnMap.set('btn-delete-subcontenido', deleteSubContenidoBtn);
+            btnMap.set('btn-create-subseccion', createSubseccion);
+            btnMap.set('btn-create-subcontenido', createSubcontenido);
+            Array.from(btnMap.keys()).forEach((btnClass) => {
+                Array.from(document.getElementsByClassName(btnClass)).forEach(function(btn) {
+                    btn.addEventListener('click', btnMap.get(btnClass));
+                });
+            });
+
+
+            formsMap = new Map();
+            formsMap.set('seccionCreateForm', seccionCreateSubmit);
+            formsMap.set('seccionEditForm', seccionEditSubmit);
+            formsMap.set('subseccionCreateForm', subSeccionCreateSubmit);
+            formsMap.set('subSeccionEditForm', subSeccionEditSubmit);
+            formsMap.set('contenidoCreateForm', contenidoCreateSubmit);
+            formsMap.set('contenidoEditForm', contenidoEditSubmit);
+            formsMap.set('deleteForm', deleteSubmit);
+
+            Array.from(formsMap.keys()).forEach((form) => {
+                document.getElementById(form).addEventListener('submit', formsMap.get(form));
+            })
+
         });
-    });
-
-
-    formsMap = new Map();
-    formsMap.set('seccionCreateForm',seccionCreateSubmit);
-    formsMap.set('seccionEditForm',seccionEditSubmit);
-    formsMap.set('seccionEditForm',subSeccionCreateSubmit);
-    formsMap.set('subSeccionEditForm',subSeccionEditSubmit);
-    formsMap.set('contenidoCreateForm',contenidoCreateSubmit);
-    formsMap.set('contenidoEditForm',contenidoEditSubmit);
-    formsMap.set('deleteForm',deleteSubmit);
-
-    Array.from(formsMap.keys()).forEach((form)=>{
-        document.getElementById(form).addEventListener('submit',formsMap.get(form));
-    })
-
-});
-</script>
+    </script>
