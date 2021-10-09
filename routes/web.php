@@ -44,8 +44,8 @@ Route::post('/subseccion/delete', 'SubSeccionController@destroy')->name('subsecc
 /************************************ CONTENIDO *************************************************/
 //para editores
 Route::post('/contenidos', 'ContenidoController@store')->name('contenido.store');
-Route::put('/contenidos', 'ContenidoController@update')->name('contenido.update');
-Route::delete('/contenidos', 'ContenidoController@destroy')->name('contenido.destroy');
+Route::post('/contenidos/update', 'ContenidoController@update')->name('contenido.update');
+Route::post('/contenidos/delete', 'ContenidoController@destroy')->name('contenido.destroy');
 
 /************************************ AVISO *************************************************/
 //para editores

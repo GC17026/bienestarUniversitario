@@ -300,18 +300,19 @@
                             <form name="cotenidoCreateForm" id="contenidoCreateForm">
                                 @csrf
                                 <input type="hidden" name="seccionPadre" id="seccionPadre" value="">
+                                <input type="hidden" name="contenidoType" id="contenidoType" value="">
                                 <div class="modal-body">
                                     <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">Tématica</label>
-                                        <input type="text" class="form-control" id="recipient-name">
+                                        <label for="recipient-name" class="col-form-label">Título</label>
+                                        <input type="text" class="form-control" id="recipient-name" name="titulo">
                                     </div>
                                     <div class="form-group">
-                                        <label for="message-text" class="col-form-label">Descripción</label>
-                                        <textarea class="form-control" id="message-text"></textarea>
+                                        <label for="message-text" class="col-form-label">Contenido</label>
+                                        <textarea class="form-control" id="message-text" name="contenido"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">Imagen</label>
-                                        <input type="file" class="form-control-file" id="File1">
+                                        <input type="file" class="form-control-file" id="File1" name="foto_contenido">
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -339,19 +340,19 @@
                             </div>
                             <form name="contenidoEditForm" id="contenidoEditForm">
                                 @csrf
-                                <input type="hidden" name="" id="contenidoid-edit" value="">
+                                <input type="hidden" name="id" id="contenidoid-edit" value="">
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="tituloContenido" class="col-form-label">Título</label>
-                                        <input type="text" class="form-control" id="tituloContenido">
+                                        <input type="text" class="form-control" id="tituloContenido" name="titulo">
                                     </div>
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">Contenido</label>
-                                        <textarea class="form-control" id="text-contenido"></textarea>
+                                        <textarea class="form-control" id="text-contenido" name="contenido"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">Imagen</label>
-                                        <input type="file" class="form-control-file" id="File1">
+                                        <input type="file" class="form-control-file" id="File1" name="foto_contenido">
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -500,10 +501,25 @@
 
         function createSubcontenido(e) {
             const createSubBtn = this;
-            const modal = document.getElementById('subseccioncreate');
+            const modal = document.getElementById('ContenidoCreate');
+            const seccionPadre = modal.querySelector('#seccionPadre');
+            seccionPadre.value = createSubBtn.dataset.subseccionid;
+            const contenidoType = modal.querySelector('#contenidoType');
+            contenidoType.value = "subseccion";
+        }
+
+        function createContenido(e) {
+            const createSubBtn = this;
+            const modal = document.getElementById('ContenidoCreate');
             const seccionPadre = modal.querySelector('#seccionPadre');
             seccionPadre.value = createSubBtn.dataset.seccionid;
+            const contenidoType = modal.querySelector('#contenidoType');
+            contenidoType.value = "seccion";
         }
+
+
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------
+
 
         function seccionCreateSubmit(e) {
             e.preventDefault();
@@ -515,7 +531,8 @@
                 if (error) {
                     console.log('ocurrió un error', error);
                     const resp = JSON.parse(error);
-                    const alert = document.getElementById('modal-alert');
+                    const modal = document.getElementById('seccioncreate');
+                    const alert = modal.querySelector('#modal-alert');
                     alert.innerHTML = resp.error;
                     alert.style.display = "block";
                     alert.classList.add('alert-danger');
@@ -549,7 +566,8 @@
                 if (error) {
                     console.log('ocurrió un error', error);
                     const resp = JSON.parse(error);
-                    const alert = document.getElementById('modal-alert');
+                    const modal = document.getElementById('seccionedit');
+                    const alert = modal.querySelector('#modal-alert');
                     alert.innerHTML = resp.error;
                     alert.style.display = "block";
                     alert.classList.add('alert-danger');
@@ -583,7 +601,8 @@
                 if (error) {
                     console.log('ocurrió un error', error);
                     const resp = JSON.parse(error);
-                    const alert = document.getElementById('modal-alert');
+                    const modal = document.getElementById('subseccioncreate');
+                    const alert = modal.querySelector('#modal-alert');
                     alert.innerHTML = resp.error;
                     alert.style.display = "block";
                     alert.classList.add('alert-danger');
@@ -616,7 +635,8 @@
                 if (error) {
                     console.log('ocurrió un error', error);
                     const resp = JSON.parse(error);
-                    const alert = document.getElementById('modal-alert');
+                    const modal = document.getElementById('subseccionedit');
+                    const alert = modal.querySelector('#modal-alert');
                     alert.innerHTML = resp.error;
                     alert.style.display = "block";
                     alert.classList.add('alert-danger');
@@ -644,14 +664,34 @@
             e.preventDefault();
             form = this;
             const xhr = new HttpRequest();
-            const endpoint = '';
+            const endpoint = '/contenidos';
             const formData = new FormData(form);
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
                     console.log('ocurrió un error', error);
+                    const resp = JSON.parse(error);
+                    const modal = document.getElementById('ContenidoCreate');
+                    const alert = modal.querySelector('#modal-alert');
+                    alert.innerHTML = resp.error;
+                    alert.style.display = "block";
+                    alert.classList.add('alert-danger');
                 }
                 if (response) {
+                    console.log(response)
                     //espacio para implementar si la consulta tiene éxito
+                    const resp = JSON.parse(response);
+                    const alert = document.getElementById('alert-message');
+                    alert.innerHTML = resp.success;
+                    alert.style.display = "block";
+                    alert.classList.add('alert-success');
+                    const modal = document.getElementById('ContenidoCreate');
+                    Array.from(document.getElementsByClassName('modal-backdrop')).forEach((panel) => {
+                        panel.remove();
+                    });
+                    modal.style.display = "none";
+                    setTimeout(function() {
+                        window.location.reload(1);
+                    }, 1200);
                 }
             });
         }
@@ -660,14 +700,35 @@
             e.preventDefault();
             form = this;
             const xhr = new HttpRequest();
-            const endpoint = '';
+            const endpoint = '/contenidos/update';
             const formData = new FormData(form);
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
                     console.log('ocurrió un error', error);
+                    const resp = JSON.parse(error);
+                    const modal = document.getElementById('ContenidoEdit');
+                    const alert = modal.querySelector('#modal-alert');
+                    alert.innerHTML = resp.error;
+                    alert.style.display = "block";
+                    alert.classList.add('alert-danger');
                 }
                 if (response) {
                     //espacio para implementar si la consulta tiene éxito
+                    console.log(response)
+                    //espacio para implementar si la consulta tiene éxito
+                    const resp = JSON.parse(response);
+                    const alert = document.getElementById('alert-message');
+                    alert.innerHTML = resp.success;
+                    alert.style.display = "block";
+                    alert.classList.add('alert-success');
+                    const modal = document.getElementById('ContenidoEdit');
+                    Array.from(document.getElementsByClassName('modal-backdrop')).forEach((panel) => {
+                        panel.remove();
+                    });
+                    modal.style.display = "none";
+                    setTimeout(function() {
+                        window.location.reload(1);
+                    }, 1200);
                 }
             });
         }
@@ -675,15 +736,13 @@
         function deleteSubmit(e) {
             endpointMap = new Map();
             endpointMap.set('seccion', '/seccion/delete');
-            endpointMap.set('contenido', '');
+            endpointMap.set('contenido', '/contenidos/delete');
             endpointMap.set('subseccion', '/subseccion/delete');
-            endpointMap.set('subcontenido', '');
+            endpointMap.set('subcontenido', '/contenidos/delete');
             e.preventDefault();
             form = this;
             const xhr = new HttpRequest();
             const formData = new FormData(form);
-            console.log("formpene: ",formData.get('toDeleteType'));
-            console.log("rutapene: ", endpointMap.get(formData.get('toDeleteType')));
             const endpoint = endpointMap.get(formData.get('toDeleteType'));
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
@@ -717,6 +776,7 @@
             btnMap = new Map();
             btnMap.set('btn-edit-seccion', editSeccionBtn);
             btnMap.set('btn-delete-seccion', deleteSeccionBtn);
+            btnMap.set('btn-create-contenido', createContenido);
             btnMap.set('btn-edit-contenido', editContenidoBtn);
             btnMap.set('btn-delete-contenido', deleteContenidoBtn);
             btnMap.set('btn-edit-subseccion', editSubSeccionBtn);

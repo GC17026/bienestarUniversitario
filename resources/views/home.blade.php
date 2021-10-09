@@ -9,9 +9,15 @@
         <div class="row justify-content-center h-100">
             <div id="sliderC" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
+                    @php
+                    $counter=0
+                    @endphp
                     @foreach ($seccion->contenidos as $contenido)
-                    <li data-target="#sliderC" data-slide-to="{{ $contenido->id - 1 }}" class="@if ($contenido == $seccion->contenidos[0]) active @endif">
+                    <li data-target="#sliderC" data-slide-to="{{ $counter }}" class="@if ($contenido == $seccion->contenidos[0]) active @endif">
                     </li>
+                    @php
+                    $counter=$counter+1
+                    @endphp
                     @endforeach
                 </ol>
                 <div class="carousel-inner h-100">
