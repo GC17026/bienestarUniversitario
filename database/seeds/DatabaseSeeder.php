@@ -30,11 +30,20 @@ class DatabaseSeeder extends Seeder
         $superAdminRole = Role::create(['name' => 'Administrador']);
         $superAdminRole->syncPermissions($permissions_array);
 
+        $consultor = Role::create(['name' => 'Consultor']); //Cuando se crea nuevo usuario, sin importar su cargo elegido: Estudiante/docente/externo a la institución/personal de bienestar
+        $Editor = Role::create(['name' => 'Editor']);
+
         Cargo::create([
             'name' => 'Profesor'
         ]);
         Cargo::create([
             'name' => 'Estudiante'
+        ]);
+        Cargo::create([
+            'name' => 'Externo a la institución'
+        ]);
+        Cargo::create([
+            'name' => 'Personal de bienestar'
         ]);
         $userSuperAdmin=User::create([
             'name' => 'Efectivo',
@@ -43,8 +52,25 @@ class DatabaseSeeder extends Seeder
             'email' => "admin@gmail.com",
             'password'=>Hash::make('admin'),
         ]);
-
         $userSuperAdmin->assignRole('Administrador');
+
+        $userSuperEditor=User::create([
+            'name' => 'Efectivo',
+            'lastname' => 'Dinero dinero',
+            'cargo_id' => 1,
+            'email' => "editor@gmail.com",
+            'password'=>Hash::make('admin'),
+        ]);
+        $userSuperEditor->assignRole('Editor');
+
+        $userSuperConsultor=User::create([
+            'name' => 'Efectivo',
+            'lastname' => 'Dinero dinero',
+            'cargo_id' => 1,
+            'email' => "consultor@gmail.com",
+            'password'=>Hash::make('admin'),
+        ]);
+        $userSuperConsultor->assignRole('Consultor');
 
         Seccion::create([
             'nombre'=>'Inicio',
@@ -78,7 +104,7 @@ class DatabaseSeeder extends Seeder
             En este Sitio encontrarÁs toda la información referente a los servicios y actividades que Bienestar Universitario realiza, nuestra MisiÓn, Visión, Objetivos y Valores, asi como los Servicios MÉdicos que se encuentran disponibles en nuestras instalaciones.
 
             Para obtener todos los beneficios que Bienestar Universitario te brinda, puedes registrarte dando click AQUI , Es completamente Gratis y sencillo!!!',
-            'urlImg'=>'	http://www.bienestar.ues.edu.sv/images/salud.png',
+            'urlImg'=>'https://revistaeducacionvirtual.com/wp-content/uploads/2016/10/estudiante-feliz-730x486.jpg',
             'seccion_id'=>1
         ]);
         Contenido::create([
@@ -98,28 +124,38 @@ class DatabaseSeeder extends Seeder
             Además se presentará  RADIOGRAFIA DE TORAX (Facultad de medicina). El certificado de salud es prerrequisito para la inscripción en cada facultad.
             Incluye consulta médica y los cuatro exámenes de laboratorios.
             Se pagara en la colecturía de la secretaria de bienestar universitario.',
-            'urlImg'=>'/assets/bob.png',
+            'urlImg'=>'https://st.depositphotos.com/2024219/4320/i/950/depositphotos_43206081-stock-photo-young-student-thinking-over-pink.jpg',
             'seccion_id'=>1
         ]);
         Contenido::create([
             'titulo'=>'Titulo 2',
             'contenido'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            'urlImg'=>'http://washingtonhispanic.com/portal/wp-content/uploads/2018/05/Foto-2-Visas-estudiantes.jpg',
             'seccion_id'=>2
         ]);
         Contenido::create([
             'titulo'=>'Titulo 3',
             'contenido'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            'urlImg'=>'https://st3.depositphotos.com/3591429/13527/i/1600/depositphotos_135272718-stock-photo-young-diverse-students.jpg',
             'seccion_id'=>3
         ]);
         //contenido subseccion
         Contenido::create([
             'titulo'=>'Subseccion subtitulo',
             'contenido'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            'urlImg'=>'https://st.depositphotos.com/2024219/4320/i/950/depositphotos_43206081-stock-photo-young-student-thinking-over-pink.jpg',
             'sub_seccion_id'=>1
         ]);
         Contenido::create([
             'titulo'=>'Subseccion subtitulo 2',
             'contenido'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            'urlImg'=>'https://st3.depositphotos.com/3591429/13527/i/1600/depositphotos_135272718-stock-photo-young-diverse-students.jpg',
+            'sub_seccion_id'=>2
+        ]);
+        Contenido::create([
+            'titulo'=>'Subseccion subtitulo 3',
+            'contenido'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            'urlImg'=>'https://st.depositphotos.com/2024219/4320/i/950/depositphotos_43206081-stock-photo-young-student-thinking-over-pink.jpg',
             'sub_seccion_id'=>2
         ]);
 
