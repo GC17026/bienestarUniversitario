@@ -126,7 +126,7 @@
 
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
-                                                                                 document.getElementById('logout-form').submit();">
+                                                                                     document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
                         </a>
 
@@ -163,10 +163,12 @@
                         style="background:#F7F9FA;">
                         <div class="d-flex justify-content-center pb-2">
                             <p class="h3">Novedades</p>
-                            <button type="button" class="btn-create-novedad btn btn-info btn-circle ml-auto"
-                                data-toggle="modal" data-target="#novedadcreate">
-                                <i class="fa fa-plus"></i>
-                            </button>
+                            @can('crear aviso')
+                                <button type="button" class="btn-create-novedad btn btn-info btn-circle ml-auto"
+                                    data-toggle="modal" data-target="#novedadcreate">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            @endcan
                         </div>
                     </div>
 
@@ -197,20 +199,24 @@
                                                             class="d-inline-block align-top mr-2" alt="">
                                                         <p class="h3 ml-2">{{ $aviso->titulo }}</p>
                                                     </div>
-                                                    <button type="button"
-                                                        class="btn-edit-novedad btn btn-success m-1  btn-circle ml-auto"
-                                                        data-toggle="modal" data-target="#NovedadEdit"
-                                                        data-novedadid="{{ $aviso->id }}"
-                                                        data-titulo="{{ $aviso->titulo }}"
-                                                        data-contenido="{{ $aviso->contenido }}">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button"
-                                                        class="btn-delete-novedad btn btn-danger m-1  btn-circle"
-                                                        data-toggle="modal" data-novedadid="{{ $aviso->id }}"
-                                                        data-tipoDelete='novedad' data-target="#deleteModal">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
+                                                    @can('editar aviso')
+                                                        <button type="button"
+                                                            class="btn-edit-novedad btn btn-success m-1  btn-circle ml-auto"
+                                                            data-toggle="modal" data-target="#NovedadEdit"
+                                                            data-novedadid="{{ $aviso->id }}"
+                                                            data-titulo="{{ $aviso->titulo }}"
+                                                            data-contenido="{{ $aviso->contenido }}">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
+                                                    @endcan
+                                                    @can('eliminar aviso')
+                                                        <button type="button"
+                                                            class="btn-delete-novedad btn btn-danger m-1  btn-circle"
+                                                            data-toggle="modal" data-novedadid="{{ $aviso->id }}"
+                                                            data-tipoDelete='novedad' data-target="#deleteModal">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                    @endcan
                                                 </div>
                                                 <div class="w-100 text-justify">
                                                     <p class="w-100 p-3">{{ $aviso->contenido }}</p>

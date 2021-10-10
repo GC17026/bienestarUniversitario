@@ -22,16 +22,35 @@ class DatabaseSeeder extends Seeder
     {
 
         $permissions_array = [];
-        array_push($permissions_array, Permission::create(['name' => 'crear usuario']));
-        array_push($permissions_array, Permission::create(['name' => 'editar usuario']));
-        array_push($permissions_array, Permission::create(['name' => 'eliminar usuario']));
-        array_push($permissions_array, Permission::create(['name' => 'leer usuario']));
+        array_push($permissions_array, Permission::create(['name' => 'crear aviso']));
+        array_push($permissions_array, Permission::create(['name' => 'editar aviso']));
+        array_push($permissions_array, Permission::create(['name' => 'eliminar aviso']));
+        array_push($permissions_array, Permission::create(['name' => 'leer aviso']));
+
+        array_push($permissions_array, Permission::create(['name' => 'crear seccion']));
+        array_push($permissions_array, Permission::create(['name' => 'editar seccion']));
+        array_push($permissions_array, Permission::create(['name' => 'eliminar seccion']));
+        array_push($permissions_array, Permission::create(['name' => 'leer seccion']));
+
+        array_push($permissions_array, Permission::create(['name' => 'crear subseccion']));
+        array_push($permissions_array, Permission::create(['name' => 'editar subseccion']));
+        array_push($permissions_array, Permission::create(['name' => 'eliminar subseccion']));
+        array_push($permissions_array, Permission::create(['name' => 'leer subseccion']));
+
+        array_push($permissions_array, Permission::create(['name' => 'crear contenido']));
+        array_push($permissions_array, Permission::create(['name' => 'editar contenido']));
+        array_push($permissions_array, Permission::create(['name' => 'eliminar contenido']));
+        array_push($permissions_array, Permission::create(['name' => 'leer contenido']));
+
+        $Editor = Role::create(['name' => 'Editor']);//Cuando se crea nuevo usuario, sin importar su cargo elegido: Estudiante/docente/externo a la institución/personal de bienestar
+        $Editor->syncPermissions($permissions_array);
+
+        array_push($permissions_array, Permission::create(['name' => 'leer bitacora']));
 
         $superAdminRole = Role::create(['name' => 'Administrador']);
         $superAdminRole->syncPermissions($permissions_array);
 
-        $consultor = Role::create(['name' => 'Consultor']); //Cuando se crea nuevo usuario, sin importar su cargo elegido: Estudiante/docente/externo a la institución/personal de bienestar
-        $Editor = Role::create(['name' => 'Editor']);
+        $consultor = Role::create(['name' => 'Consultor']);
 
         Cargo::create([
             'name' => 'Profesor'
@@ -46,7 +65,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Personal de bienestar'
         ]);
         $userSuperAdmin=User::create([
-            'name' => 'Efectivo',
+            'name' => 'Administrador',
             'lastname' => 'Dinero dinero',
             'cargo_id' => 1,
             'email' => "admin@gmail.com",
@@ -55,7 +74,7 @@ class DatabaseSeeder extends Seeder
         $userSuperAdmin->assignRole('Administrador');
 
         $userSuperEditor=User::create([
-            'name' => 'Efectivo',
+            'name' => 'Editor',
             'lastname' => 'Dinero dinero',
             'cargo_id' => 1,
             'email' => "editor@gmail.com",
@@ -64,7 +83,7 @@ class DatabaseSeeder extends Seeder
         $userSuperEditor->assignRole('Editor');
 
         $userSuperConsultor=User::create([
-            'name' => 'Efectivo',
+            'name' => 'Consultor',
             'lastname' => 'Dinero dinero',
             'cargo_id' => 1,
             'email' => "consultor@gmail.com",

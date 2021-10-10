@@ -15,9 +15,11 @@
         <h3 class="card-link" data-toggle="collapse">
             Secciones
         </h3>
+        @can('crear seccion')
         <button type="button" class="btn btn-info btn-circle ml-auto" data-toggle="modal" data-target="#seccioncreate">
             <i class="fa fa-plus"></i>
         </button>
+        @endcan
     </div>
     <div id="accordion" class="mt-3">
         @foreach($secciones as $seccion)
@@ -27,12 +29,16 @@
                     <a class="card-link " data-toggle="collapse" href="#collapseOne{{$seccion->id}}">
                         {{$seccion->nombre}}
                     </a>
+                    @can('editar seccion')
                     <button type="button" class="btn-edit-seccion btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-seccionid="{{$seccion->id}}" data-iconseccion="{{$seccion->icono}}" data-nombreseccion="{{$seccion->nombre}}" data-target="#seccionedit">
                         <i class="fa fa-edit"></i>
                     </button>
+                    @endcan
+                    @can('eliminar seccion')
                     <button type="button" class="btn-delete-seccion btn btn-danger m-1  btn-circle" data-toggle="modal" data-seccionid="{{$seccion->id}}" data-tipoDelete='seccion' data-target="#deleteModal">
                         <i class="fa fa-times"></i>
                     </button>
+                    @endcan
                 </div>
             </div>
             <div id="collapseOne{{$seccion->id}}" class="collapse " data-parent="#accordion">
@@ -43,9 +49,11 @@
                                 <a class="card-link" data-toggle="collapse" href="#collapseThree{{$seccion->id}}">
                                     Contenidos de seccion
                                 </a>
+                                @can('crear contenido')
                                 <button type="button" class="btn-create-contenido btn btn-info btn-circle ml-auto" data-toggle="modal" data-target="#ContenidoCreate" data-seccionid="{{$seccion->id}}">
                                     <i class="fa fa-plus"></i>
                                 </button>
+                                @endcan
                             </div>
                         </div>
                         <div id="collapseThree{{$seccion->id}}" class="collapse " data-parent="#collapseOne{{$seccion->id}}">
@@ -55,12 +63,16 @@
                                     <div>
                                         {{$contenido->titulo}}
                                     </div>
+                                    @can('editar contenido')
                                     <button type="button" class="btn-edit-contenido btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-target="#ContenidoEdit" data-contenidoid="{{$contenido->id}}" data-titulo="{{$contenido->titulo}}" data-contenido="{{$contenido->contenido}}">
                                         <i class="fa fa-edit"></i>
                                     </button>
+                                    @endcan
+                                    @can('eliminar contenido')
                                     <button type="button" class="btn-delete-contenido btn btn-danger m-1  btn-circle" data-toggle="modal" data-contenidoid="{{$contenido->id}}" data-tipoDelete='contenido' data-target="#deleteModal">
                                         <i class="fa fa-times"></i>
                                     </button>
+                                    @endcan
                                 </div>
                             </div>
                             @endforeach
@@ -74,9 +86,11 @@
                                 <a class="card-link" data-toggle="collapse" href="#collapseTwo{{$seccion->id}}">
                                     Subsecciones
                                 </a>
+                                @can('crear subseccion')
                                 <button type="button" class="btn-create-subseccion btn btn-info btn-circle ml-auto" data-toggle="modal" data-target="#subseccioncreate" data-seccionid="{{$seccion->id}}">
                                     <i class="fa fa-plus"></i>
                                 </button>
+                                @endcan
                             </div>
                         </div>
                         <div id="collapseTwo{{$seccion->id}}" class="collapse " data-parent="#collapseOne{{$seccion->id}}">
@@ -88,12 +102,16 @@
                                             <a class="card-link" data-toggle="collapse" href="#collapseFive">
                                                 {{$subseccion->nombre}}
                                             </a>
+                                            @can('editar subseccion')
                                             <button type="button" class="btn-edit-subseccion btn btn-success m-1  btn-circle ml-auto" data-subseccionid="{{$subseccion->id}}" data-iconosubseccion="{{$subseccion->icono}}" data-nombresubseccion="{{$subseccion->nombre}}" data-toggle="modal" data-target="#subseccionedit">
                                                 <i class="fa fa-edit"></i>
                                             </button>
+                                            @endcan
+                                            @can('eliminar subseccion')
                                             <button type="button" class="btn-delete-subseccion btn btn-danger m-1  btn-circle" data-subseccionid="{{$subseccion->id}}" data-tipoDelete='subseccion' data-toggle="modal" data-target="#deleteModal">
                                                 <i class="fa fa-times"></i>
                                             </button>
+                                            @endcan
                                         </div>
                                     </div>
                                     <div id="collapseFive" class="collapse " data-parent="#accordion5">
@@ -105,9 +123,11 @@
                                                         <a class="card-link" data-toggle="collapse" href="#collapseFour">
                                                             Contenidos de subseccion
                                                         </a>
+                                                        @can('crear contenido')
                                                         <button type="button" class="btn-create-subcontenido btn btn-info btn-circle ml-auto" data-toggle="modal" data-target="#ContenidoCreate" data-subseccionid="{{$subseccion->id}}">
                                                             <i class="fa fa-plus"></i>
                                                         </button>
+                                                        @endcan
                                                     </div>
                                                 </div>
                                                 <div id="collapseFour" class="collapse " data-parent="#accordion4">
@@ -117,12 +137,16 @@
                                                             <div>
                                                                 {{$subcontenido->titulo}}
                                                             </div>
+                                                            @can('editar contenido')
                                                             <button type="button" class="btn-edit-subcontenido btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-target="#ContenidoEdit" data-subcontenidoid="{{$subcontenido->id}}" data-titulo="{{$contenido->titulo}}" data-contenido="{{$contenido->contenido}}">
                                                                 <i class="fa fa-edit"></i>
                                                             </button>
+                                                            @endcan
+                                                            @can('eliminar contenido')
                                                             <button type="button" class="btn-delete-subcontenido btn btn-danger m-1  btn-circle" data-toggle="modal" data-target="#deleteModal" data-subcontenidoid="{{$subcontenido->id}}" data-tipoDelete='subcontenido'>
                                                                 <i class="fa fa-times"></i>
                                                             </button>
+                                                            @endcan
                                                         </div>
                                                         @endforeach
                                                     </div>
@@ -553,11 +577,16 @@
             const formData = new FormData(form);
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
-                    console.log('ocurrió un error', error);
-                    const resp = JSON.parse(error);
+                    console.log('ocurrió un error', xhr.http.status);
+                    if (xhr.http.status == 403) {
+                        text = "Usted no tiene permisos para realizar esta accion";
+                    } else {
+                        const resp = JSON.parse(error);
+                        text = resp.error;
+                    }
                     const modal = document.getElementById('seccioncreate');
                     const alert = modal.querySelector('#modal-alert');
-                    alert.innerHTML = resp.error;
+                    alert.innerHTML = text;
                     alert.style.display = "block";
                     alert.classList.add('alert-danger');
                 }
@@ -588,11 +617,16 @@
             const formData = new FormData(form);
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
-                    console.log('ocurrió un error', error);
-                    const resp = JSON.parse(error);
+                    console.log('ocurrió un error', xhr.http.status);
+                    if (xhr.http.status == 403) {
+                        text = "Usted no tiene permisos para realizar esta accion";
+                    } else {
+                        const resp = JSON.parse(error);
+                        text = resp.error;
+                    }
                     const modal = document.getElementById('seccionedit');
                     const alert = modal.querySelector('#modal-alert');
-                    alert.innerHTML = resp.error;
+                    alert.innerHTML = text;
                     alert.style.display = "block";
                     alert.classList.add('alert-danger');
                 }
@@ -623,11 +657,16 @@
             const formData = new FormData(form);
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
-                    console.log('ocurrió un error', error);
-                    const resp = JSON.parse(error);
+                    console.log('ocurrió un error', xhr.http.status);
+                    if (xhr.http.status == 403) {
+                        text = "Usted no tiene permisos para realizar esta accion";
+                    } else {
+                        const resp = JSON.parse(error);
+                        text = resp.error;
+                    }
                     const modal = document.getElementById('subseccioncreate');
                     const alert = modal.querySelector('#modal-alert');
-                    alert.innerHTML = resp.error;
+                    alert.innerHTML = text;
                     alert.style.display = "block";
                     alert.classList.add('alert-danger');
                 }
@@ -657,11 +696,16 @@
             const formData = new FormData(form);
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
-                    console.log('ocurrió un error', error);
-                    const resp = JSON.parse(error);
+                    console.log('ocurrió un error', xhr.http.status);
+                    if (xhr.http.status == 403) {
+                        text = "Usted no tiene permisos para realizar esta accion";
+                    } else {
+                        const resp = JSON.parse(error);
+                        text = resp.error;
+                    }
                     const modal = document.getElementById('subseccionedit');
                     const alert = modal.querySelector('#modal-alert');
-                    alert.innerHTML = resp.error;
+                    alert.innerHTML = text;
                     alert.style.display = "block";
                     alert.classList.add('alert-danger');
                 }
@@ -692,11 +736,16 @@
             const formData = new FormData(form);
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
-                    console.log('ocurrió un error', error);
-                    const resp = JSON.parse(error);
+                    console.log('ocurrió un error', xhr.http.status);
+                    if (xhr.http.status == 403) {
+                        text = "Usted no tiene permisos para realizar esta accion";
+                    } else {
+                        const resp = JSON.parse(error);
+                        text = resp.error;
+                    }
                     const modal = document.getElementById('ContenidoCreate');
                     const alert = modal.querySelector('#modal-alert');
-                    alert.innerHTML = resp.error;
+                    alert.innerHTML = text;
                     alert.style.display = "block";
                     alert.classList.add('alert-danger');
                 }
@@ -728,11 +777,16 @@
             const formData = new FormData(form);
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
-                    console.log('ocurrió un error', error);
-                    const resp = JSON.parse(error);
+                    console.log('ocurrió un error', xhr.http.status);
+                    if (xhr.http.status == 403) {
+                        text = "Usted no tiene permisos para realizar esta accion";
+                    } else {
+                        const resp = JSON.parse(error);
+                        text = resp.error;
+                    }
                     const modal = document.getElementById('ContenidoEdit');
                     const alert = modal.querySelector('#modal-alert');
-                    alert.innerHTML = resp.error;
+                    alert.innerHTML = text;
                     alert.style.display = "block";
                     alert.classList.add('alert-danger');
                 }
@@ -766,11 +820,16 @@
             const formData = new FormData(form);
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
-                    console.log('ocurrió un error', error);
-                    const resp = JSON.parse(error);
+                    console.log('ocurrió un error', xhr.http.status);
+                    if (xhr.http.status == 403) {
+                        text = "Usted no tiene permisos para realizar esta accion";
+                    } else {
+                        const resp = JSON.parse(error);
+                        text = resp.error;
+                    }
                     const modal = document.getElementById('NovedadCreate');
                     const alert = modal.querySelector('#modal-alert');
-                    alert.innerHTML = resp.error;
+                    alert.innerHTML = text;
                     alert.style.display = "block";
                     alert.classList.add('alert-danger');
                 }
@@ -802,11 +861,16 @@
             const formData = new FormData(form);
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
-                    console.log('ocurrió un error', error);
-                    const resp = JSON.parse(error);
+                    console.log('ocurrió un error', xhr.http.status);
+                    if (xhr.http.status == 403) {
+                        text = "Usted no tiene permisos para realizar esta accion";
+                    } else {
+                        const resp = JSON.parse(error);
+                        text = resp.error;
+                    }
                     const modal = document.getElementById('NovedadEdit');
                     const alert = modal.querySelector('#modal-alert');
-                    alert.innerHTML = resp.error;
+                    alert.innerHTML = text;
                     alert.style.display = "block";
                     alert.classList.add('alert-danger');
                 }
@@ -845,10 +909,15 @@
             const endpoint = endpointMap.get(formData.get('toDeleteType'));
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
-                    console.log('ocurrió un error', error);
-                    const resp = JSON.parse(error);
+                    console.log('ocurrió un error', xhr.http.status);
+                    if (xhr.http.status == 403) {
+                        text = "Usted no tiene permisos para realizar esta accion";
+                    } else {
+                        const resp = JSON.parse(error);
+                        text = resp.error;
+                    }
                     const alert = document.getElementById('modal-alert');
-                    alert.innerHTML = resp.error;
+                    alert.innerHTML = text;
                     alert.style.display = "block";
                     alert.classList.add('alert-danger');
                 }
@@ -905,7 +974,6 @@
             formsMap.set('novedadCreateForm', novedadCreateSubmit);
             formsMap.set('novedadEditForm', novedadEditSubmit);
             Array.from(formsMap.keys()).forEach((form) => {
-                console.log(document.getElementById(form))
                 document.getElementById(form).addEventListener('submit', formsMap.get(form));
             })
         });
