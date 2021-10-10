@@ -535,7 +535,11 @@
         }
 
         function deleteNovedadBtn(e) {
-            console.log("prueba");
+            const deleteBtn = this;
+            const {
+                toDeleteId
+            } = getDeleteModalElements(deleteBtn);
+            toDeleteId.value = deleteBtn.dataset.novedadid;
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -794,7 +798,7 @@
             e.preventDefault();
             form = this;
             const xhr = new HttpRequest();
-            const endpoint = '/avisos/update';
+            const endpoint = '/aviso/update';
             const formData = new FormData(form);
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
@@ -833,6 +837,7 @@
             endpointMap.set('contenido', '/contenidos/delete');
             endpointMap.set('subseccion', '/subseccion/delete');
             endpointMap.set('subcontenido', '/contenidos/delete');
+            endpointMap.set('novedad', '/aviso/delete');
             e.preventDefault();
             form = this;
             const xhr = new HttpRequest();

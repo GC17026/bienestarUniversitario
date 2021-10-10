@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Aviso;
 use Illuminate\Http\Request;
-
+use Response;
+use App\Http\Controllers\Throwable;
 class AvisoController extends Controller
 {
     /**
@@ -89,9 +90,19 @@ class AvisoController extends Controller
      * @param  \App\Aviso  $aviso
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Aviso $aviso)
+    public function update(Request $request)
     {
-        //
+        try{
+            $seccion=Aviso::findOrFail($request->id);
+            $seccion->update([
+                'titulo'=>$request->titulo,
+                'contenido'=>$request->contenido
+            ]);
+            return Response::json(['success'=>'Se ha actualizado el aviso correctamente'],200);
+        }
+        catch(Exception $e){
+            return Response::json(['error'=>'Ocurrió un error.'],400);
+        }
     }
 
     /**
@@ -100,8 +111,15 @@ class AvisoController extends Controller
      * @param  \App\Aviso  $aviso
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Aviso $aviso)
+    public function destroy(Request $request)
     {
-        //
+        try{
+            $seccion=Aviso::findOrFail($request->toDeleteId);
+            $seccion->delete();
+            return Response::json(['success'=>'Se ha eliminado la sección correctamente'],200);
+        }
+        catch(Exception $e){
+            return Response::json(['error'=>'Ocurrió un error. no se pudo completar el proceso'],400);
+        }
     }
 }

@@ -17,7 +17,7 @@ class CreateAvisosTable extends Migration
             $table->id();
             $table->string('titulo');
             $table->string('contenido',1024);
-            $table->string('urlImg');
+            $table->string('urlImg')->nullable();
             $table->timestamps();
         });
     }

@@ -124,8 +124,9 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
 
-                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                     document.getElementById('logout-form').submit();">
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                                                                 document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
                         </a>
 
@@ -162,19 +163,27 @@
                         style="background:#F7F9FA;">
                         <div class="d-flex justify-content-center pb-2">
                             <p class="h3">Novedades</p>
-                            <button type="button" class="btn-create-novedad btn btn-info btn-circle ml-auto" data-toggle="modal"
-                                data-target="#novedadcreate">
+                            <button type="button" class="btn-create-novedad btn btn-info btn-circle ml-auto"
+                                data-toggle="modal" data-target="#novedadcreate">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
                     </div>
+
                     <div id="slider" class="carousel slide" data-ride="carousel">
+                        @php
+                            $counter = 0;
+                        @endphp
                         <ol class="carousel-indicators">
                             @foreach ($avisos as $aviso)
-                                <li data-target="#slider" data-slide-to="{{ $aviso->id - 1 }}"
+                                <li data-target="#slider" data-slide-to="{{ $counter }}"
                                     class="@if ($aviso == $avisos[0]) active @endif"></li>
+                                @php
+                                    $counter = $counter + 1;
+                                @endphp
                             @endforeach
                         </ol>
+
                         <div class="carousel-inner">
                             @foreach ($avisos as $aviso)
                                 <div class="carousel-item @if ($aviso == $avisos[0]) active @endif">
@@ -191,14 +200,14 @@
                                                     <button type="button"
                                                         class="btn-edit-novedad btn btn-success m-1  btn-circle ml-auto"
                                                         data-toggle="modal" data-target="#NovedadEdit"
-                                                        data-novedadid="{{ $contenido->id }}"
-                                                        data-titulo="{{ $contenido->titulo }}"
-                                                        data-contenido="{{ $contenido->contenido }}">
+                                                        data-novedadid="{{ $aviso->id }}"
+                                                        data-titulo="{{ $aviso->titulo }}"
+                                                        data-contenido="{{ $aviso->contenido }}">
                                                         <i class="fa fa-edit"></i>
                                                     </button>
                                                     <button type="button"
                                                         class="btn-delete-novedad btn btn-danger m-1  btn-circle"
-                                                        data-toggle="modal" data-novedadid="{{ $contenido->id }}"
+                                                        data-toggle="modal" data-novedadid="{{ $aviso->id }}"
                                                         data-tipoDelete='novedad' data-target="#deleteModal">
                                                         <i class="fa fa-times"></i>
                                                     </button>
@@ -233,6 +242,9 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <div class="alert" id="modal-alert" role="alert" style="display:none;">
+                    This is a success alert—check it out!
+                </div>
                 <form name="novedadCreateForm" id="novedadCreateForm">
                     @csrf
                     <div class="modal-body">
@@ -244,13 +256,13 @@
                             <label for="message-text" class="col-form-label">Contenido</label>
                             <textarea class="form-control" id="message-text" name="contenido"></textarea>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label for="message-text" class="col-form-label">Imagen</label>
                             <input type="file" class="form-control-file" id="File1" name="foto_contenido">
-                        </div>
+                        </div>-->
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-info">Guardar</button>
+                        <button type="submit" class="btn btn-info">Guardar</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
@@ -274,7 +286,7 @@
                 </div>
                 <form name="novedadEditForm" id="novedadEditForm">
                     @csrf
-                    <input type="hidden" name="" id="novedadid-edit" value="">
+                    <input type="hidden" name="id" id="novedadid-edit" value="">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="tituloContenido" class="col-form-label">Título</label>
@@ -284,10 +296,10 @@
                             <label for="message-text" class="col-form-label">Contenido</label>
                             <textarea class="form-control" id="text-contenido" name="contenido"></textarea>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label for="message-text" class="col-form-label">Imagen</label>
                             <input type="file" class="form-control-file" id="File1" name="foto_contenido">
-                        </div>
+                        </div>-->
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-info">Editar</button>
