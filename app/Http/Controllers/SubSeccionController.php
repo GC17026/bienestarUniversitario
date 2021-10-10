@@ -8,6 +8,8 @@ use App\Contenido;
 use Illuminate\Http\Request;
 use Response;
 use App\Http\Controllers\Throwable;
+use Illuminate\Support\Facades\Auth;
+use App\Bitacora;
 
 class SubSeccionController extends Controller
 {
@@ -40,11 +42,17 @@ class SubSeccionController extends Controller
     public function store(Request $request)
     {
         try{
-            SubSeccion::create([
+            $subseccion=SubSeccion::create([
                 'nombre'=>$request->nombre,
                 'icono'=>$request->icono,
                 'seccion_id'=>$request->seccionPadre
             ]);
+
+            Bitacora::create([
+                'usuario'=>Auth::user()->name,
+                'accion'=>'Creo una subsección: '.$subseccion->nombre.' perteneciente a la seccion: '.$subseccion->seccion->nombre,
+            ]);
+
             return Response::json(['success'=>'Se ha creado una nueva subsección'],200);
         }
         catch(Exception $e){
@@ -84,11 +92,17 @@ class SubSeccionController extends Controller
     public function update(Request $request)
     {
         try{
-            $seccion=SubSeccion::findOrFail($request->id);
-            $seccion->update([
+            $subseccion=SubSeccion::findOrFail($request->id);
+            $subseccion->update([
                 'nombre'=>$request->nombre,
                 'icono'=>$request->icono
             ]);
+
+            Bitacora::create([
+                'usuario'=>Auth::user()->name,
+                'accion'=>'Actualizó una subsección: '.$subseccion->nombre.', perteneciente a la seccion: '.$subseccion->seccion->nombre,
+            ]);
+
             return Response::json(['success'=>'Se ha actualizado la subsección correctamente'],200);
         }
         catch(Exception $e){
@@ -105,8 +119,14 @@ class SubSeccionController extends Controller
     public function destroy(Request $request)
     {
         try{
-            $seccion=SubSeccion::findOrFail($request->toDeleteId);
-            $seccion->delete();
+            $subseccion=SubSeccion::findOrFail($request->toDeleteId);
+            $subseccion->delete();
+
+            Bitacora::create([
+                'usuario'=>Auth::user()->name,
+                'accion'=>'Eliminó una subsección: '.$subseccion->nombre.' junto a sus contenidos, perteneciente a la seccion: '.$subseccion->seccion->nombre,
+            ]);
+
             return Response::json(['success'=>'Se ha eliminado la subsección correctamente'],200);
         }
         catch(Exception $e){

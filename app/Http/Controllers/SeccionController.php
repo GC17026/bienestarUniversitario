@@ -9,6 +9,9 @@ use Exception;
 use Illuminate\Http\Request;
 use Response;
 use App\Http\Controllers\Throwable;
+use Illuminate\Support\Facades\Auth;
+use App\Bitacora;
+
 class SeccionController extends Controller
 {
 
@@ -41,10 +44,16 @@ class SeccionController extends Controller
     public function store(Request $request)
     {
         try{
-            Seccion::create([
+            $seccion=Seccion::create([
                 'nombre'=>$request->nombre,
                 'icono'=>$request->icono,
             ]);
+
+            Bitacora::create([
+                'usuario'=>Auth::user()->name,
+                'accion'=>'Creo una sección: '.$seccion->nombre,
+            ]);
+
             return Response::json(['success'=>'Se ha creado una nueva sección'],200);
         }
         catch(Exception $e){
@@ -91,6 +100,12 @@ class SeccionController extends Controller
                 'nombre'=>$request->nombre,
                 'icono'=>$request->icono
             ]);
+
+            Bitacora::create([
+                'usuario'=>Auth::user()->name,
+                'accion'=>'Actualizó una sección: '.$seccion->nombre,
+            ]);
+
             return Response::json(['success'=>'Se ha actualizado la sección correctamente'],200);
         }
         catch(Exception $e){
@@ -109,6 +124,12 @@ class SeccionController extends Controller
         try{
             $seccion=Seccion::findOrFail($request->toDeleteId);
             $seccion->delete();
+
+            Bitacora::create([
+                'usuario'=>Auth::user()->name,
+                'accion'=>'Eliminó una sección: '.$seccion->nombre.' junto todas sus subsecciones y contenidos',
+            ]);
+
             return Response::json(['success'=>'Se ha eliminado la sección correctamente'],200);
         }
         catch(Exception $e){

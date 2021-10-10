@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Aviso;
+use App\Bitacora;
 use Illuminate\Http\Request;
 use Response;
 use App\Http\Controllers\Throwable;
+use Illuminate\Support\Facades\Auth;
+
 class AvisoController extends Controller
 {
     /**
@@ -51,6 +54,12 @@ class AvisoController extends Controller
                     $file->move('public/uploads/', $filename);
                 }
                 $aviso->save();
+
+                Bitacora::create([
+                    'usuario'=>Auth::user()->name,
+                    'accion'=>'Creo aviso, id: '.$aviso->id.'titulo: '.$aviso->titulo,
+                ]);
+
                 return Response::json(['success' => 'Se ha agregado un nuevo aviso'], 200);
             }else{
                 return Response::json(['error' => 'Solamente se pueden agregar 5 avisos'], 400);
@@ -93,11 +102,17 @@ class AvisoController extends Controller
     public function update(Request $request)
     {
         try{
-            $seccion=Aviso::findOrFail($request->id);
-            $seccion->update([
+            $aviso=Aviso::findOrFail($request->id);
+            $aviso->update([
                 'titulo'=>$request->titulo,
                 'contenido'=>$request->contenido
             ]);
+
+            Bitacora::create([
+                'usuario'=>Auth::user()->name,
+                'accion'=>'Actualizó aviso, id: '.$aviso->id.'titulo: '.$aviso->titulo,
+            ]);
+
             return Response::json(['success'=>'Se ha actualizado el aviso correctamente'],200);
         }
         catch(Exception $e){
@@ -114,8 +129,14 @@ class AvisoController extends Controller
     public function destroy(Request $request)
     {
         try{
-            $seccion=Aviso::findOrFail($request->toDeleteId);
-            $seccion->delete();
+            $aviso=Aviso::findOrFail($request->toDeleteId);
+            $aviso->delete();
+
+            Bitacora::create([
+                'usuario'=>Auth::user()->name,
+                'accion'=>'Eliminó aviso, titulo: '.$aviso->titulo,
+            ]);
+
             return Response::json(['success'=>'Se ha eliminado la sección correctamente'],200);
         }
         catch(Exception $e){

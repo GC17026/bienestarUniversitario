@@ -1,5 +1,4 @@
 @extends('layouts.sidebar')
-
 @section('homeContent')
 
 <div class="row">
@@ -12,7 +11,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table">
+                    <table id="bitacora" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Usuario</th>
@@ -23,12 +22,12 @@
                         <tbody>
                             <tr>
                                 <td>John Doe Doe john@example.com</td>
-                                <td>Creo xxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxx  xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxx</td>
+                                <td>Creo xxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxx</td>
                                 <td>Tue Sep 28 20:37:25 2021</td>
                             </tr>
                             <tr>
                                 <td>Marie Doe Doe john@example.com</td>
-                                <td>Edito xxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxx  xxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxx</td>
+                                <td>Edito xxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxx</td>
                                 <td>Tue Sep 28 20:37:25 2021</td>
                             </tr>
                             <tr>
@@ -45,7 +44,15 @@
 </div>
 
 @endsection
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-e
+<script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous">
+</script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" crossorigin="anonymous">
+</script>
+<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js" crossorigin="anonymous">
+</script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js" defer></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        $('#bitacora').DataTable();
+    });
+</script>

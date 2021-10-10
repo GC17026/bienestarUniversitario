@@ -9,7 +9,8 @@ use App\Http\Controllers\Throwable;
 use App\SubSeccion;
 use App\Seccion;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Auth;
+use App\Bitacora;
 class ContenidoController extends Controller
 {
     /**
@@ -45,16 +46,14 @@ class ContenidoController extends Controller
             $contenido->titulo = $request->titulo;
             $contenido->contenido = $request->contenido;
             if ($request->contenidoType == "seccion") {
-                $contenido->seccion_id = $request->seccionPadre;
                 if (Count(Seccion::find($request->seccionPadre)->contenidos) < 5) {
                     $contenido->seccion_id = $request->seccionPadre;
                 } else {
                     return Response::json(['error' => 'Solamente se pueden agregar 5 contenidos por seccion'], 400);
                 }
             } else {
-                $contenido->sub_seccion_id = $request->seccionPadre;
                 if (Count(SubSeccion::find($request->seccionPadre)->contenidos) < 5) {
-                    $contenido->seccion_id = $request->seccionPadre;
+                    $contenido->sub_seccion_id = $request->seccionPadre;
                 } else {
                     return Response::json(['error' => 'Solamente se pueden agregar 5 contenidos por subseccion'], 400);
                 }
@@ -68,6 +67,11 @@ class ContenidoController extends Controller
                 $file->move('public/uploads/', $filename);
             }
             $contenido->save();
+            Bitacora::create([
+                'usuario'=>Auth::user()->name,
+                'accion'=>'Creo contenido de seccion: '.($request->contenidoType=="seccion"?$contenido->seccion->nombre:$contenido->subseccion->nombre),
+            ]);
+
             return Response::json(['success' => 'Se ha agregado un nuevo contenido'], 200);
         } catch (Exception $e) {
             return Response::json(['error' => 'Ocurrió un error, es posible que el formato de la imagen no sea permitido'], 400);
@@ -118,6 +122,11 @@ class ContenidoController extends Controller
             $contenido->titulo=$request->titulo;
             $contenido->contenido=$request->contenido;
             $contenido->save();
+            Bitacora::create([
+                'usuario'=>Auth::user()->name,
+                'accion'=>'Actualizó contenido de seccion: '.($request->contenidoType=="seccion"?$contenido->seccion->nombre:$contenido->subseccion->nombre),
+            ]);
+
             return Response::json(['success' => 'Se ha actualizado un contenido'], 200);
         }
         catch (Exception $e) {
@@ -135,8 +144,15 @@ class ContenidoController extends Controller
     {
         try{
             $contenido = Contenido::find($request->toDeleteId);
-            unlink(trim(getcwd() . $contenido->urlImg));
+            if($contenido->urlImg!=null){
+                unlink(trim(getcwd() . $contenido->urlImg));
+            }
             $contenido->delete();
+            Bitacora::create([
+                'usuario'=>Auth::user()->name,
+                'accion'=>'Eliminó contenido de la '.($request->contenidoType=="seccion"?'sección: '.$contenido->seccion->nombre:'subsección: '.$contenido->subseccion->nombre),
+            ]);
+
             return Response::json(['success' => 'Se ha eliminado el contenido con éxito'], 200);
         }
         catch (Exception $e) {

@@ -123,10 +123,18 @@
                         {{ Auth::user()->name }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                                                                     document.getElementById('logout-form').submit();">
+                        @hasanyrole('Administrador|Editor')
+                        <a class="dropdown-item" href="{{ route('seccion.index') }}">
+                            {{ __('Editar secciones') }}
+                        </a>
+                        @endhasanyrole
+                        @hasanyrole('Administrador')
+                        <a class="dropdown-item" href="{{ route('bitacora.index') }}">
+                            {{ __('Bitacora de acciones') }}
+                        </a>
+                        @endhasanyrole
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
                         </a>
 

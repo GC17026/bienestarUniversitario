@@ -138,7 +138,7 @@
                                                                 {{$subcontenido->titulo}}
                                                             </div>
                                                             @can('editar contenido')
-                                                            <button type="button" class="btn-edit-subcontenido btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-target="#ContenidoEdit" data-subcontenidoid="{{$subcontenido->id}}" data-titulo="{{$contenido->titulo}}" data-contenido="{{$contenido->contenido}}">
+                                                            <button type="button" class="btn-edit-subcontenido btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-target="#ContenidoEdit" data-subcontenidoid="{{$subcontenido->id}}" data-titulo="{{$subcontenido->titulo}}" data-contenido="{{$subcontenido->contenido}}">
                                                                 <i class="fa fa-edit"></i>
                                                             </button>
                                                             @endcan
