@@ -49,9 +49,9 @@ Route::post('/contenidos/delete', 'ContenidoController@destroy')->name('contenid
 
 /************************************ AVISO *************************************************/
 //para editores
-Route::post('/home2', 'AvisoController@store')->name('aviso.store');
-Route::put('/home2', 'AvisoController@update')->name('aviso.update');
-Route::delete('/home2', 'AvisoController@destroy')->name('aviso.destroy');
+Route::post('/aviso', 'AvisoController@store')->name('aviso.store');
+Route::post('/aviso/update', 'AvisoController@update')->name('aviso.update');
+Route::post('/aviso/delete', 'AvisoController@destroy')->name('aviso.destroy');
 
 /************************************ USER *************************************************/
 //para admin

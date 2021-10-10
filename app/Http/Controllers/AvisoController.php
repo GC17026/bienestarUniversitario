@@ -35,7 +35,29 @@ class AvisoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            if(Count(Aviso::all())<5)
+            {
+                $aviso = new Aviso;
+                $aviso->titulo = $request->titulo;
+                $aviso->contenido = $request->contenido;
+
+                if ($request->hasFile('foto_contenido')) {
+                    $file = $request->file('foto_contenido');
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = time() . '1.' . $extension;
+                    $aviso->urlImg = '/public/uploads/' . $filename;
+                    $file->move('public/uploads/', $filename);
+                }
+                $aviso->save();
+                return Response::json(['success' => 'Se ha agregado un nuevo aviso'], 200);
+            }else{
+                return Response::json(['error' => 'Solamente se pueden agregar 5 avisos'], 400);
+            }
+
+        } catch (Exception $e) {
+            return Response::json(['error' => 'Ocurrió un error, es posible que el formato de la imagen no sea permitido'], 400);
+        }
     }
 
     /**

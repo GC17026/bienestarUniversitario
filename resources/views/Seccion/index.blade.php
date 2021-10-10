@@ -517,6 +517,26 @@
             contenidoType.value = "seccion";
         }
 
+        function createNovedadBtn(e) {
+            const createSubBtn = this;
+            const modal = document.getElementById('NovedadCreate');
+        }
+
+        function editNovedadBtn(e) {
+            const editAvisoBtn = this;
+            const editAvisoModal = document.getElementById('NovedadEdit');
+            const tituloAviso = editAvisoModal.querySelector('#tituloContenido');
+            const textoAviso = editAvisoModal.querySelector('#text-contenido');
+            const idAviso = editAvisoModal.querySelector('#novedadid-edit');
+            idAviso.value = editAvisoBtn.dataset.novedadid;
+            tituloAviso.value = editAvisoBtn.dataset.titulo;
+            textoAviso.value = editAvisoBtn.dataset.contenido;
+            console.log(idAviso.value + ', ' + tituloAviso.value + ', ' + textoAviso.value + "prueba")
+        }
+
+        function deleteNovedadBtn(e) {
+            console.log("prueba");
+        }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -733,6 +753,80 @@
             });
         }
 
+        function novedadCreateSubmit(e) {
+            console.log("aviso")
+            e.preventDefault();
+            form = this;
+            const xhr = new HttpRequest();
+            const endpoint = '/aviso';
+            const formData = new FormData(form);
+            xhr.post(endpoint, formData, function(error, response) {
+                if (error) {
+                    console.log('ocurrió un error', error);
+                    const resp = JSON.parse(error);
+                    const modal = document.getElementById('NovedadCreate');
+                    const alert = modal.querySelector('#modal-alert');
+                    alert.innerHTML = resp.error;
+                    alert.style.display = "block";
+                    alert.classList.add('alert-danger');
+                }
+                if (response) {
+                    console.log(response)
+                    //espacio para implementar si la consulta tiene éxito
+                    const resp = JSON.parse(response);
+                    const alert = document.getElementById('alert-message');
+                    alert.innerHTML = resp.success;
+                    alert.style.display = "block";
+                    alert.classList.add('alert-success');
+                    const modal = document.getElementById('NovedadCreate');
+                    Array.from(document.getElementsByClassName('modal-backdrop')).forEach((panel) => {
+                        panel.remove();
+                    });
+                    modal.style.display = "none";
+                    setTimeout(function() {
+                        window.location.reload(1);
+                    }, 1200);
+                }
+            });
+        }
+
+        function novedadEditSubmit(e) {
+            e.preventDefault();
+            form = this;
+            const xhr = new HttpRequest();
+            const endpoint = '/avisos/update';
+            const formData = new FormData(form);
+            xhr.post(endpoint, formData, function(error, response) {
+                if (error) {
+                    console.log('ocurrió un error', error);
+                    const resp = JSON.parse(error);
+                    const modal = document.getElementById('NovedadEdit');
+                    const alert = modal.querySelector('#modal-alert');
+                    alert.innerHTML = resp.error;
+                    alert.style.display = "block";
+                    alert.classList.add('alert-danger');
+                }
+                if (response) {
+                    //espacio para implementar si la consulta tiene éxito
+                    console.log(response)
+                    //espacio para implementar si la consulta tiene éxito
+                    const resp = JSON.parse(response);
+                    const alert = document.getElementById('alert-message');
+                    alert.innerHTML = resp.success;
+                    alert.style.display = "block";
+                    alert.classList.add('alert-success');
+                    const modal = document.getElementById('NovedadEdit');
+                    Array.from(document.getElementsByClassName('modal-backdrop')).forEach((panel) => {
+                        panel.remove();
+                    });
+                    modal.style.display = "none";
+                    setTimeout(function() {
+                        window.location.reload(1);
+                    }, 1200);
+                }
+            });
+        }
+
         function deleteSubmit(e) {
             endpointMap = new Map();
             endpointMap.set('seccion', '/seccion/delete');
@@ -785,6 +879,9 @@
             btnMap.set('btn-delete-subcontenido', deleteSubContenidoBtn);
             btnMap.set('btn-create-subseccion', createSubseccion);
             btnMap.set('btn-create-subcontenido', createSubcontenido);
+            btnMap.set('btn-create-novedad', createNovedadBtn);
+            btnMap.set('btn-edit-novedad', editNovedadBtn);
+            btnMap.set('btn-delete-novedad', deleteNovedadBtn);
             Array.from(btnMap.keys()).forEach((btnClass) => {
                 Array.from(document.getElementsByClassName(btnClass)).forEach(function(btn) {
                     btn.addEventListener('click', btnMap.get(btnClass));
@@ -800,10 +897,11 @@
             formsMap.set('contenidoCreateForm', contenidoCreateSubmit);
             formsMap.set('contenidoEditForm', contenidoEditSubmit);
             formsMap.set('deleteForm', deleteSubmit);
-
+            formsMap.set('novedadCreateForm', novedadCreateSubmit);
+            formsMap.set('novedadEditForm', novedadEditSubmit);
             Array.from(formsMap.keys()).forEach((form) => {
+                console.log(document.getElementById(form))
                 document.getElementById(form).addEventListener('submit', formsMap.get(form));
             })
-
         });
     </script>

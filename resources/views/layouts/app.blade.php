@@ -12,8 +12,12 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
+    </script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -80,17 +84,20 @@
         .carousel-indicators {
             bottom: -40px;
         }
+
     </style>
     <div id="app">
         <!--------------------------Barra de navegación horizontal --------------------------------------->
         <nav class="sb-topnav navbar navbar-expand navbar-dark navbar-full shadow-sm p-3 bg-white">
-            <a class="navbar-brand d-none d-sm-block d-sm-none d-md-block w-100 text-dark" href="{{ url('/') }}" style="font-family: Quicksand;font-style: normal;">
+            <a class="navbar-brand d-none d-sm-block d-sm-none d-md-block w-100 text-dark" href="{{ url('/') }}"
+                style="font-family: Quicksand;font-style: normal;">
                 <img src="/assets/salud.png" width="30" height="30" class="d-inline-block align-top" alt="">
                 {{ __('BIENESTAR UNIVERSITARIO') }}
             </a>
 
             @auth
-            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars  text-dark"></i></button>
+                <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
+                        class="fas fa-bars  text-dark"></i></button>
             @endauth
 
             <!-- El div mágico-->
@@ -100,29 +107,32 @@
             <ul class="navbar-nav ml-auto ml-md-0">
                 <li class="nav-item dropdown">
                     @guest
-                <li class="nav-item mr-1 ml-1">
-                    <a class="nav-link  btn {{url()->current() == route('login') ? ' btn-primary text-white' : 'btn-light text-dark'}}" href="{{ route('login') }}">{{ __('Login') }}</a>
-                </li>
-                @if (Route::has('register'))
-                <li class="nav-item mr-1 ml-1">
-                    <a class="nav-link text-blue btn {{url()->current() == route('register') ? ' btn-primary text-white' : 'btn-light text-dark'}}" href="{{ route('register') }}">{{ __('Register') }}</a>
-                </li>
-                @endif
+                    <li class="nav-item mr-1 ml-1">
+                        <a class="nav-link  btn {{ url()->current() == route('login') ? ' btn-primary text-white' : 'btn-light text-dark' }}"
+                            href="{{ route('login') }}">{{ __('Login') }}</a>
+                    </li>
+                    @if (Route::has('register'))
+                        <li class="nav-item mr-1 ml-1">
+                            <a class="nav-link text-blue btn {{ url()->current() == route('register') ? ' btn-primary text-white' : 'btn-light text-dark' }}"
+                                href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
+                    @endif
                 @else
-                <a class="nav-link dropdown-toggle  text-dark" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    {{ Auth::user()->name }}
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-
-                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                             document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
+                    <a class="nav-link dropdown-toggle  text-dark" id="userDropdown" href="#" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        {{ Auth::user()->name }}
                     </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                </div>
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
                 @endguest
                 </li>
             </ul>
@@ -148,10 +158,12 @@
                     <div class="d-flex justify-content-center">
                         <p class="h6" id="time_span"></p>
                     </div>
-                    <div class="container rounded justify-content-center p-4 mt-2 d-flex flex-column " style="background:#F7F9FA;">
+                    <div class="container rounded justify-content-center p-4 mt-2 d-flex flex-column "
+                        style="background:#F7F9FA;">
                         <div class="d-flex justify-content-center pb-2">
                             <p class="h3">Novedades</p>
-                            <button type="button" class="btn btn-info btn-circle ml-auto" data-toggle="modal" data-target="#novedadcreate">
+                            <button type="button" class="btn-create-novedad btn btn-info btn-circle ml-auto" data-toggle="modal"
+                                data-target="#novedadcreate">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
@@ -159,37 +171,48 @@
                     <div id="slider" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
                             @foreach ($avisos as $aviso)
-                            <li data-target="#slider" data-slide-to="{{$aviso->id-1}}" class="@if ($aviso == $avisos[0]) active @endif"></li>
+                                <li data-target="#slider" data-slide-to="{{ $aviso->id - 1 }}"
+                                    class="@if ($aviso == $avisos[0]) active @endif"></li>
                             @endforeach
                         </ol>
                         <div class="carousel-inner">
                             @foreach ($avisos as $aviso)
-                            <div class="carousel-item @if ($aviso == $avisos[0]) active @endif">
-                                <div class="rounded" style="background:#F7F9FA;">
-                                    <div style="background:#E8F7FF;" class="rounded">
-                                        <div class="card-header">
-                                            <div class=" d-flex">
-                                                <div class="d-flex flex-row justify-content-center align-items-center ">
-                                                    <img src="/assets/salud.png" width="30" height="30" class="d-inline-block align-top mr-2" alt="">
-                                                    <p class="h3 ml-2">{{$aviso->titulo}}</p>
+                                <div class="carousel-item @if ($aviso == $avisos[0]) active @endif">
+                                    <div class="rounded" style="background:#F7F9FA;">
+                                        <div style="background:#E8F7FF;" class="rounded">
+                                            <div class="card-header">
+                                                <div class=" d-flex">
+                                                    <div
+                                                        class="d-flex flex-row justify-content-center align-items-center ">
+                                                        <img src="/assets/salud.png" width="30" height="30"
+                                                            class="d-inline-block align-top mr-2" alt="">
+                                                        <p class="h3 ml-2">{{ $aviso->titulo }}</p>
+                                                    </div>
+                                                    <button type="button"
+                                                        class="btn-edit-novedad btn btn-success m-1  btn-circle ml-auto"
+                                                        data-toggle="modal" data-target="#NovedadEdit"
+                                                        data-novedadid="{{ $contenido->id }}"
+                                                        data-titulo="{{ $contenido->titulo }}"
+                                                        data-contenido="{{ $contenido->contenido }}">
+                                                        <i class="fa fa-edit"></i>
+                                                    </button>
+                                                    <button type="button"
+                                                        class="btn-delete-novedad btn btn-danger m-1  btn-circle"
+                                                        data-toggle="modal" data-novedadid="{{ $contenido->id }}"
+                                                        data-tipoDelete='novedad' data-target="#deleteModal">
+                                                        <i class="fa fa-times"></i>
+                                                    </button>
                                                 </div>
-                                                <button type="button" class="btn-edit-contenido btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-target="#NovedadEdit" data-contenidoid="{{$contenido->id}}" data-titulo="{{$contenido->titulo}}" data-contenido="{{$contenido->contenido}}">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" class="btn-delete-contenido btn btn-danger m-1  btn-circle" data-toggle="modal" data-contenidoid="{{$contenido->id}}" data-tipoDelete='contenido' data-target="#deleteModal">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
+                                                <div class="w-100 text-justify">
+                                                    <p class="w-100 p-3">{{ $aviso->contenido }}</p>
+                                                </div>
                                             </div>
-                                            <div class="w-100 text-justify">
-                                                <p class="w-100 p-3">{{$aviso->contenido}}</p>
+                                            <div class="text-justify">
+                                                <p style="font-weight: 500;">{{ $aviso->created_at }} </p>
                                             </div>
-                                        </div>
-                                        <div class="text-justify">
-                                            <p style="font-weight: 500;">{{$aviso->created_at}} </p>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             @endforeach
                         </div>
                     </div>
@@ -198,104 +221,115 @@
         </div>
     </div>
 
-                <!--modal para creacion de novedad-->
-                <div class=" modal
-                    fade" id="NovedadCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Nueva novedad</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <form>
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">Tématica</label>
-                                        <input type="text" class="form-control" id="recipient-name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="message-text" class="col-form-label">Descripción</label>
-                                        <textarea class="form-control" id="message-text"></textarea>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-info">Guardar</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                </div>
-                            </form>
+    <!--modal para creacion de novedad-->
+    <div class=" modal
+                    fade" id="NovedadCreate" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nueva novedad</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form name="novedadCreateForm" id="novedadCreateForm">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Título</label>
+                            <input type="text" class="form-control" id="recipient-name" name="titulo">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Contenido</label>
+                            <textarea class="form-control" id="message-text" name="contenido"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Imagen</label>
+                            <input type="file" class="form-control-file" id="File1" name="foto_contenido">
                         </div>
                     </div>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info">Guardar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-                 <!--modal para edicion de novedad-->
-                 <div class="modal fade" id="NovedadEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Editar nodedad: </h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="alert" id="modal-alert" role="alert" style="display:none;">
-                                This is a success alert—check it out!
-                            </div>
-                            <form name="novedadEditForm" id="novedadEditForm">
-                                @csrf
-                                <input type="hidden" name="" id="novedadid-edit" value="">
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="tituloNovedado" class="col-form-label">Tématica</label>
-                                        <input type="text" class="form-control" id="tituloNovedado">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="message-text" class="col-form-label">Descripción</label>
-                                        <textarea class="form-control" id="text-novedad"></textarea>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-info">Editar</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                </div>
-                            </form>
+    <!--modal para edicion de novedad-->
+    <div class="modal fade" id="NovedadEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar nodedad: </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="alert" id="modal-alert" role="alert" style="display:none;">
+                    This is a success alert—check it out!
+                </div>
+                <form name="novedadEditForm" id="novedadEditForm">
+                    @csrf
+                    <input type="hidden" name="" id="novedadid-edit" value="">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="tituloContenido" class="col-form-label">Título</label>
+                            <input type="text" class="form-control" id="tituloContenido" name="titulo">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Contenido</label>
+                            <textarea class="form-control" id="text-contenido" name="contenido"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Imagen</label>
+                            <input type="file" class="form-control-file" id="File1" name="foto_contenido">
                         </div>
                     </div>
-                </div>
-
-                <!-- Modal para delete-->
-                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <div class="container d-flex pl-0"><img src="https://imgur.com/Kh1gwTq.png">
-                                    <h5 class="modal-title ml-2" id="exampleModalLabel">Confirmación de eliminación</h5>
-                                </div>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="alert" id="modal-alert" role="alert" style="display:none;">
-                                This is a success alert—check it out!
-                            </div>
-                            <div class="modal-body">
-                                <p class="text-muted">Está seguro que lo desea eliminar? Este cambio es irreversible
-                                </p>
-                            </div>
-                            <div class="modal-footer">
-                                <form name="deleteForm" id="deleteForm" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="toDeleteId" id="toDeleteId" value="">
-                                    <input type="hidden" name="toDeleteType" id="toDeleteType" value="">
-                                    <button type="submit" class="btn btn-danger m-1 ">Eliminar</button>
-                                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-                                </form>
-                            </div>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info">Editar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     </div>
-                </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
+    <!-- Modal para delete-->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="container d-flex pl-0"><img src="https://imgur.com/Kh1gwTq.png">
+                        <h5 class="modal-title ml-2" id="exampleModalLabel">Confirmación de eliminación</h5>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="alert" id="modal-alert" role="alert" style="display:none;">
+                    This is a success alert—check it out!
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted">Está seguro que lo desea eliminar? Este cambio es irreversible
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <form name="deleteForm" id="deleteForm" method="POST">
+                        @csrf
+                        <input type="hidden" name="toDeleteId" id="toDeleteId" value="">
+                        <input type="hidden" name="toDeleteType" id="toDeleteType" value="">
+                        <button type="submit" class="btn btn-danger m-1 ">Eliminar</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <!-- Footer -->
 <footer class="page-footer font-small d-flex justify-content-between ml-5 mr-5">
@@ -314,4 +348,3 @@
 
 
 </html>
-
