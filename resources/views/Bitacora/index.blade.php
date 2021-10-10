@@ -1,6 +1,5 @@
 @extends('layouts.sidebar')
 @section('homeContent')
-
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -11,32 +10,41 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table id="bitacora" class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Usuario</th>
-                                <th>Acción</th>
-                                <th>Fecha</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>John Doe Doe john@example.com</td>
-                                <td>Creo xxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxx</td>
-                                <td>Tue Sep 28 20:37:25 2021</td>
-                            </tr>
-                            <tr>
-                                <td>Marie Doe Doe john@example.com</td>
-                                <td>Edito xxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxx</td>
-                                <td>Tue Sep 28 20:37:25 2021</td>
-                            </tr>
-                            <tr>
-                                <td>Pepe Doe Doe john@example.com</td>
-                                <td>Elimino xxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
-                                <td>Tue Sep 28 20:37:25 2021</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <form method="GET" action="{{ route('bitacora.index') }}">
+                        <div class="form-group d-flex flex-row w-100 align-items-center justify-content-between">
+                            <label for="recipient-name" class="col-form-label m-1">Fecha</label>
+                            <div class="d-flex flex-row">
+                                <div id="date-picker-datepicker" class="md-form md-outline input-with-post-icon datepicker m-2">
+                                    <input placeholder="Seleccionar fecha" type="date" id="datepicker" class="form-control" name="inicio">
+                                </div>
+                                <div id="date-picker-datepicker" class="md-form md-outline input-with-post-icon datepicker m-2">
+                                    <input placeholder="Seleccionar fecha" type="date" id="datepicker" class="form-control" name="fin">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-info m-1">Buscar</button>
+                        </div>
+                    </form>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Usuario</th>
+                                    <th>Acción</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($bitacoras as $bitacora)
+                                <tr>
+                                    <td>{{$bitacora->usuario}}</td>
+                                    <td>{{$bitacora->accion}}</td>
+                                    <td>{{$bitacora->created_at}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        {{$bitacoras->links()}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -44,15 +52,3 @@
 </div>
 
 @endsection
-<script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous">
-</script>
-<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" crossorigin="anonymous">
-</script>
-<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js" crossorigin="anonymous">
-</script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js" defer></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        $('#bitacora').DataTable();
-    });
-</script>

@@ -10,14 +10,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
-    </script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -29,37 +21,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'>
     @yield('style')
-    @yield('script')
-    <script>
-        function clock(argument) {
-            var currentTime = new Date();
-            var hours = currentTime.getHours();
-            var minutes = currentTime.getMinutes();
-            var seconds = currentTime.getSeconds();
-            var month = currentTime.getMonth() + 1;
-            var date = currentTime.getDate();
-            if (minutes < 10) minutes = "0" + minutes;
-            if (seconds < 10) seconds = "0" + seconds;
-            if (month < 10) month = "0" + month;
-            if (date < 10) date = "0" + date;
-            var t_str =
-                date +
-                "/" +
-                month +
-                "/" +
-                currentTime.getFullYear() +
-                " " +
-                (hours % 12 || 12) +
-                ":" +
-                minutes +
-                ":" +
-                seconds;
-            if (hours > 11) t_str += " PM";
-            else t_str += " AM";
-            document.getElementById("time_span").innerHTML = t_str;
-            setTimeout("clock()", 1000);
-        }
-    </script>
+
 </head>
 
 <body onload="clock()">
@@ -84,20 +46,17 @@
         .carousel-indicators {
             bottom: -40px;
         }
-
     </style>
     <div id="app">
         <!--------------------------Barra de navegación horizontal --------------------------------------->
         <nav class="sb-topnav navbar navbar-expand navbar-dark navbar-full shadow-sm p-3 bg-white">
-            <a class="navbar-brand d-none d-sm-block d-sm-none d-md-block w-100 text-dark" href="{{ url('/') }}"
-                style="font-family: Quicksand;font-style: normal;">
+            <a class="navbar-brand d-none d-sm-block d-sm-none d-md-block w-100 text-dark" href="{{ url('/') }}" style="font-family: Quicksand;font-style: normal;">
                 <img src="/assets/salud.png" width="30" height="30" class="d-inline-block align-top" alt="">
                 {{ __('BIENESTAR UNIVERSITARIO') }}
             </a>
 
             @auth
-                <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
-                        class="fas fa-bars  text-dark"></i></button>
+            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars  text-dark"></i></button>
             @endauth
 
             <!-- El div mágico-->
@@ -107,41 +66,38 @@
             <ul class="navbar-nav ml-auto ml-md-0">
                 <li class="nav-item dropdown">
                     @guest
-                    <li class="nav-item mr-1 ml-1">
-                        <a class="nav-link  btn {{ url()->current() == route('login') ? ' btn-primary text-white' : 'btn-light text-dark' }}"
-                            href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
-                    @if (Route::has('register'))
-                        <li class="nav-item mr-1 ml-1">
-                            <a class="nav-link text-blue btn {{ url()->current() == route('register') ? ' btn-primary text-white' : 'btn-light text-dark' }}"
-                                href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                    @endif
+                <li class="nav-item mr-1 ml-1">
+                    <a class="nav-link  btn {{ url()->current() == route('login') ? ' btn-primary text-white' : 'btn-light text-dark' }}" href="{{ route('login') }}">{{ __('Login') }}</a>
+                </li>
+                @if (Route::has('register'))
+                <li class="nav-item mr-1 ml-1">
+                    <a class="nav-link text-blue btn {{ url()->current() == route('register') ? ' btn-primary text-white' : 'btn-light text-dark' }}" href="{{ route('register') }}">{{ __('Register') }}</a>
+                </li>
+                @endif
                 @else
-                    <a class="nav-link dropdown-toggle  text-dark" id="userDropdown" href="#" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        {{ Auth::user()->name }}
+                <a class="nav-link dropdown-toggle  text-dark" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    {{ Auth::user()->name }}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    @hasanyrole('Administrador|Editor')
+                    <a class="dropdown-item" href="{{ route('seccion.index') }}">
+                        {{ __('Editar secciones') }}
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        @hasanyrole('Administrador|Editor')
-                        <a class="dropdown-item" href="{{ route('seccion.index') }}">
-                            {{ __('Editar secciones') }}
-                        </a>
-                        @endhasanyrole
-                        @hasanyrole('Administrador')
-                        <a class="dropdown-item" href="{{ route('bitacora.index') }}">
-                            {{ __('Bitacora de acciones') }}
-                        </a>
-                        @endhasanyrole
-                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                    @endhasanyrole
+                    @hasanyrole('Administrador')
+                    <a class="dropdown-item" href="{{ route('bitacora.index') }}">
+                        {{ __('Bitacora de acciones') }}
+                    </a>
+                    @endhasanyrole
+                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
+                        {{ __('Logout') }}
+                    </a>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </div>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
                 @endguest
                 </li>
             </ul>
@@ -167,75 +123,62 @@
                     <div class="d-flex justify-content-center">
                         <p class="h6" id="time_span"></p>
                     </div>
-                    <div class="container rounded justify-content-center p-4 mt-2 d-flex flex-column "
-                        style="background:#F7F9FA;">
+                    <div class="container rounded justify-content-center p-4 mt-2 d-flex flex-column " style="background:#F7F9FA;">
                         <div class="d-flex justify-content-center pb-2">
                             <p class="h3">Novedades</p>
                             @can('crear aviso')
-                                <button type="button" class="btn-create-novedad btn btn-info btn-circle ml-auto"
-                                    data-toggle="modal" data-target="#novedadcreate">
-                                    <i class="fa fa-plus"></i>
-                                </button>
+                            <button type="button" class="btn-create-novedad btn btn-info btn-circle ml-auto" data-toggle="modal" data-target="#novedadcreate">
+                                <i class="fa fa-plus"></i>
+                            </button>
                             @endcan
                         </div>
                     </div>
 
                     <div id="slider" class="carousel slide" data-ride="carousel">
                         @php
-                            $counter = 0;
+                        $counter = 0;
                         @endphp
                         <ol class="carousel-indicators">
                             @foreach ($avisos as $aviso)
-                                <li data-target="#slider" data-slide-to="{{ $counter }}"
-                                    class="@if ($aviso == $avisos[0]) active @endif"></li>
-                                @php
-                                    $counter = $counter + 1;
-                                @endphp
+                            <li data-target="#slider" data-slide-to="{{ $counter }}" class="@if ($aviso == $avisos[0]) active @endif"></li>
+                            @php
+                            $counter = $counter + 1;
+                            @endphp
                             @endforeach
                         </ol>
 
                         <div class="carousel-inner">
                             @foreach ($avisos as $aviso)
-                                <div class="carousel-item @if ($aviso == $avisos[0]) active @endif">
-                                    <div class="rounded" style="background:#F7F9FA;">
-                                        <div style="background:#E8F7FF;" class="rounded">
-                                            <div class="card-header">
-                                                <div class=" d-flex">
-                                                    <div
-                                                        class="d-flex flex-row justify-content-center align-items-center ">
-                                                        <img src="/assets/salud.png" width="30" height="30"
-                                                            class="d-inline-block align-top mr-2" alt="">
-                                                        <p class="h3 ml-2">{{ $aviso->titulo }}</p>
-                                                    </div>
-                                                    @can('editar aviso')
-                                                        <button type="button"
-                                                            class="btn-edit-novedad btn btn-success m-1  btn-circle ml-auto"
-                                                            data-toggle="modal" data-target="#NovedadEdit"
-                                                            data-novedadid="{{ $aviso->id }}"
-                                                            data-titulo="{{ $aviso->titulo }}"
-                                                            data-contenido="{{ $aviso->contenido }}">
-                                                            <i class="fa fa-edit"></i>
-                                                        </button>
-                                                    @endcan
-                                                    @can('eliminar aviso')
-                                                        <button type="button"
-                                                            class="btn-delete-novedad btn btn-danger m-1  btn-circle"
-                                                            data-toggle="modal" data-novedadid="{{ $aviso->id }}"
-                                                            data-tipoDelete='novedad' data-target="#deleteModal">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                    @endcan
+                            <div class="carousel-item @if ($aviso == $avisos[0]) active @endif">
+                                <div class="rounded" style="background:#F7F9FA;">
+                                    <div style="background:#E8F7FF;" class="rounded">
+                                        <div class="card-header">
+                                            <div class=" d-flex">
+                                                <div class="d-flex flex-row justify-content-center align-items-center ">
+                                                    <img src="/assets/salud.png" width="30" height="30" class="d-inline-block align-top mr-2" alt="">
+                                                    <p class="h3 ml-2">{{ $aviso->titulo }}</p>
                                                 </div>
-                                                <div class="w-100 text-justify">
-                                                    <p class="w-100 p-3">{{ $aviso->contenido }}</p>
-                                                </div>
+                                                @can('editar aviso')
+                                                <button type="button" class="btn-edit-novedad btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-target="#NovedadEdit" data-novedadid="{{ $aviso->id }}" data-titulo="{{ $aviso->titulo }}" data-contenido="{{ $aviso->contenido }}">
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                                @endcan
+                                                @can('eliminar aviso')
+                                                <button type="button" class="btn-delete-novedad btn btn-danger m-1  btn-circle" data-toggle="modal" data-novedadid="{{ $aviso->id }}" data-tipoDelete='novedad' data-target="#deleteModal">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                                @endcan
                                             </div>
-                                            <div class="text-justify">
-                                                <p style="font-weight: 500;">{{ $aviso->created_at }} </p>
+                                            <div class="w-100 text-justify">
+                                                <p class="w-100 p-3">{{ $aviso->contenido }}</p>
                                             </div>
+                                        </div>
+                                        <div class="text-justify">
+                                            <p style="font-weight: 500;">{{ $aviso->created_at }} </p>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             @endforeach
                         </div>
                     </div>
@@ -246,8 +189,7 @@
 
     <!--modal para creacion de novedad-->
     <div class=" modal
-                    fade" id="NovedadCreate" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    fade" id="NovedadCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -285,8 +227,7 @@
     </div>
 
     <!--modal para edicion de novedad-->
-    <div class="modal fade" id="NovedadEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="NovedadEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -325,8 +266,7 @@
     </div>
 
     <!-- Modal para delete-->
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -356,6 +296,45 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
+    </script>
+    @yield('script')
+    <script>
+        function clock(argument) {
+            var currentTime = new Date();
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+            var seconds = currentTime.getSeconds();
+            var month = currentTime.getMonth() + 1;
+            var date = currentTime.getDate();
+            if (minutes < 10) minutes = "0" + minutes;
+            if (seconds < 10) seconds = "0" + seconds;
+            if (month < 10) month = "0" + month;
+            if (date < 10) date = "0" + date;
+            var t_str =
+                date +
+                "/" +
+                month +
+                "/" +
+                currentTime.getFullYear() +
+                " " +
+                (hours % 12 || 12) +
+                ":" +
+                minutes +
+                ":" +
+                seconds;
+            if (hours > 11) t_str += " PM";
+            else t_str += " AM";
+            document.getElementById("time_span").innerHTML = t_str;
+            setTimeout("clock()", 1000);
+        }
+    </script>
 </body>
 <!-- Footer -->
 <footer class="page-footer font-small d-flex justify-content-between ml-5 mr-5">

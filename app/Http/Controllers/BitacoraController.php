@@ -12,9 +12,15 @@ class bitacoraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $bitacoras = Bitacora::all();
+
+        if($request->inicio!=null && $request->fin!=null){
+            $bitacoras = Bitacora::whereBetween('created_at',array($request->inicio,$request->fin))->paginate(10);
+        }else{
+            $bitacoras=Bitacora::paginate(10);
+        }
+
         return view('Bitacora.index', compact('bitacoras'));
     }
 
