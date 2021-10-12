@@ -7,6 +7,8 @@ use App\Cargo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Response;
+use Illuminate\Support\Facades\Validator;
+
 class UsersController extends Controller
 {
     /**
@@ -40,6 +42,19 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         try{
+
+            $validator=Validator::make($request->all(),[
+                'email' => 'required|unique:users',
+                'name' => 'required',
+                'lastname' => 'required',
+                'cargo_id' => 'required',
+                'phone' => 'required',
+                'cellphone' => 'required',
+                'password' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return Response::json(['error'=>'Ocurrió un error, el email ha sido usado anteriormente'],400);
+            }
             if($request->password==$request->password_confirmation){
                 User::create([
                     'name'=>$request->name,
