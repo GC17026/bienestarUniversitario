@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Cargo;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Hash;
+use Response;
 class UsersController extends Controller
 {
     /**
@@ -15,7 +17,8 @@ class UsersController extends Controller
     public function index()
     {
         $Users = User::all();
-        return view('users.index', compact('Users'));
+        $cargos = Cargo::all();
+        return view('users.index', compact('Users','cargos'));
     }
 
     /**
@@ -36,7 +39,25 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            if($request->password==$request->password_confirmation){
+                User::create([
+                    'name'=>$request->name,
+                    'lastname'=>$request->lastname,
+                    'cargo_id'=>$request->cargo_id,
+                    'phone'=>$request->phone,
+                    'cellphone'=>$request->cellphone,
+                    'email'=>$request->email,
+                    'password'=>Hash::make($request->password),
+                ]);
+                return Response::json(['success'=>'Se ha creado un nuevo usuario'],200);
+            }else{
+                return Response::json(['success'=>'No se ha podido crear el nuevo usuario'],400);
+            }
+        }
+        catch(Exception $e){
+            return Response::json(['error'=>'Ocurrió un error, no se ha podido guardar el registro en la base de datos'],400);
+        }
     }
 
     /**

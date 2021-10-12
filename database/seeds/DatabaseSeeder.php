@@ -47,6 +47,12 @@ class DatabaseSeeder extends Seeder
 
         array_push($permissions_array, Permission::create(['name' => 'leer bitacora']));
 
+
+        array_push($permissions_array, Permission::create(['name' => 'crear usuario']));
+        array_push($permissions_array, Permission::create(['name' => 'editar usuario']));
+        array_push($permissions_array, Permission::create(['name' => 'eliminar usuario']));
+        array_push($permissions_array, Permission::create(['name' => 'leer usuario']));
+
         $superAdminRole = Role::create(['name' => 'Administrador']);
         $superAdminRole->syncPermissions($permissions_array);
 
