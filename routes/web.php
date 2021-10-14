@@ -58,8 +58,8 @@ Route::post('/aviso/delete', 'AvisoController@destroy')->name('aviso.destroy')->
 Route::get('/users', 'UsersController@index')->name('users.index')->middleware('permission:leer usuario');
 Route::get('users/create', 'UserController@create')->name('users.create')->middleware('permission:crear usuario');
 Route::post('/users', 'UsersController@store')->name('users.store')->middleware('permission:crear usuario');
-Route::put('/users', 'UsersController@update')->name('users.update')->middleware('permission:editar usuario');
-Route::delete('/users', 'UsersController@destroy')->name('users.destroy')->middleware('permission:eliminar usuario');
+Route::post('/users/update', 'UsersController@update')->name('users.update')->middleware('permission:editar usuario');
+Route::post('/users/delete', 'UsersController@destroy')->name('users.destroy')->middleware('permission:eliminar usuario');
 
 /*********************************** BITACORA *************************************************/
 //para admin

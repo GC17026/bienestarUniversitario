@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Response;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
 {
@@ -19,8 +20,10 @@ class UsersController extends Controller
     public function index()
     {
         $Users = User::all();
+        //dd($Users[0]->roles->first()->id);
         $cargos = Cargo::all();
-        return view('users.index', compact('Users','cargos'));
+        $roles=Role::all();
+        return view('users.index', compact('Users','cargos','roles'));
     }
 
     /**
@@ -50,13 +53,13 @@ class UsersController extends Controller
                 'cargo_id' => 'required',
                 'phone' => 'required',
                 'cellphone' => 'required',
-                'password' => 'required',
+                'password' => 'required|confirmed',
             ]);
             if ($validator->fails()) {
-                return Response::json(['error'=>'Ocurrió un error, el email ha sido usado anteriormente'],400);
+                return Response::json(['error'=>$validator->errors()],400);
             }
             if($request->password==$request->password_confirmation){
-                User::create([
+                $user=User::create([
                     'name'=>$request->name,
                     'lastname'=>$request->lastname,
                     'cargo_id'=>$request->cargo_id,
@@ -65,13 +68,16 @@ class UsersController extends Controller
                     'email'=>$request->email,
                     'password'=>Hash::make($request->password),
                 ]);
+                $role=Role::find($request->role_id);
+                $user->assignRole($role);
+
                 return Response::json(['success'=>'Se ha creado un nuevo usuario'],200);
             }else{
                 return Response::json(['success'=>'No se ha podido crear el nuevo usuario'],400);
             }
         }
         catch(Exception $e){
-            return Response::json(['error'=>'Ocurrió un error, no se ha podido guardar el registro en la base de datos'],400);
+            return Response::json(['errors'=>'Ocurrió un error, no se ha podido guardar el registro en la base de datos'],400);
         }
     }
 
@@ -106,7 +112,41 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+
+            $validator=Validator::make($request->all(),[
+                'email' => 'required|unique:users',
+                'name' => 'required',
+                'lastname' => 'required',
+                'cargo_id' => 'required',
+                'phone' => 'required',
+                'cellphone' => 'required',
+                'password' => 'required|confirmed',
+            ]);
+            if ($validator->fails()) {
+                return Response::json(['error'=>$validator->messages()->get('*')],400);
+            }
+            if($request->password==$request->password_confirmation){
+                $user=User::create([
+                    'name'=>$request->name,
+                    'lastname'=>$request->lastname,
+                    'cargo_id'=>$request->cargo_id,
+                    'phone'=>$request->phone,
+                    'cellphone'=>$request->cellphone,
+                    'email'=>$request->email,
+                    'password'=>Hash::make($request->password),
+                ]);
+                $role=Role::find($request->role_id);
+                $user->assignRole($role);
+
+                return Response::json(['success'=>'Se ha creado un nuevo usuario'],200);
+            }else{
+                return Response::json(['success'=>'No se ha podido crear el nuevo usuario'],400);
+            }
+        }
+        catch(Exception $e){
+            return Response::json(['error'=>'Ocurrió un error, no se ha podido guardar el registro en la base de datos'],400);
+        }
     }
 
     /**
