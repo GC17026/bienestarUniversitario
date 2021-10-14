@@ -28,12 +28,12 @@
     <style>
         #slider {
             /*height: 350px;
-    overflow: hidden;
-    width: 100%;*/
+            overflow: hidden;
+            width: 100%;*/
         }
 
         .carousel-item {
-            height: 350px;
+            height: 650px;
         }
 
         .carousel-indicators li {

@@ -15,8 +15,8 @@ class CreateSeccionsTable extends Migration
     {
         Schema::create('seccions', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->unique();
-            $table->string('icono');
+            $table->string('nombre',32)->unique();
+            $table->string('icono',32);
             $table->timestamps();
         });
     }
