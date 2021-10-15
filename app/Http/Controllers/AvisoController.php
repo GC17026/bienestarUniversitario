@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Response;
 use App\Http\Controllers\Throwable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AvisoController extends Controller
 {
@@ -42,6 +43,14 @@ class AvisoController extends Controller
         try {
             if(Count(Aviso::all())<5)
             {
+                $validator = Validator::make($request->all(), [
+                    'titulo' => 'required',
+                    'contenido' => 'required',
+                ]);
+                if ($validator->fails()) {
+                    return Response::json(['error' => $validator->errors()], 400);
+                }
+
                 $aviso = new Aviso;
                 $aviso->titulo = $request->titulo;
                 $aviso->contenido = $request->contenido;
@@ -102,6 +111,14 @@ class AvisoController extends Controller
     public function update(Request $request)
     {
         try{
+            $validator = Validator::make($request->all(), [
+                'titulo' => 'required',
+                'contenido' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return Response::json(['error' => $validator->errors()], 400);
+            }
+
             $aviso=Aviso::findOrFail($request->id);
             $aviso->update([
                 'titulo'=>$request->titulo,

@@ -11,6 +11,7 @@ use Response;
 use App\Http\Controllers\Throwable;
 use Illuminate\Support\Facades\Auth;
 use App\Bitacora;
+use Illuminate\Support\Facades\Validator;
 
 class SeccionController extends Controller
 {
@@ -44,6 +45,14 @@ class SeccionController extends Controller
     public function store(Request $request)
     {
         try{
+            $validator = Validator::make($request->all(), [
+                'nombre' => 'required|unique:seccions',
+                'icono' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return Response::json(['error' => $validator->errors()], 400);
+            }
+
             $seccion=Seccion::create([
                 'nombre'=>$request->nombre,
                 'icono'=>$request->icono,
@@ -95,6 +104,14 @@ class SeccionController extends Controller
     public function update(Request $request)
     {
         try{
+            $validator = Validator::make($request->all(), [
+                'nombre' => 'required|unique:seccions,nombre,' . $request->id . ',id',
+                'icono' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return Response::json(['error' => $validator->errors()], 400);
+            }
+
             $seccion=Seccion::findOrFail($request->id);
             $seccion->update([
                 'nombre'=>$request->nombre,

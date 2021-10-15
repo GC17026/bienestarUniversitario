@@ -438,6 +438,7 @@
         }
 
         function getDeleteModalElements(deleteBtn) {
+            console.log(deleteBtn);
             const deleteModal = document.getElementById('deleteModal');
             const toDeleteId = deleteModal.querySelector('#toDeleteId');
             const toDeleteType = deleteModal.querySelector('#toDeleteType');
@@ -564,6 +565,7 @@
                 toDeleteId
             } = getDeleteModalElements(deleteBtn);
             toDeleteId.value = deleteBtn.dataset.novedadid;
+            console.log(toDeleteId.value);
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -581,8 +583,12 @@
                     if (xhr.http.status == 403) {
                         text = "Usted no tiene permisos para realizar esta accion";
                     } else {
+                        text = "";
                         const resp = JSON.parse(error);
-                        text = resp.error;
+                        for (var ele in resp.error) {
+                            text = text + resp.error[ele] + "\n"
+                            console.log(ele);
+                        }
                     }
                     const modal = document.getElementById('seccioncreate');
                     const alert = modal.querySelector('#modal-alert');
@@ -621,8 +627,13 @@
                     if (xhr.http.status == 403) {
                         text = "Usted no tiene permisos para realizar esta accion";
                     } else {
+                        text = "";
                         const resp = JSON.parse(error);
-                        text = resp.error;
+                        for (var ele in resp.error) {
+                            text = text + resp.error[ele] + "\n"
+                            console.log(ele);
+                        }
+                        console.log(resp);
                     }
                     const modal = document.getElementById('seccionedit');
                     const alert = modal.querySelector('#modal-alert');
@@ -661,8 +672,12 @@
                     if (xhr.http.status == 403) {
                         text = "Usted no tiene permisos para realizar esta accion";
                     } else {
+                        text = "";
                         const resp = JSON.parse(error);
-                        text = resp.error;
+                        for (var ele in resp.error) {
+                            text = text + resp.error[ele] + "\n"
+                            console.log(ele);
+                        }
                     }
                     const modal = document.getElementById('subseccioncreate');
                     const alert = modal.querySelector('#modal-alert');
@@ -700,8 +715,12 @@
                     if (xhr.http.status == 403) {
                         text = "Usted no tiene permisos para realizar esta accion";
                     } else {
+                        text = "";
                         const resp = JSON.parse(error);
-                        text = resp.error;
+                        for (var ele in resp.error) {
+                            text = text + resp.error[ele] + "\n"
+                            console.log(ele);
+                        }
                     }
                     const modal = document.getElementById('subseccionedit');
                     const alert = modal.querySelector('#modal-alert');
@@ -781,8 +800,12 @@
                     if (xhr.http.status == 403) {
                         text = "Usted no tiene permisos para realizar esta accion";
                     } else {
+                        text = "";
                         const resp = JSON.parse(error);
-                        text = resp.error;
+                        for (var ele in resp.error) {
+                            text = text + resp.error[ele] + "\n"
+                            console.log(ele);
+                        }
                     }
                     const modal = document.getElementById('ContenidoEdit');
                     const alert = modal.querySelector('#modal-alert');
@@ -824,8 +847,12 @@
                     if (xhr.http.status == 403) {
                         text = "Usted no tiene permisos para realizar esta accion";
                     } else {
+                        text = "";
                         const resp = JSON.parse(error);
-                        text = resp.error;
+                        for (var ele in resp.error) {
+                            text = text + resp.error[ele] + "\n"
+                            console.log(ele);
+                        }
                     }
                     const modal = document.getElementById('NovedadCreate');
                     const alert = modal.querySelector('#modal-alert');
@@ -865,8 +892,12 @@
                     if (xhr.http.status == 403) {
                         text = "Usted no tiene permisos para realizar esta accion";
                     } else {
+                        text = "";
                         const resp = JSON.parse(error);
-                        text = resp.error;
+                        for (var ele in resp.error) {
+                            text = text + resp.error[ele] + "\n"
+                            console.log(ele);
+                        }
                     }
                     const modal = document.getElementById('NovedadEdit');
                     const alert = modal.querySelector('#modal-alert');

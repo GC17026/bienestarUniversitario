@@ -65,7 +65,8 @@
                                                         data-email="{{ $user->email }}" data-whatever="@mdo">
                                                         <i class="fa fa-edit"></i>
                                                     </button>
-                                                    <button type="button" class="btn btn-danger btn-circle ml-auto"
+                                                    <button type="button"
+                                                        class="btn-delete-user btn btn-danger btn-circle ml-auto"
                                                         data-toggle="modal" data-target="#deleteModal"
                                                         data-userid="{{ $user->id }}" data-whatever="@mdo">
                                                         <i class="fa fa-times"></i>
@@ -592,12 +593,19 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <div class="alert" id="modal-alert" role="alert" style="display:none;">
+                    This is a success alert—check it out!
+                </div>
                 <div class="modal-body">
                     <p class="text-muted">Está seguro que lo desea eliminar? Este cambio es irreversible</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger">Eliminar</button>
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                    <form name="deleteForm" id="deleteForm" method="POST">
+                        @csrf
+                        <input type="hidden" name="toDeleteId" id="toDeleteId" value="">
+                        <button type="submit" class="btn btn-danger m-1 ">Eliminar</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -671,6 +679,13 @@
         email.value = editUserBtn.dataset.email;
     }
 
+    function deleteUserBtn() {
+        const deleteUserBtn = this;
+        const deleteUserModal = document.getElementById('deleteModal');
+        const userid = deleteUserModal.querySelector('#toDeleteId');
+        userid.value = deleteUserBtn.dataset.userid;
+    }
+
     function createUserSubmit(e) {
         e.preventDefault();
         form = this;
@@ -683,10 +698,10 @@
                 if (xhr.http.status == 403) {
                     text = "Usted no tiene permisos para realizar esta accion";
                 } else {
-                    text="";
+                    text = "";
                     const resp = JSON.parse(error);
                     for (var ele in resp.error) {
-                        text=text + resp.error[ele] + "\n"
+                        text = text + resp.error[ele] + "\n"
                         console.log(ele);
                     }
                 }
@@ -727,11 +742,13 @@
                 if (xhr.http.status == 403) {
                     text = "Usted no tiene permisos para realizar esta accion";
                 } else {
+                    text = "";
                     const resp = JSON.parse(error);
-                    text = resp.error;
-
+                    for (var ele in resp.error) {
+                        text = text + resp.error[ele] + "\n"
+                        console.log(ele);
+                    }
                 }
-                console.log(resp);
                 const modal = document.getElementById('UsuarioEdit');
                 const alert = modal.querySelector('#modal-alert');
                 alert.innerHTML = text;
@@ -756,11 +773,51 @@
         });
     }
 
+    function deleteUserSubmit(e) {
+        e.preventDefault();
+        form = this;
+        const xhr = new HttpRequest();
+        const endpoint = '/users/delete';
+        const formData = new FormData(form);
+        xhr.post(endpoint, formData, function(error, response) {
+            if (error) {
+                console.log('ocurrió un error', xhr.http.status);
+                if (xhr.http.status == 403) {
+                    text = "Usted no tiene permisos para realizar esta accion";
+                } else {
+                    const resp = JSON.parse(error);
+                    text = resp.error;
+                }
+                const modal = document.getElementById('deleteModal');
+                const alert = modal.querySelector('#modal-alert');
+                alert.innerHTML = text;
+                alert.style.display = "block";
+                alert.classList.add('alert-danger');
+            }
+            if (response) {
+                const resp = JSON.parse(response);
+                const alert = document.getElementById('alert-message');
+                alert.innerHTML = resp.success;
+                alert.style.display = "block";
+                alert.classList.add('alert-success');
+                const modal = document.getElementById('deleteModal');
+                Array.from(document.getElementsByClassName('modal-backdrop')).forEach((panel) => {
+                    panel.remove();
+                });
+                modal.style.display = "none";
+                setTimeout(function() {
+                    window.location.reload(1);
+                }, 1200);
+            }
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         btnMap = new Map();
         btnMap.set('btn-create-user', createUserBtn);
         btnMap.set('btn-edit-user', editUserBtn);
         btnMap.set('btn-show-user', showUserBtn);
+        btnMap.set('btn-delete-user', deleteUserBtn);
         Array.from(btnMap.keys()).forEach((btnClass) => {
             Array.from(document.getElementsByClassName(btnClass)).forEach(function(btn) {
                 btn.addEventListener('click', btnMap.get(btnClass));
@@ -771,6 +828,7 @@
         formsMap = new Map();
         formsMap.set('userCreateForm', createUserSubmit);
         formsMap.set('userEditForm', editUserSubmit);
+        formsMap.set('deleteForm', deleteUserSubmit);
         Array.from(formsMap.keys()).forEach((form) => {
             document.getElementById(form).addEventListener('submit', formsMap.get(form));
         })

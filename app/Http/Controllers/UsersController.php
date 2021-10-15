@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Response;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
-
+use App\Bitacora;
 class UsersController extends Controller
 {
     /**
@@ -22,8 +22,8 @@ class UsersController extends Controller
         $Users = User::all();
         //dd($Users[0]->roles->first()->id);
         $cargos = Cargo::all();
-        $roles=Role::all();
-        return view('users.index', compact('Users','cargos','roles'));
+        $roles = Role::all();
+        return view('users.index', compact('Users', 'cargos', 'roles'));
     }
 
     /**
@@ -44,9 +44,9 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        try{
+        try {
 
-            $validator=Validator::make($request->all(),[
+            $validator = Validator::make($request->all(), [
                 'email' => 'required|unique:users',
                 'name' => 'required',
                 'lastname' => 'required',
@@ -56,28 +56,27 @@ class UsersController extends Controller
                 'password' => 'required|confirmed',
             ]);
             if ($validator->fails()) {
-                return Response::json(['error'=>$validator->errors()],400);
+                return Response::json(['error' => $validator->errors()], 400);
             }
-            if($request->password==$request->password_confirmation){
-                $user=User::create([
-                    'name'=>$request->name,
-                    'lastname'=>$request->lastname,
-                    'cargo_id'=>$request->cargo_id,
-                    'phone'=>$request->phone,
-                    'cellphone'=>$request->cellphone,
-                    'email'=>$request->email,
-                    'password'=>Hash::make($request->password),
-                ]);
-                $role=Role::find($request->role_id);
-                $user->assignRole($role);
+            $user = User::create([
+                'name' => $request->name,
+                'lastname' => $request->lastname,
+                'cargo_id' => $request->cargo_id,
+                'phone' => $request->phone,
+                'cellphone' => $request->cellphone,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+            $role = Role::find($request->role_id);
+            $user->assignRole($role);
+            Bitacora::create([
+                'usuario'=>Auth::user()->name,
+                'accion'=>'Creo usuario: '.$user->name.' con numero de id: '.$user->id.' y correo: '.$user->email,
+            ]);
+            return Response::json(['success' => 'Se ha creado un nuevo usuario'], 200);
 
-                return Response::json(['success'=>'Se ha creado un nuevo usuario'],200);
-            }else{
-                return Response::json(['success'=>'No se ha podido crear el nuevo usuario'],400);
-            }
-        }
-        catch(Exception $e){
-            return Response::json(['errors'=>'Ocurrió un error, no se ha podido guardar el registro en la base de datos'],400);
+        } catch (Exception $e) {
+            return Response::json(['errors' => 'Ocurrió un error, no se ha podido guardar el registro en la base de datos'], 400);
         }
     }
 
@@ -110,42 +109,44 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        try{
+        try {
 
-            $validator=Validator::make($request->all(),[
-                'email' => 'required|unique:users',
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|email|unique:users,email,' . $request->id . ',id',
                 'name' => 'required',
                 'lastname' => 'required',
                 'cargo_id' => 'required',
                 'phone' => 'required',
                 'cellphone' => 'required',
-                'password' => 'required|confirmed',
+                'password' => 'confirmed',
             ]);
             if ($validator->fails()) {
-                return Response::json(['error'=>$validator->messages()->get('*')],400);
+                return Response::json(['error' => $validator->errors()], 400);
             }
-            if($request->password==$request->password_confirmation){
-                $user=User::create([
-                    'name'=>$request->name,
-                    'lastname'=>$request->lastname,
-                    'cargo_id'=>$request->cargo_id,
-                    'phone'=>$request->phone,
-                    'cellphone'=>$request->cellphone,
-                    'email'=>$request->email,
-                    'password'=>Hash::make($request->password),
-                ]);
-                $role=Role::find($request->role_id);
-                $user->assignRole($role);
+            $user = User::find($request->id);
+            $user->email = $request->email;
+            $user->name = $request->name;
+            $user->lastname = $request->lastname;
+            $user->cargo_id = $request->cargo_id;
+            $user->phone = $request->phone;
+            $user->cellphone = $request->cellphone;
 
-                return Response::json(['success'=>'Se ha creado un nuevo usuario'],200);
-            }else{
-                return Response::json(['success'=>'No se ha podido crear el nuevo usuario'],400);
+            $role = Role::find($request->role_id);
+            $user->assignRole($role);
+
+            if ($request->password != null) {
+                $user->password = Hash::make($request->password);
             }
-        }
-        catch(Exception $e){
-            return Response::json(['error'=>'Ocurrió un error, no se ha podido guardar el registro en la base de datos'],400);
+            $user->save();
+            Bitacora::create([
+                'usuario'=>Auth::user()->name,
+                'accion'=>'Actualizo usuario: '.$user->name.' con numero de id: '.$user->id.' y correo: '.$user->email,
+            ]);
+            return Response::json(['success' => 'Se ha actualizado un usuario'], 200);
+        } catch (Exception $e) {
+            return Response::json(['error' => 'Ocurrió un error, no se ha podido guardar el registro en la base de datos'], 400);
         }
     }
 
@@ -155,8 +156,15 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        try {
+            //return($request);
+            $user = User::find($request->toDeleteId);
+            $user->delete();
+            return Response::json(['success' => 'Se ha eliminado un usuario'], 200);
+        } catch (Exception $e) {
+            return Response::json(['errors' => 'Ocurrió un error, no se ha podido guardar el registro en la base de datos'], 400);
+        }
     }
 }

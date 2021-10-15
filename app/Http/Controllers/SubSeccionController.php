@@ -10,7 +10,7 @@ use Response;
 use App\Http\Controllers\Throwable;
 use Illuminate\Support\Facades\Auth;
 use App\Bitacora;
-
+use Illuminate\Support\Facades\Validator;
 class SubSeccionController extends Controller
 {
     /**
@@ -42,6 +42,13 @@ class SubSeccionController extends Controller
     public function store(Request $request)
     {
         try{
+            $validator = Validator::make($request->all(), [
+                'nombre' => 'required',
+                'icono' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return Response::json(['error' => $validator->errors()], 400);
+            }
             $subseccion=SubSeccion::create([
                 'nombre'=>$request->nombre,
                 'icono'=>$request->icono,
@@ -92,6 +99,13 @@ class SubSeccionController extends Controller
     public function update(Request $request)
     {
         try{
+            $validator = Validator::make($request->all(), [
+                'nombre' => 'required',
+                'icono' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return Response::json(['error' => $validator->errors()], 400);
+            }
             $subseccion=SubSeccion::findOrFail($request->id);
             $subseccion->update([
                 'nombre'=>$request->nombre,

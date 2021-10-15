@@ -9,8 +9,10 @@ use App\Http\Controllers\Throwable;
 use App\SubSeccion;
 use App\Seccion;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Bitacora;
+
 class ContenidoController extends Controller
 {
     /**
@@ -42,6 +44,15 @@ class ContenidoController extends Controller
     public function store(Request $request)
     {
         try {
+
+            $validator = Validator::make($request->all(), [
+                'titulo' => 'required',
+                'contenido' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return Response::json(['error' => $validator->errors()], 400);
+            }
+
             $contenido = new Contenido;
             $contenido->titulo = $request->titulo;
             $contenido->contenido = $request->contenido;
@@ -68,8 +79,8 @@ class ContenidoController extends Controller
             }
             $contenido->save();
             Bitacora::create([
-                'usuario'=>Auth::user()->name,
-                'accion'=>'Creo contenido de seccion: '.($request->contenidoType=="seccion"?$contenido->seccion->nombre:$contenido->subseccion->nombre),
+                'usuario' => Auth::user()->name,
+                'accion' => 'Creo contenido de seccion: ' . ($request->contenidoType == "seccion" ? $contenido->seccion->nombre : $contenido->subseccion->nombre),
             ]);
 
             return Response::json(['success' => 'Se ha agregado un nuevo contenido'], 200);
@@ -109,7 +120,16 @@ class ContenidoController extends Controller
      */
     public function update(Request $request)
     {
-        try{
+        try {
+
+            $validator = Validator::make($request->all(), [
+                'titulo' => 'required',
+                'contenido' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return Response::json(['error' => $validator->errors()], 400);
+            }
+
             $contenido = Contenido::find($request->id);
             if ($request->hasFile('foto_contenido')) {
                 unlink(trim(getcwd() . $contenido->urlImg));
@@ -119,17 +139,16 @@ class ContenidoController extends Controller
                 $contenido->urlImg = '/public/uploads/' . $filename;
                 $file->move('public/uploads/', $filename);
             }
-            $contenido->titulo=$request->titulo;
-            $contenido->contenido=$request->contenido;
+            $contenido->titulo = $request->titulo;
+            $contenido->contenido = $request->contenido;
             $contenido->save();
             Bitacora::create([
-                'usuario'=>Auth::user()->name,
-                'accion'=>'Actualizó contenido de seccion: '.($request->contenidoType=="seccion"?$contenido->seccion->nombre:$contenido->subseccion->nombre),
+                'usuario' => Auth::user()->name,
+                'accion' => 'Actualizó contenido de ' . $contenido->seccion != null ? 'seccion: ' . $contenido->seccion->nombre : 'subseccion: ' . $contenido->subseccion->nombre,
             ]);
 
             return Response::json(['success' => 'Se ha actualizado un contenido'], 200);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return Response::json(['error' => 'Ocurrió un error, es posible que el formato de la imagen no sea permitido'], 400);
         }
     }
@@ -142,20 +161,21 @@ class ContenidoController extends Controller
      */
     public function destroy(Request $request)
     {
-        try{
+        try {
             $contenido = Contenido::find($request->toDeleteId);
-            if($contenido->urlImg!=null){
-                unlink(trim(getcwd() . $contenido->urlImg));
+            if ($contenido->urlImg != null) {
+                if(file_exists(getcwd() . $contenido->urlImg)){
+                    unlink(trim(getcwd() . $contenido->urlImg));
+                }
             }
             $contenido->delete();
             Bitacora::create([
-                'usuario'=>Auth::user()->name,
-                'accion'=>'Eliminó contenido de la '.($request->contenidoType=="seccion"?'sección: '.$contenido->seccion->nombre:'subsección: '.$contenido->subseccion->nombre),
+                'usuario' => Auth::user()->name,
+                'accion' => 'Eliminó contenido de la ' . $contenido->seccion != null ? 'seccion: ' . $contenido->seccion->nombre : 'subseccion: ' . $contenido->subseccion->nombre,
             ]);
 
             return Response::json(['success' => 'Se ha eliminado el contenido con éxito'], 200);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return Response::json(['error' => 'Ocurrió un error, es posible que el formato de la imagen no sea permitido'], 400);
         }
     }
