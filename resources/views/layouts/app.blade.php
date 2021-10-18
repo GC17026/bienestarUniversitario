@@ -107,79 +107,85 @@
             <div id="layoutSidenav_nav">
                 @yield('sidebar')
             </div>
-            <div id="layoutSidenav_content" class="w-100 pt-3 pl-3">
-                <main class="pb-5 pl-5 pt-3 pr-5 rounded h-100" style="background:#F7F9FA;width:95%;">
-                    <div class="d-flex justify-content-center">
-                        <p class="h3">@yield('seccionTitulo')</p>
-                    </div>
-                    @yield('content')
-                </main>
-            </div>
-            <div class="w-25 d-none d-sm-block d-sm-none d-md-block pt-3 pr-3">
-                <div class="container rounded  p-4 mb-2 d-flex flex-column  h-100" style="background:#F7F9FA;">
-                    <div class="d-flex justify-content-center">
-                        <p class="h3">Fecha</p>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <p class="h6" id="time_span"></p>
-                    </div>
-                    <div class="container rounded justify-content-center p-4 mt-2 d-flex flex-column " style="background:#F7F9FA;">
-                        <div class="d-flex justify-content-center pb-2">
-                            <p class="h3">Novedades</p>
-                            @can('crear aviso')
-                            <button type="button" class="btn-create-novedad btn btn-info btn-circle ml-auto" data-toggle="modal" data-target="#novedadcreate">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                            @endcan
+            <div class="d-flex flex-xs-column">
+                <div id="layoutSidenav_content" class="w-100 pt-3 pl-3">
+                    <main class="pb-5 pl-5 pt-3 pr-5 rounded h-100" style="background:#F7F9FA;width:95%;">
+                        <div class="d-flex justify-content-center">
+                            <p class="h3">@yield('seccionTitulo')</p>
                         </div>
-                    </div>
+                        @yield('content')
+                    </main>
+                </div>
+                <div class="w-25  pt-3 pr-3">
+                    <div class="container rounded  p-4 mb-2 d-flex flex-column  h-100" style="background:#F7F9FA;">
+                        <div class="d-flex justify-content-center">
+                            <p class="h3">Fecha</p>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <p class="h6" id="time_span"></p>
+                        </div>
+                        <div class="container rounded justify-content-center p-4 mt-2 d-flex flex-column " style="background:#F7F9FA;">
+                            <div class="d-flex justify-content-center pb-2">
+                                <p class="h3">Novedades</p>
+                                @if (url()->current() == '/seccion')
+                                @can('crear aviso')
+                                <button type="button" class="btn-create-novedad btn btn-info btn-circle ml-auto" data-toggle="modal" data-target="#novedadcreate">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                                @endcan
+                                @endif
+                            </div>
+                        </div>
 
-                    <div id="slider" class="carousel slide" data-ride="carousel">
-                        @php
-                        $counter = 0;
-                        @endphp
-                        <ol class="carousel-indicators">
-                            @foreach ($avisos as $aviso)
-                            <li data-target="#slider" data-slide-to="{{ $counter }}" class="@if ($aviso == $avisos[0]) active @endif"></li>
+                        <div id="slider" class="carousel slide" data-ride="carousel">
                             @php
-                            $counter = $counter + 1;
+                            $counter = 0;
                             @endphp
-                            @endforeach
-                        </ol>
+                            <ol class="carousel-indicators">
+                                @foreach ($avisos as $aviso)
+                                <li data-target="#slider" data-slide-to="{{ $counter }}" class="@if ($aviso == $avisos[0]) active @endif"></li>
+                                @php
+                                $counter = $counter + 1;
+                                @endphp
+                                @endforeach
+                            </ol>
 
-                        <div class="carousel-inner">
-                            @foreach ($avisos as $aviso)
-                            <div class="carousel-item @if ($aviso == $avisos[0]) active @endif">
-                                <div class="rounded" style="background:#F7F9FA;">
-                                    <div style="background:#E8F7FF;" class="rounded">
-                                        <div class="card-header">
-                                            <div class=" d-flex">
-                                                <div class="d-flex flex-row justify-content-center align-items-center ">
-                                                    <img src="/assets/salud.png" width="30" height="30" class="d-inline-block align-top mr-2" alt="">
-                                                    <p class="h3 ml-2">{{ $aviso->titulo }}</p>
+                            <div class="carousel-inner">
+                                @foreach ($avisos as $aviso)
+                                <div class="carousel-item @if ($aviso == $avisos[0]) active @endif">
+                                    <div class="rounded" style="background:#F7F9FA;">
+                                        <div style="background:#E8F7FF;" class="rounded">
+                                            <div class="card-header">
+                                                <div class=" d-flex">
+                                                    <div class="d-flex flex-row justify-content-center align-items-center ">
+                                                        <img src="/assets/salud.png" width="30" height="30" class="d-inline-block align-top mr-2" alt="">
+                                                        <p class="h3 ml-2">{{ $aviso->titulo }}</p>
+                                                    </div>
+                                                    @if (url()->current() == '/seccion')
+                                                    @can('editar aviso')
+                                                    <button type="button" class="btn-edit-novedad btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-target="#NovedadEdit" data-novedadid="{{ $aviso->id }}" data-titulo="{{ $aviso->titulo }}" data-contenido="{{ $aviso->contenido }}">
+                                                        <i class="fa fa-edit"></i>
+                                                    </button>
+                                                    @endcan
+                                                    @can('eliminar aviso')
+                                                    <button type="button" class="btn-delete-novedad btn btn-danger m-1  btn-circle" data-toggle="modal" data-novedadid="{{ $aviso->id }}" data-tipoDelete='novedad' data-target="#deleteModal">
+                                                        <i class="fa fa-times"></i>
+                                                    </button>
+                                                    @endcan
+                                                    @endif
                                                 </div>
-                                                @can('editar aviso')
-                                                <button type="button" class="btn-edit-novedad btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-target="#NovedadEdit" data-novedadid="{{ $aviso->id }}" data-titulo="{{ $aviso->titulo }}" data-contenido="{{ $aviso->contenido }}">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                @endcan
-                                                @can('eliminar aviso')
-                                                <button type="button" class="btn-delete-novedad btn btn-danger m-1  btn-circle" data-toggle="modal" data-novedadid="{{ $aviso->id }}" data-tipoDelete='novedad' data-target="#deleteModal">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                                @endcan
+                                                <div class="w-100 text-justify">
+                                                    <p class="w-100 p-3">{{ $aviso->contenido }}</p>
                                                 </div>
-                                            <div class="w-100 text-justify">
-                                                <p class="w-100 p-3">{{ $aviso->contenido }}</p>
                                             </div>
-                                        </div>
-                                        <div class="text-justify">
-                                            <p style="font-weight: 500;">{{ $aviso->created_at }} </p>
+                                            <div class="text-justify">
+                                                <p style="font-weight: 500;">{{ $aviso->created_at }} </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
-                            @endforeach
                         </div>
                     </div>
                 </div>
