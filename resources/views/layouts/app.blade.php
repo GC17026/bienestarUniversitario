@@ -168,7 +168,7 @@
                                                     <i class="fa fa-times"></i>
                                                 </button>
                                                 @endcan
-                                            </div>
+                                                </div>
                                             <div class="w-100 text-justify">
                                                 <p class="w-100 p-3">{{ $aviso->contenido }}</p>
                                             </div>
@@ -206,11 +206,11 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Título</label>
-                            <input type="text" class="form-control" id="recipient-name" name="titulo">
+                            <input type="text" class="form-control" id="recipient-name" name="titulo" required=true>
                         </div>
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">Contenido</label>
-                            <textarea class="form-control" id="message-text" name="contenido"></textarea>
+                            <textarea class="form-control" id="message-text" name="contenido" required=true></textarea>
                         </div>
                         <!--<div class="form-group">
                             <label for="message-text" class="col-form-label">Imagen</label>
