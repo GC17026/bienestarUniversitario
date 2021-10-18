@@ -107,7 +107,7 @@
             <div id="layoutSidenav_nav">
                 @yield('sidebar')
             </div>
-            <div class="d-flex flex-xs-column">
+            <div class="d-flex flex-xs-column w-100">
                 <div id="layoutSidenav_content" class="w-100 pt-3 pl-3">
                     <main class="pb-5 pl-5 pt-3 pr-5 rounded h-100" style="background:#F7F9FA;width:95%;">
                         <div class="d-flex justify-content-center">
@@ -127,7 +127,7 @@
                         <div class="container rounded justify-content-center p-4 mt-2 d-flex flex-column " style="background:#F7F9FA;">
                             <div class="d-flex justify-content-center pb-2">
                                 <p class="h3">Novedades</p>
-                                @if (url()->current() == '/seccion')
+                                @if (url()->current() == url('').'/seccion')
                                 @can('crear aviso')
                                 <button type="button" class="btn-create-novedad btn btn-info btn-circle ml-auto" data-toggle="modal" data-target="#novedadcreate">
                                     <i class="fa fa-plus"></i>
@@ -136,7 +136,6 @@
                                 @endif
                             </div>
                         </div>
-
                         <div id="slider" class="carousel slide" data-ride="carousel">
                             @php
                             $counter = 0;
@@ -153,15 +152,15 @@
                             <div class="carousel-inner">
                                 @foreach ($avisos as $aviso)
                                 <div class="carousel-item @if ($aviso == $avisos[0]) active @endif">
-                                    <div class="rounded" style="background:#F7F9FA;">
-                                        <div style="background:#E8F7FF;" class="rounded">
-                                            <div class="card-header">
+                                    <div class="rounded h-100" style="background:#F7F9FA;">
+                                        <div style="background:#E8F7FF;" class="rounded h-100">
+                                            <div class="card-header h-75 border-0">
                                                 <div class=" d-flex">
                                                     <div class="d-flex flex-row justify-content-center align-items-center ">
                                                         <img src="/assets/salud.png" width="30" height="30" class="d-inline-block align-top mr-2" alt="">
                                                         <p class="h3 ml-2">{{ $aviso->titulo }}</p>
                                                     </div>
-                                                    @if (url()->current() == '/seccion')
+                                                    @if (url()->current() == url('').'/seccion')
                                                     @can('editar aviso')
                                                     <button type="button" class="btn-edit-novedad btn btn-success m-1  btn-circle ml-auto" data-toggle="modal" data-target="#NovedadEdit" data-novedadid="{{ $aviso->id }}" data-titulo="{{ $aviso->titulo }}" data-contenido="{{ $aviso->contenido }}">
                                                         <i class="fa fa-edit"></i>
@@ -174,11 +173,11 @@
                                                     @endcan
                                                     @endif
                                                 </div>
-                                                <div class="w-100 text-justify">
+                                                <div class="w-100 text-justify overflow-auto border-0">
                                                     <p class="w-100 p-3">{{ $aviso->contenido }}</p>
                                                 </div>
                                             </div>
-                                            <div class="text-justify">
+                                            <div class="text-justify h-25 text-center">
                                                 <p style="font-weight: 500;">{{ $aviso->created_at }} </p>
                                             </div>
                                         </div>

@@ -759,8 +759,14 @@
                     if (xhr.http.status == 403) {
                         text = "Usted no tiene permisos para realizar esta accion";
                     } else {
+                        text = "";
+                        console.log(error);
                         const resp = JSON.parse(error);
-                        text = resp.error;
+                        for (var ele in resp.error) {
+                            text = text + resp.error[ele] + "\n"
+                            console.log(ele);
+                        }
+                        console.log(resp);
                     }
                     const modal = document.getElementById('ContenidoCreate');
                     const alert = modal.querySelector('#modal-alert');
@@ -806,6 +812,7 @@
                             text = text + resp.error[ele] + "\n"
                             console.log(ele);
                         }
+                        console.log(resp);
                     }
                     const modal = document.getElementById('ContenidoEdit');
                     const alert = modal.querySelector('#modal-alert');

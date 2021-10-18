@@ -48,6 +48,7 @@ class ContenidoController extends Controller
             $validator = Validator::make($request->all(), [
                 'titulo' => 'required',
                 'contenido' => 'required',
+                'foto_contenido' => 'mimetypes:image/jpeg,image/png'
             ]);
             if ($validator->fails()) {
                 return Response::json(['error' => $validator->errors()], 400);
@@ -125,6 +126,7 @@ class ContenidoController extends Controller
             $validator = Validator::make($request->all(), [
                 'titulo' => 'required',
                 'contenido' => 'required',
+                'foto_contenido' => 'mimetypes:image/jpeg,image/png'
             ]);
             if ($validator->fails()) {
                 return Response::json(['error' => $validator->errors()], 400);
