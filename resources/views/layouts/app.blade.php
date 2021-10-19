@@ -154,7 +154,7 @@
                                 <div class="carousel-item @if ($aviso == $avisos[0]) active @endif">
                                     <div class="rounded h-100" style="background:#F7F9FA;">
                                         <div style="background:#E8F7FF;" class="rounded h-100">
-                                            <div class="card-header h-75 border-0">
+                                            <div class="card-header h-75 border-0 overflow-auto">
                                                 <div class=" d-flex">
                                                     <div class="d-flex flex-row justify-content-center align-items-center ">
                                                         <img src="/assets/salud.png" width="30" height="30" class="d-inline-block align-top mr-2" alt="">
