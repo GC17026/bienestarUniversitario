@@ -756,6 +756,7 @@
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
                     console.log('ocurrió un error', xhr.http.status);
+                    console.log('prueba'+error);
                     if (xhr.http.status == 403) {
                         text = "Usted no tiene permisos para realizar esta accion";
                     } else {
@@ -768,6 +769,7 @@
                         }
                         console.log(resp);
                     }
+
                     const modal = document.getElementById('ContenidoCreate');
                     const alert = modal.querySelector('#modal-alert');
                     alert.innerHTML = text;
@@ -803,6 +805,7 @@
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
                     console.log('ocurrió un error', xhr.http.status);
+                    console.log('prueba'+error);
                     if (xhr.http.status == 403) {
                         text = "Usted no tiene permisos para realizar esta accion";
                     } else {

@@ -134,7 +134,9 @@ class ContenidoController extends Controller
 
             $contenido = Contenido::find($request->id);
             if ($request->hasFile('foto_contenido')) {
-                unlink(trim(getcwd() . $contenido->urlImg));
+                if(file_exists(getcwd() . $contenido->urlImg)){
+                    unlink(trim(getcwd() . $contenido->urlImg));
+                }
                 $file = $request->file('foto_contenido');
                 $extension = $file->getClientOriginalExtension();
                 $filename = time() . '1.' . $extension;
