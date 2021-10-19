@@ -88,6 +88,9 @@
                     <a class="dropdown-item" href="{{ route('bitacora.index') }}">
                         {{ __('Bitacora de acciones') }}
                     </a>
+                    <a class="dropdown-item" href="{{ route('users.index') }}">
+                        {{ __('Gestionar usuarios') }}
+                    </a>
                     @endhasanyrole
                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
