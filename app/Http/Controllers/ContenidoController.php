@@ -137,6 +137,7 @@ class ContenidoController extends Controller
                 if(file_exists(getcwd() . $contenido->urlImg)){
                     unlink(trim(getcwd() . $contenido->urlImg));
                 }
+
                 $file = $request->file('foto_contenido');
                 $extension = $file->getClientOriginalExtension();
                 $filename = time() . '1.' . $extension;

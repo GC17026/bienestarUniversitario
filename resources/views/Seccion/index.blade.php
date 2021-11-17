@@ -225,7 +225,15 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="icon-seccion-edit" class="col-form-label">Icono</label>
-                                        <input type="text" class="form-control" id="icon-seccion-edit" name="icono">
+                                        <select class="form-control" data-show-content="true" id="icon-seccion-edit" size="1" name="icono">
+
+                                            <option><i class='fa fa-address-book' aria-hidden='true'></i></option>
+                                            <option>Bucharest</option>
+                                            <option>Madrid</option>
+
+                                        </select>
+
+                                        <!--<input type="text" class="form-control" id="icon-seccion-edit" name="icono">-->
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -756,7 +764,7 @@
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
                     console.log('ocurrió un error', xhr.http.status);
-                    console.log('prueba'+error);
+                    console.log('prueba' + error);
                     if (xhr.http.status == 403) {
                         text = "Usted no tiene permisos para realizar esta accion";
                     } else {
@@ -805,7 +813,7 @@
             xhr.post(endpoint, formData, function(error, response) {
                 if (error) {
                     console.log('ocurrió un error', xhr.http.status);
-                    console.log('prueba'+error);
+                    console.log('prueba' + error);
                     if (xhr.http.status == 403) {
                         text = "Usted no tiene permisos para realizar esta accion";
                     } else {

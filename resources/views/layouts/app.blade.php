@@ -19,6 +19,7 @@
     <link href="{{ asset('css/login.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'>
     @yield('style')
 
@@ -54,9 +55,9 @@
                 <img src="/assets/salud.png" width="30" height="30" class="d-inline-block align-top" alt="">
                 {{ __('BIENESTAR UNIVERSITARIO') }}
             </a>
-
-            @auth
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars  text-dark"></i></button>
+            @auth
+
             @endauth
 
             <!-- El div mágico-->
@@ -110,17 +111,16 @@
             <div id="layoutSidenav_nav">
                 @yield('sidebar')
             </div>
-            <div class="d-flex flex-xs-column w-100">
-                <div id="layoutSidenav_content" class="w-100 pt-3 pl-3">
-                    <main class="pb-5 pl-5 pt-3 pr-5 rounded h-100" style="background:#F7F9FA;width:95%;">
-                        <div class="d-flex justify-content-center">
-                            <p class="h3">@yield('seccionTitulo')</p>
-                        </div>
-                        @yield('content')
-                    </main>
-                </div>
-                <div class="w-25  pt-3 pr-3">
-                    <div class="container rounded  p-4 mb-2 d-flex flex-column  h-100" style="background:#F7F9FA;">
+
+            <div id="layoutSidenav_content" class="w-100 flex-column flex-lg-row">
+                <main class="pb-4 pl-4 pt-3 pr-4 rounded h-100 mb-4 w-100-md w-75-lg" style="background:#F7F9FA;width:95%;">
+                    <div class="d-flex justify-content-center">
+                        <p class="h3">@yield('seccionTitulo')</p>
+                    </div>
+                    @yield('content')
+                </main>
+                <div class="w-100-md w-25-lg">
+                    <div class="rounded  p-4 mb-2 d-flex flex-column  h-100" style="background:#F7F9FA;">
                         <div class="d-flex justify-content-center">
                             <p class="h3">Fecha</p>
                         </div>

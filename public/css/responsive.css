@@ -1,0 +1,56 @@
+@media (max-width: 992px) {
+    .flex-md-column {
+        flex-direction: column !important;
+    }
+}
+
+@media(max-width:992px) {
+    .w-100-md {
+        width: 100% !important;
+    }
+    .w-75-md {
+        width: 75% !important;
+    }
+    .w-50-md {
+        width: 50% !important;
+    }
+    .w-25-md {
+        width: 25% !important;
+    }
+    .h-100-md {
+        height: 100% !important;
+    }
+    .h-75-md {
+        height: 75% !important;
+    }
+    .h-50-md {
+        height: 50% !important;
+    }
+    .h-25-md {
+        height: 25% !important;
+    }
+}
+
+@media(min-width:992px) {
+    .w-25-lg {
+        width: 25% !important;
+    }
+    .w-50-lg {
+        width: 50% !important;
+    }
+    .w-75-lg {
+        width: 75% !important;
+    }
+    .w-100-lg {
+        width: 100% !important;
+    }
+    .h-100-lg {
+        height: 100% !important;
+    }
+}
+
+.carousel__image {
+    object-fit: cover;
+    max-height: 100%;
+    max-width: 100%;
+}
