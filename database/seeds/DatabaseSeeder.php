@@ -126,10 +126,10 @@ class DatabaseSeeder extends Seeder
             'titulo'=>'Bienvenidos a Bienestar Universitario',
             'contenido'=>'La unidad de Bienestar Universitario les da la Bienvenida a su Sitio Web.
 
-            En este Sitio encontrarÁs toda la información referente a los servicios y actividades que Bienestar Universitario realiza, nuestra MisiÓn, Visión, Objetivos y Valores, asi como los Servicios MÉdicos que se encuentran disponibles en nuestras instalaciones.
+            En este Sitio encontrarás toda la información referente a los servicios y actividades que Bienestar Universitario realiza, nuestra Misión, Visión, Objetivos y Valores, asi como los Servicios Médicos que se encuentran disponibles en nuestras instalaciones.
 
-            Para obtener todos los beneficios que Bienestar Universitario te brinda, puedes registrarte dando click AQUI , Es completamente Gratis y sencillo!!!',
-            'urlImg'=>'https://revistaeducacionvirtual.com/wp-content/uploads/2016/10/estudiante-feliz-730x486.jpg',
+            Para obtener todos los beneficios que Bienestar Universitario te brinda, puedes registrarte, es completamente gratis y sencillo!!!',
+            'urlImg'=>'/assets/16346562031.png',
             'seccion_id'=>1
         ]);
         Contenido::create([
@@ -149,7 +149,7 @@ class DatabaseSeeder extends Seeder
             Además se presentará  RADIOGRAFIA DE TORAX (Facultad de medicina). El certificado de salud es prerrequisito para la inscripción en cada facultad.
             Incluye consulta médica y los cuatro exámenes de laboratorios.
             Se pagara en la colecturía de la secretaria de bienestar universitario.',
-            'urlImg'=>'https://st.depositphotos.com/2024219/4320/i/950/depositphotos_43206081-stock-photo-young-student-thinking-over-pink.jpg',
+            'urlImg'=>'/assets/16346575051.jpg',
             'seccion_id'=>1
         ]);
         Contenido::create([

@@ -196,9 +196,8 @@
     </div>
 
     <!--modal para creacion de novedad-->
-    <div class=" modal
-                    fade" id="NovedadCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class=" modal fade" id="NovedadCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Nueva novedad</h5>
@@ -218,7 +217,7 @@
                         </div>
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">Contenido</label>
-                            <textarea class="form-control" id="message-text" name="contenido" required=true></textarea>
+                            <textarea class="form-control" id="message-text" name="contenido" required=true rows="6" ></textarea>
                         </div>
                         <!--<div class="form-group">
                             <label for="message-text" class="col-form-label">Imagen</label>
@@ -236,7 +235,7 @@
 
     <!--modal para edicion de novedad-->
     <div class="modal fade" id="NovedadEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Editar nodedad: </h5>
@@ -253,16 +252,12 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="tituloContenido" class="col-form-label">Título</label>
-                            <input type="text" class="form-control" id="tituloContenido" name="titulo">
+                            <input type="text" class="form-control" id="tituloContenido" name="titulo" required=true>
                         </div>
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">Contenido</label>
-                            <textarea class="form-control" id="text-contenido" name="contenido"></textarea>
+                            <textarea class="form-control" id="text-contenido" name="contenido" rows="6" required=true></textarea>
                         </div>
-                        <!--<div class="form-group">
-                            <label for="message-text" class="col-form-label">Imagen</label>
-                            <input type="file" class="form-control-file" id="File1" name="foto_contenido">
-                        </div>-->
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-info">Editar</button>
@@ -348,10 +343,14 @@
 <footer class="page-footer font-small d-flex justify-content-between ml-5 mr-5">
     <div class="container flex-row d-flex">
         <div class="footer-copyright text-left py-3 mr-5 w-50">
-            <a href="https://mdbootstrap.com/">Acerca de nosotros</a>
         </div>
-        <div class="footer-copyright text-right py-3 ml-5 w-50">2021|
-            <a class="text-black" href="{{ url('/') }}"> Bienestar Universitario</a>
+        <div class="footer-copyright text-right py-3 ml-5 w-50">
+        <script type="text/javascript" src="{{asset('js/xhr.js')}}"></script>
+            <script type="text/javascript">
+                var  today = new Date();
+                document.write(today.getFullYear());
+            </script>
+        |<a class="text-black" href="{{ url('/') }}"> Bienestar Universitario</a>
         </div>
     </div>
 </footer>

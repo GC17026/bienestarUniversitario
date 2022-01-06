@@ -20,10 +20,6 @@
                             </button>
                         </div>
                     </div>
-                    <div>
-                        <input autocomplete="off" id="buscador2" class="form-control col-sm-12 "
-                            placeholder="Buscar nombre del usuario">
-                    </div>
                     <div class="card-body">
                         <table class="table">
                             <thead>

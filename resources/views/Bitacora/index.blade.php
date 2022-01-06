@@ -37,7 +37,7 @@
                                 @foreach ($bitacoras as $bitacora)
                                 <tr>
                                     <td>{{$bitacora->usuario}}</td>
-                                    <td>{{$bitacora->accion}}</td>
+                                    <td><div class="w-100 d-flex h-75 justify-content-">{{$bitacora->accion}};</div></td>
                                     <td>{{$bitacora->created_at}}</td>
                                 </tr>
                                 @endforeach

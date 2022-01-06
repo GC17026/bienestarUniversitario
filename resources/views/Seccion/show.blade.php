@@ -19,7 +19,7 @@
                     @endphp
                     @endforeach
                 </ol>
-                <div class="carousel-inner h-100">
+                <div class="carousel-inner h-100"   style="width:65vw;">
                     @foreach ($seccion->contenidos as $contenido)
                     <div class="carousel-item h-100 @if ($contenido == $seccion->contenidos[0]) active @endif">
                         <div class="card border-0 h-100 p-2" style="background:#E8F7FF;">
@@ -29,7 +29,7 @@
                             </div>
                             <div class="content h-25 overflow-auto">
                                 <div class="card-body  text-justify ">
-                                    {{ $contenido->contenido }}
+                                    {!! nl2br($contenido->contenido)!!}
                                 </div>
                             </div>
                         </div>

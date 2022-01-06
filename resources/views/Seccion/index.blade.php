@@ -1,3 +1,6 @@
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 @extends('layouts.sidebar')
 @section('homeContent')
 <div id="page-content-wrapper" class="w-100">
@@ -169,7 +172,7 @@
 
                 <!--modal para creacion de seccion-->
                 <div class="modal fade" id="seccioncreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog modal-lg modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Agregar sección: </h5>
@@ -189,7 +192,31 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Icono</label>
-                                        <input type="text" class="form-control" id="recipient-name" name="icono">
+                                        <select style="height: 45px; font-family:FontAwesome;" class="form-control" data-show-content="true" id="icon-seccion-edit" size="1" name="icono">
+                                            <option value="fa fa-ambulance">&#xf0f9; &nbsp; fa fa-ambulance</option>
+                                            <option value="fa fa-h-square">&#xf0fd; &nbsp; fa fa-h-square</option>
+                                            <option value="fa fa-heart">&#xf004; &nbsp; fa fa-heart</option>
+                                            <option value="fa fa-heart-o">&#xf08a; &nbsp; fa fa-heart-o</option>
+                                            <option value="fa fa-heartbeat">&#xf21e; &nbsp; fa fa-heartbeat</option>
+                                            <option value="fa fa-medkit">&#xf0fa; &nbsp; fa fa-medkit</option>
+                                            <option value="fa fa-venus-mars">&#xf228; &nbsp; fa fa-venus-mars</option>
+                                            <option value="fa fa-plus-square">&#xf0fe; &nbsp; fa fa-plus-square</option>
+                                            <option value="fa fa-stethoscope">&#xf0f1; &nbsp; fa fa-stethoscope</option>
+                                            <option value="fa fa-plus-user-md">&#xf0f0; &nbsp; fa fa-plus-user-md</option>
+                                            <option value="fa fa-wheelchair">&#xf193; &nbsp; fa fa-wheelchair</option>
+                                            <option value="fa fa-hand-o-left">&#xf0a5; &nbsp; fa fa-hand-o-left</option>
+                                            <option value="fa fa-hand-o-right">&#xf0a4; &nbsp; fa fa-hand-o-right</option>
+                                            <option value="fa fa-hand-paper-o">&#xf256; &nbsp; fa fa-hand-paper-o</option>
+                                            <option value="fa fa-thumbs-o-up">&#xf087; &nbsp; fa fa-thumbs-o-up</option>
+                                            <option value="fa fa-address-book">&#xf2b9; &nbsp; fa fa-address-book</option>
+                                            <option value="fa fa-calendar">&#xf073; &nbsp; fa fa-calendar</option>
+                                            <option value="fa fa-cogs">&#xf085; &nbsp; fa fa-cogs</option>
+                                            <option value="fa fa-comments-o">&#xf0e6; &nbsp; fa fa-comments-o</option>
+                                            <option value="fa fa-cubes">&#xf1b3; &nbsp; fa fa-cubes</option>
+                                            <option value="fa fa-eyedropper">&#xf1fb; &nbsp; fa fa-eyedropper</option>
+                                            <option value="fa fa-eye">&#xf06e; &nbsp; fa fa-eye</option>
+                                            <option value="fa fa-folder-open">&#xf07c; &nbsp; fa fa-folder-open</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -203,7 +230,7 @@
 
                 <!--modal para edicion de seccion-->
                 <div class="modal fade" id="seccionedit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Editar sección: </h5>
@@ -225,15 +252,31 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="icon-seccion-edit" class="col-form-label">Icono</label>
-                                        <select class="form-control" data-show-content="true" id="icon-seccion-edit" size="1" name="icono">
-
-                                            <option><i class='fa fa-address-book' aria-hidden='true'></i></option>
-                                            <option>Bucharest</option>
-                                            <option>Madrid</option>
-
+                                        <select style="height: 45px; font-family:FontAwesome;" class="form-control" data-show-content="true" id="icon-seccion-edit" size="1" name="icono">
+                                            <option value="fa fa-ambulance">&#xf0f9; &nbsp; fa fa-ambulance</option>
+                                            <option value="fa fa-h-square">&#xf0fd; &nbsp; fa fa-h-square</option>
+                                            <option value="fa fa-heart">&#xf004; &nbsp; fa fa-heart</option>
+                                            <option value="fa fa-heart-o">&#xf08a; &nbsp; fa fa-heart-o</option>
+                                            <option value="fa fa-heartbeat">&#xf21e; &nbsp; fa fa-heartbeat</option>
+                                            <option value="fa fa-medkit">&#xf0fa; &nbsp; fa fa-medkit</option>
+                                            <option value="fa fa-venus-mars">&#xf228; &nbsp; fa fa-venus-mars</option>
+                                            <option value="fa fa-plus-square">&#xf0fe; &nbsp; fa fa-plus-square</option>
+                                            <option value="fa fa-stethoscope">&#xf0f1; &nbsp; fa fa-stethoscope</option>
+                                            <option value="fa fa-plus-user-md">&#xf0f0; &nbsp; fa fa-plus-user-md</option>
+                                            <option value="fa fa-wheelchair">&#xf193; &nbsp; fa fa-wheelchair</option>
+                                            <option value="fa fa-hand-o-left">&#xf0a5; &nbsp; fa fa-hand-o-left</option>
+                                            <option value="fa fa-hand-o-right">&#xf0a4; &nbsp; fa fa-hand-o-right</option>
+                                            <option value="fa fa-hand-paper-o">&#xf256; &nbsp; fa fa-hand-paper-o</option>
+                                            <option value="fa fa-thumbs-o-up">&#xf087; &nbsp; fa fa-thumbs-o-up</option>
+                                            <option value="fa fa-address-book">&#xf2b9; &nbsp; fa fa-address-book</option>
+                                            <option value="fa fa-calendar">&#xf073; &nbsp; fa fa-calendar</option>
+                                            <option value="fa fa-cogs">&#xf085; &nbsp; fa fa-cogs</option>
+                                            <option value="fa fa-comments-o">&#xf0e6; &nbsp; fa fa-comments-o</option>
+                                            <option value="fa fa-cubes">&#xf1b3; &nbsp; fa fa-cubes</option>
+                                            <option value="fa fa-eyedropper">&#xf1fb; &nbsp; fa fa-eyedropper</option>
+                                            <option value="fa fa-eye">&#xf06e; &nbsp; fa fa-eye</option>
+                                            <option value="fa fa-folder-open">&#xf07c; &nbsp; fa fa-folder-open</option>
                                         </select>
-
-                                        <!--<input type="text" class="form-control" id="icon-seccion-edit" name="icono">-->
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -247,7 +290,7 @@
 
                 <!--modal para creacion de subseccion-->
                 <div class="modal fade" id="subseccioncreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Agregar subsección: </h5>
@@ -268,7 +311,31 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Icono</label>
-                                        <input type="text" class="form-control" id="recipient-name" name="icono">
+                                        <select style="height: 45px; font-family:FontAwesome;" class="form-control" data-show-content="true" id="icon-seccion-edit" size="1" name="icono">
+                                            <option value="fa fa-ambulance">&#xf0f9; &nbsp; fa fa-ambulance</option>
+                                            <option value="fa fa-h-square">&#xf0fd; &nbsp; fa fa-h-square</option>
+                                            <option value="fa fa-heart">&#xf004; &nbsp; fa fa-heart</option>
+                                            <option value="fa fa-heart-o">&#xf08a; &nbsp; fa fa-heart-o</option>
+                                            <option value="fa fa-heartbeat">&#xf21e; &nbsp; fa fa-heartbeat</option>
+                                            <option value="fa fa-medkit">&#xf0fa; &nbsp; fa fa-medkit</option>
+                                            <option value="fa fa-venus-mars">&#xf228; &nbsp; fa fa-venus-mars</option>
+                                            <option value="fa fa-plus-square">&#xf0fe; &nbsp; fa fa-plus-square</option>
+                                            <option value="fa fa-stethoscope">&#xf0f1; &nbsp; fa fa-stethoscope</option>
+                                            <option value="fa fa-plus-user-md">&#xf0f0; &nbsp; fa fa-plus-user-md</option>
+                                            <option value="fa fa-wheelchair">&#xf193; &nbsp; fa fa-wheelchair</option>
+                                            <option value="fa fa-hand-o-left">&#xf0a5; &nbsp; fa fa-hand-o-left</option>
+                                            <option value="fa fa-hand-o-right">&#xf0a4; &nbsp; fa fa-hand-o-right</option>
+                                            <option value="fa fa-hand-paper-o">&#xf256; &nbsp; fa fa-hand-paper-o</option>
+                                            <option value="fa fa-thumbs-o-up">&#xf087; &nbsp; fa fa-thumbs-o-up</option>
+                                            <option value="fa fa-address-book">&#xf2b9; &nbsp; fa fa-address-book</option>
+                                            <option value="fa fa-calendar">&#xf073; &nbsp; fa fa-calendar</option>
+                                            <option value="fa fa-cogs">&#xf085; &nbsp; fa fa-cogs</option>
+                                            <option value="fa fa-comments-o">&#xf0e6; &nbsp; fa fa-comments-o</option>
+                                            <option value="fa fa-cubes">&#xf1b3; &nbsp; fa fa-cubes</option>
+                                            <option value="fa fa-eyedropper">&#xf1fb; &nbsp; fa fa-eyedropper</option>
+                                            <option value="fa fa-eye">&#xf06e; &nbsp; fa fa-eye</option>
+                                            <option value="fa fa-folder-open">&#xf07c; &nbsp; fa fa-folder-open</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -282,7 +349,7 @@
 
                 <!--modal para edicion de subseccion-->
                 <div class="modal fade" id="subseccionedit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Editar subsección en: </h5>
@@ -303,7 +370,31 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="subseccion-icono" class="col-form-label">Icono</label>
-                                        <input type="text" class="form-control" id="subseccion-icono" name="icono">
+                                        <select style="height: 45px; font-family:FontAwesome;" class="form-control" data-show-content="true" id="icon-seccion-edit" size="1" name="icono">
+                                            <option value="fa fa-ambulance">&#xf0f9; &nbsp; fa fa-ambulance</option>
+                                            <option value="fa fa-h-square">&#xf0fd; &nbsp; fa fa-h-square</option>
+                                            <option value="fa fa-heart">&#xf004; &nbsp; fa fa-heart</option>
+                                            <option value="fa fa-heart-o">&#xf08a; &nbsp; fa fa-heart-o</option>
+                                            <option value="fa fa-heartbeat">&#xf21e; &nbsp; fa fa-heartbeat</option>
+                                            <option value="fa fa-medkit">&#xf0fa; &nbsp; fa fa-medkit</option>
+                                            <option value="fa fa-venus-mars">&#xf228; &nbsp; fa fa-venus-mars</option>
+                                            <option value="fa fa-plus-square">&#xf0fe; &nbsp; fa fa-plus-square</option>
+                                            <option value="fa fa-stethoscope">&#xf0f1; &nbsp; fa fa-stethoscope</option>
+                                            <option value="fa fa-plus-user-md">&#xf0f0; &nbsp; fa fa-plus-user-md</option>
+                                            <option value="fa fa-wheelchair">&#xf193; &nbsp; fa fa-wheelchair</option>
+                                            <option value="fa fa-hand-o-left">&#xf0a5; &nbsp; fa fa-hand-o-left</option>
+                                            <option value="fa fa-hand-o-right">&#xf0a4; &nbsp; fa fa-hand-o-right</option>
+                                            <option value="fa fa-hand-paper-o">&#xf256; &nbsp; fa fa-hand-paper-o</option>
+                                            <option value="fa fa-thumbs-o-up">&#xf087; &nbsp; fa fa-thumbs-o-up</option>
+                                            <option value="fa fa-address-book">&#xf2b9; &nbsp; fa fa-address-book</option>
+                                            <option value="fa fa-calendar">&#xf073; &nbsp; fa fa-calendar</option>
+                                            <option value="fa fa-cogs">&#xf085; &nbsp; fa fa-cogs</option>
+                                            <option value="fa fa-comments-o">&#xf0e6; &nbsp; fa fa-comments-o</option>
+                                            <option value="fa fa-cubes">&#xf1b3; &nbsp; fa fa-cubes</option>
+                                            <option value="fa fa-eyedropper">&#xf1fb; &nbsp; fa fa-eyedropper</option>
+                                            <option value="fa fa-eye">&#xf06e; &nbsp; fa fa-eye</option>
+                                            <option value="fa fa-folder-open">&#xf07c; &nbsp; fa fa-folder-open</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -318,7 +409,7 @@
 
                 <!--modal para creacion de contenido-->
                 <div class="modal fade" id="ContenidoCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Agregar contenido en: </h5>
@@ -340,11 +431,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">Contenido</label>
-                                        <textarea class="form-control" id="message-text" name="contenido"></textarea>
+                                        <textarea class="form-control" id="message-text" name="contenido" rows="10"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">Imagen</label>
-                                        <input type="file" class="form-control-file" id="File1" name="foto_contenido">
+                                        <input type="file" class="form-control-file" id="File1" name="foto_contenido"  required=true>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -359,7 +450,7 @@
 
                 <!--modal para edicion de contenido-->
                 <div class="modal fade" id="ContenidoEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Editar contenido en: </h5>
@@ -380,7 +471,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">Contenido</label>
-                                        <textarea class="form-control" id="text-contenido" name="contenido"></textarea>
+                                        <textarea class="form-control" id="text-contenido" name="contenido" rows="10" ></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">Imagen</label>
@@ -398,7 +489,7 @@
 
                 <!-- Modal para delete-->
                 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <div class="container d-flex pl-0"><img src="https://imgur.com/Kh1gwTq.png">
