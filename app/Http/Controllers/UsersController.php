@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Response;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use App\Bitacora;
 class UsersController extends Controller
 {

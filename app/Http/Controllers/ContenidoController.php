@@ -147,9 +147,11 @@ class ContenidoController extends Controller
             $contenido->titulo = $request->titulo;
             $contenido->contenido = $request->contenido;
             $contenido->save();
+
+            //dd($contenido->seccion != null ? 'seccion: ' . $contenido->seccion->nombre : 'subseccion: ' . $contenido->subseccion->nombre);
             Bitacora::create([
                 'usuario' => Auth::user()->name,
-                'accion' => 'Actualizó contenido de ' . $contenido->seccion != null ? 'seccion: ' . $contenido->seccion->nombre : 'subseccion: ' . $contenido->subseccion->nombre,
+                'accion' => 'Actualizó contenido de ' . ($contenido->seccion != null ? 'seccion: ' . $contenido->seccion->nombre : 'subseccion: ' . $contenido->subseccion->nombre),
             ]);
 
             return Response::json(['success' => 'Se ha actualizado un contenido'], 200);
@@ -168,6 +170,7 @@ class ContenidoController extends Controller
     {
         try {
             $contenido = Contenido::find($request->toDeleteId);
+            
             if ($contenido->urlImg != null) {
                 if(file_exists(getcwd() . $contenido->urlImg)){
                     unlink(trim(getcwd() . $contenido->urlImg));
@@ -176,7 +179,7 @@ class ContenidoController extends Controller
             $contenido->delete();
             Bitacora::create([
                 'usuario' => Auth::user()->name,
-                'accion' => 'Eliminó contenido de la ' . $contenido->seccion != null ? 'seccion: ' . $contenido->seccion->nombre : 'subseccion: ' . $contenido->subseccion->nombre,
+                'accion' => 'Eliminó contenido de la ' . ($contenido->seccion != null ? 'seccion: ' . $contenido->seccion->nombre : 'subseccion: ' . $contenido->subseccion->nombre),
             ]);
 
             return Response::json(['success' => 'Se ha eliminado el contenido con éxito'], 200);
